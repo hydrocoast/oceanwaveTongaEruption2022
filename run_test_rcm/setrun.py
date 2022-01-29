@@ -30,20 +30,7 @@ def days2seconds(days):
 
 
 # Scratch directory for storing topo and dtopo files:
-topodir = os.path.join(os.getcwd(), '..', 'topo')
-# topolist
-topoflist = {
-             "D1L":"topo_01L.dat",
-             "D2":"topo_02.dat",
-             "D3":"topo_03.dat",
-             "D4":"topo_04.dat",
-             "D1L_mask":"topo_01L_mask.dat",
-             "D2_mask":"topo_02_mask.dat",
-             "D3_mask":"topo_03_mask.dat",
-             "D4_mask":"topo_04_mask.dat",
-             "D5":"topo_05.dat",
-             "forcedry05":"force_dry_init_05.dat",
-             }
+topodir = os.path.join(os.getcwd(), '..', 'bathtopo')
 
 # ------------------------------
 def setrun(claw_pkg='geoclaw'):
