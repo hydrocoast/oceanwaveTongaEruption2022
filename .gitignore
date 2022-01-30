@@ -25,6 +25,7 @@
 *.con
 fort.*
 tmp*
+.DS_Store
 nohup.out
 _output/
 _plots/
