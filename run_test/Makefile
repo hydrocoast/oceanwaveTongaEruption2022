@@ -22,7 +22,7 @@ PLOTDIR = _plots               # Directory for plots
 # NetCDF support
 # Environment variable NETCDF_F_ROOT should be set
 # to NetCDF Fortran installation
-NF_CONFIG = $(NETCDF_F_ROOT)/bin/nf-config
+NF_CONFIG = nf-config
 LIB_PATHS = $(shell $(NF_CONFIG) --prefix)/lib
 INCLUDE = $(shell $(NF_CONFIG) --fflags)
 NC_LINK_CMD = $(shell $(NF_CONFIG) --flibs)

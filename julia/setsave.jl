@@ -81,10 +81,10 @@ print("end\n")
 
 
 ## CPU time
-print("loading timing.csv ...     ")
-cputime = CSV.read(joinpath(outdir,"timing.csv"); header=1, datarow=2, delim=',')
-print("end\n")
+#print("loading timing.csv ...     ")
+#cputime = CSV.read(joinpath(outdir,"timing.csv"); header=1, datarow=2, delim=',')
+#print("end\n")
 
-print("saving cputime data ...     ")
-@save joinpath(jld2dir, "cputime.jld2") cputime
-print("end\n")
+#print("saving cputime data ...     ")
+#@save joinpath(jld2dir, "cputime.jld2") cputime
+#print("end\n")

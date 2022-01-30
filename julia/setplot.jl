@@ -24,30 +24,30 @@ print("end\n")
 
 
 ## set t0 time
-t0_datetime = DateTime(2019,10,8,23,0,0)
+t0_datetime = DateTime(2022,01,15,13,0,0)
 
 
-## load topo
-print("loading topo ...     ")
-if isfile(joinpath(jld2dir, "topo.jld2"))
-    @load joinpath(jld2dir, "topo.jld2") topo
-else
-    topo = loadtopo(outdir)
-end
-print("end\n")
-
-## plot topo
-print("plotting topo ...     ")
-if isa(topo, Array)
-    plt = plotstopo(topo[1]; c=:lapaz, clims=(-Inf,1e-3))
-    plt = plotscoastline!(plt, topo[1]; lc=:black)
-    plt = last(map(t->plotstoporange!(plt,t), topo[2:end]))
-else
-    plt = plotstopo(topo; c=:lapaz, clims=(-Inf,1e-3))
-    plt = plotscoastline!(plt, topo; lc=:black)
-end
-savefig(plt, joinpath(plotdir,"topo.svg"))
-print("end\n")
+### load topo
+#print("loading topo ...     ")
+#if isfile(joinpath(jld2dir, "topo.jld2"))
+#    @load joinpath(jld2dir, "topo.jld2") topo
+#else
+#    topo = loadtopo(outdir)
+#end
+#print("end\n")
+#
+### plot topo
+#print("plotting topo ...     ")
+#if isa(topo, Array)
+#    plt = plotstopo(topo[1]; c=:lapaz, clims=(-Inf,1e-3))
+#    plt = plotscoastline!(plt, topo[1]; lc=:black)
+#    plt = last(map(t->plotstoporange!(plt,t), topo[2:end]))
+#else
+#    plt = plotstopo(topo; c=:lapaz, clims=(-Inf,1e-3))
+#    plt = plotscoastline!(plt, topo; lc=:black)
+#end
+#savefig(plt, joinpath(plotdir,"topo.svg"))
+#print("end\n")
 
 
 ## load track
@@ -77,7 +77,7 @@ print("end\n")
 
 ## plot eta
 print("plotting eta ...     ")
-plts = plotsamr(amrall; clims=(-1.0,1.0), c=:bwr, colorbar=true)
+plts = plotsamr(amrall; clims=(-0.1,0.1), c=:bwr, colorbar=true)
 plts = map((p,s)->plot!(p; title=s), plts, tstr)
 plts = map((p,k)->plotstrack!(p, track, 1:k; lc=:black), plts, 1:amrall.nstep)
 map((p,k)->savefig(p, joinpath(plotdir,"surf_"*@sprintf("%03d",k)*".png")), plts, 1:amrall.nstep)
@@ -132,7 +132,7 @@ if !isempty(fg)
     nfg = length(fg)
     for k = 1:nfg
         ## dep
-        local plt = plotsfgmax(fg[k], fgmax[k], :D; clims=(-1e-5,1.5), c=cgrad(:jet, 15, categorical = true))
+        local plt = plotsfgmax(fg[k], fgmax[k], :D; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
         savefig(plt, joinpath(plotdir,"fgmax_"*@sprintf("%03d",k)*".svg"))
         local plt = plotsfgmax(fg[k], fgmax[k], :tD; c=cgrad(:phase, 12, categorical = true))
         savefig(plt, joinpath(plotdir,"fgmax_maxtime_"*@sprintf("%03d",k)*".svg"))
@@ -141,10 +141,10 @@ if !isempty(fg)
         savefig(plt, joinpath(plotdir,"fgmax_arrivaltime_"*@sprintf("%03d",k)*".svg"))
         ## maxvel
         if fg[k].nval > 1
-            local plt = plotsfgmax(fg[k], fgmax[k], :v; clims=(-1e-5,1.5), c=cgrad(:jet, 15, categorical = true))
+            local plt = plotsfgmax(fg[k], fgmax[k], :v; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
             savefig(plt, joinpath(plotdir,"fgmax_vel_"*@sprintf("%03d",k)*".svg"))
             local plt = plotsfgmax(fg[k], fgmax[k], :tv; c=cgrad(:phase, 12, categorical = true))
-            savefig(plt, joinpath(plotdir,"fgmax_velmaxtime_"*@sprintf("%03d",k)*".svg"))
+            savefig(plt, joinpath(plotdir,"fgmax_velmaxtime_"*@sZprintf("%03d",k)*".svg"))
         end
     end
     print("end\n")

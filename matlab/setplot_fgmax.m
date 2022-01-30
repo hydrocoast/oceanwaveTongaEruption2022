@@ -17,8 +17,8 @@ for i = 1:nfile
     
     clf;
     pcolor(X,Y,eta); axis equal tight; shading flat
-    colormap(parula(15))
-    caxis([0.0,1.5])
+    colormap(parula(10))
+    caxis([0.0,0.5])
     cb = colorbar;
     hold on
     contour(X,Y,topo,[0,0],'k-')
@@ -26,8 +26,8 @@ for i = 1:nfile
     hold off
     xlim(xlims)
     ylim(ylims)
-    set(gca,'FontName','Times','FontSize',12)
-    set(cb,'FontName','Times','FontSize',10)
+    set(gca,'FontName','Helvetica','FontSize',12)
+    set(cb,'FontName','Helvetica','FontSize',10)
     
     %% print as a png
     print(gcf,'-dpng','-r300',fullfile('_plots',strrep(flist(i).name,'.mat','_mat.png')))
