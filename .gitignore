@@ -23,6 +23,8 @@
 *.gif
 *.swt*
 *.con
+*.asc
+*.asv
 fort.*
 tmp*
 .DS_Store
