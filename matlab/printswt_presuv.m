@@ -42,7 +42,7 @@ fprintf(fid_u,fmt_uv,zeros(nlat,nlon)');
 fprintf(fid_v,strtime);
 fprintf(fid_v,fmt_uv,zeros(nlat,nlon)');
 
-for k = 1:nt-5
+for k = 1:nt
     %% time header
     strtime = strrep(strtime_base,'HH',sprintf('%02d',th(k)));
     strtime = strrep(strtime,'MM',sprintf('%02d',tm(k)));

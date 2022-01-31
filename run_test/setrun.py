@@ -127,7 +127,7 @@ def setrun(claw_pkg='geoclaw'):
     # The solution at initial time t0 is always written in addition.
 
     clawdata.output_style = 2
-    clawdata.tfinal = 10800.0
+    clawdata.tfinal = 36000.0
 
     if clawdata.output_style == 1:
         # Output nout frames at equally spaced times up to tfinal:
@@ -137,7 +137,8 @@ def setrun(claw_pkg='geoclaw'):
     elif clawdata.output_style == 2:
         # Specify a list of output times.
         #clawdata.output_times = [0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0]
-        clawdata.output_times = [i*600.0 for i in range(0,25)]
+        #clawdata.output_times = [i*600.0 for i in range(0,25)]
+        clawdata.output_times = [i*600.0 for i in range(0,61)]
 
     elif clawdata.output_style == 3:
         # Output every iout timesteps with a total of ntot time steps:
@@ -331,8 +332,10 @@ def setrun(claw_pkg='geoclaw'):
 
     # gauges 
     gauges = rundata.gaugedata.gauges
-    #gauges.append([1, -148259.0, -152271.0, 0., 1.e10]) # hoge
-
+    gauges.append([1, 129.5333, 28.3167, 0., 1.e10]) # Amami
+    gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
+    gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
+    gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
 
     #------------------------------------------------------------------
     # GeoClaw specific parameters:
@@ -380,7 +383,7 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.10
+    refine_data.wave_tolerance = 0.01
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     #refine_data.deep_depth = 3.0e3
     #refine_data.max_level_deep = 2
