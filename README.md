@@ -14,5 +14,10 @@ from GEBCO2021
 </p>
 
 ## Simulation setup
-GeoClaw v5.8.1
+GeoClaw v5.8.1  
+
+test run  
+<p align="center">
+<img src="https://github.com/hydrocoast/oceanwaveTongaEruption2022/blob/main/testsurf.gif", width="750">
+</p>
 
