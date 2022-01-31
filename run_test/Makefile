@@ -49,8 +49,8 @@ else ifeq ($(PROFILE),1)
     DFLAGS = -pg -O2 -profile-functions -profile-loops=all -profile-loops-report=2
     MPFLAG = 
 else
-    #DFLAGS = -O2
-    DFLAGS = -O3
+    DFLAGS = -O2
+    #DFLAGS = -O3
 endif
 FFLAGS ?= $(MPFLAG) $(DFLAGS) $(NCFLAGS)
 LFLAGS ?= $(NC_LINK_CMD) $(MPFLAG) $(LDFLAGS)
