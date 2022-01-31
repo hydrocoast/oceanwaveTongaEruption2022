@@ -4,7 +4,7 @@
 ## Bathymetry and topography data
 from GEBCO2021  
 <p align="center">
-<img src="https://github.com/hydrocoast/oceanwaveTongaEruption2022/blob/main/topo_gebco2021.png", width="750">
+<img src="https://github.com/hydrocoast/oceanwaveTongaEruption2022/blob/main/topo_gebco2021.png", width="550">
 </p>
 
 
