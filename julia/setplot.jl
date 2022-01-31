@@ -77,7 +77,7 @@ print("end\n")
 
 ## plot eta
 print("plotting eta ...     ")
-plts = plotsamr(amrall; clims=(-0.1,0.1), c=:bwr, colorbar=true)
+plts = plotsamr(amrall; clims=(-0.05,0.05), c=:bwr, colorbar=true)
 plts = map((p,s)->plot!(p; title=s), plts, tstr)
 plts = map((p,k)->plotstrack!(p, track, 1:k; lc=:black), plts, 1:amrall.nstep)
 map((p,k)->savefig(p, joinpath(plotdir,"surf_"*@sprintf("%03d",k)*".png")), plts, 1:amrall.nstep)
@@ -137,7 +137,7 @@ if !isempty(fg)
             local plt = plotsfgmax(fg[k], fgmax[k], :v; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
             savefig(plt, joinpath(plotdir,"fgmax_vel_"*@sprintf("%03d",k)*".svg"))
             local plt = plotsfgmax(fg[k], fgmax[k], :tv; c=cgrad(:phase, 12, categorical = true))
-            savefig(plt, joinpath(plotdir,"fgmax_velmaxtime_"*@sZprintf("%03d",k)*".svg"))
+            savefig(plt, joinpath(plotdir,"fgmax_velmaxtime_"*@sprintf("%03d",k)*".svg"))
         end
     end
     print("end\n")

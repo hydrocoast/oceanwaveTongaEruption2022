@@ -137,7 +137,7 @@ def setrun(claw_pkg='geoclaw'):
     elif clawdata.output_style == 2:
         # Specify a list of output times.
         #clawdata.output_times = [0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0]
-        clawdata.output_times = [i*600.0 for i in range(0,20)]
+        clawdata.output_times = [i*600.0 for i in range(0,25)]
 
     elif clawdata.output_style == 3:
         # Output every iout timesteps with a total of ntot time steps:
@@ -273,7 +273,7 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 5
+    amrdata.amr_levels_max = 3
 
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [3,4,5,4]
@@ -380,7 +380,7 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.20
+    refine_data.wave_tolerance = 0.10
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     #refine_data.deep_depth = 3.0e3
     #refine_data.max_level_deep = 2

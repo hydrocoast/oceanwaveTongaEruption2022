@@ -2,7 +2,7 @@ clear
 close all
 
 %% filename
-matfile = 'pres_10h_dt30min_speed300.mat';
+matfile = 'pres_10h_dt10min_speed300.mat';
 load(matfile)
 
 ts = seconds(t);

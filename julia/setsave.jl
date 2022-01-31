@@ -14,18 +14,18 @@ Pkg.dir("JLD2") == nothing && (Pkg.add("JLD2"))
 Pkg.dir("CSV") == nothing && (Pkg.add("CSV"))
 using VisClaw
 using JLD2
-using CSV: CSV
+#using CSV: CSV
 print("end\n")
 
 
-## topo
-print("loading topo ...     ")
-topo = loadtopo(outdir)
-print("end\n")
-
-print("saving topo ...     ")
-@save joinpath(jld2dir, "topo.jld2") topo
-print("end\n")
+### topo
+#print("loading topo ...     ")
+#topo = loadtopo(outdir)
+#print("end\n")
+#
+#print("saving topo ...     ")
+#@save joinpath(jld2dir, "topo.jld2") topo
+#print("end\n")
 
 
 ## track
