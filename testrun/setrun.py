@@ -328,7 +328,9 @@ def setrun(claw_pkg='geoclaw'):
     regions = rundata.regiondata.regions
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
-    #regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
+    regions.append([1, 3, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
+    regions.append([1, 5, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
+    regions.append([1, 5, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
@@ -383,7 +385,7 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.01
+    refine_data.wave_tolerance = 0.02
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     #refine_data.deep_depth = 3.0e3
     #refine_data.max_level_deep = 2
@@ -429,16 +431,32 @@ def setgeo(rundata):
     # Domain 1
     fg = fgmax_tools.FGmaxGrid()
     fg.point_style = 2  # uniform rectangular x-y grid
-    fg.dx = 0.50        # desired resolution of fgmax grid
+    fg.dx = 1.0/3.0        # desired resolution of fgmax grid
     fg.x1 = 120.0
     fg.x2 = 300.0
     fg.y1 = -60.0
     fg.y2 = 60.0
     fg.min_level_check = 1 # which levels to monitor max on
-    fg.arrival_tol = 1.0e-1
+    fg.arrival_tol = 2.0e-1
     fg.tstart_max = 0.0    # just before wave arrives
     fg.tend_max = 1.e10    # when to stop monitoring max values
-    fg.dt_check = 10.0     # how often to update max values
+    fg.dt_check = 60.0     # how often to update max values
+    fg.interp_method = 0   # 0 ==> pw const in cells, recommended
+    rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
+
+    # around Japan
+    fg = fgmax_tools.FGmaxGrid()
+    fg.point_style = 2  # uniform rectangular x-y grid
+    fg.dx = 1.0/60.0    # desired resolution of fgmax grid
+    fg.x1 = 120.0
+    fg.x2 = 150.0
+    fg.y1 = 20.0
+    fg.y2 = 50.0
+    fg.min_level_check = 1 # which levels to monitor max on
+    fg.arrival_tol = 2.0e-1
+    fg.tstart_max = 0.0    # just before wave arrives
+    fg.tend_max = 1.e10    # when to stop monitoring max values
+    fg.dt_check = 60.0     # how often to update max values
     fg.interp_method = 0   # 0 ==> pw const in cells, recommended
     rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
