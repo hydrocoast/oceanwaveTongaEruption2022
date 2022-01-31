@@ -25,8 +25,10 @@
 *.con
 *.asc
 *.asv
+*.cpt
 fort.*
 tmp*
+gmt.*
 .DS_Store
 nohup.out
 _output/
