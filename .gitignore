@@ -33,3 +33,4 @@ _output/
 _plots/
 xgeoclaw
 .output
+!testforcing.gif
