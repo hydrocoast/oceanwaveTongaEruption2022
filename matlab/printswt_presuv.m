@@ -42,14 +42,14 @@ fprintf(fid_u,fmt_uv,zeros(nlat,nlon)');
 fprintf(fid_v,strtime);
 fprintf(fid_v,fmt_uv,zeros(nlat,nlon)');
 
-for k = 1:nt-3
+for k = 1:nt-5
     %% time header
     strtime = strrep(strtime_base,'HH',sprintf('%02d',th(k)));
     strtime = strrep(strtime,'MM',sprintf('%02d',tm(k)));
 
     %% print
     fprintf(fid_p,strtime);
-    fprintf(fid_p,fmt_p,squeeze(p_out(:,:,k))');    
+    fprintf(fid_p,fmt_p,squeeze(flipud(p_out(:,:,k)))');    
     fprintf(fid_u,strtime);
     fprintf(fid_u,fmt_uv,zeros(nlat,nlon)');
     fprintf(fid_v,strtime);

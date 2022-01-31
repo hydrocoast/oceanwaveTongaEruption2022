@@ -2,16 +2,16 @@ clear
 close all
 
 %% filename
-matfile = 'pres_10h_dt30min_speed300.mat';
+matfile = 'pres_10h_dt10min_speed300.mat';
 load(matfile)
 
 %% plot
 sizen= 512;
-delaytime = 0.5;
+delaytime = 0.25;
 savegif = 'test.gif';
 
 fig = figure;
-for k = 1:nt-3
+for k = 1:nt
     clf(fig);    
     ax = gca;
     ax.FontName = 'Helvetica';
@@ -41,6 +41,8 @@ for k = 1:nt-3
     end    
     
 end
+
+
 
 
 % fig = figure;

@@ -83,13 +83,6 @@ plts = map((p,k)->plotstrack!(p, track, 1:k; lc=:black), plts, 1:amrall.nstep)
 map((p,k)->savefig(p, joinpath(plotdir,"surf_"*@sprintf("%03d",k)*".png")), plts, 1:amrall.nstep)
 print("end\n")
 
-#=
-## save eta
-print("saving eta as a gif ...     ")
-## save eta as a gif
-plotsgif(plts, joinpath(plotdir,"surf.gif"); fps=6)
-print("end\n")
-=#
 
 ## load gauges
 print("loading gauges ...     ")
