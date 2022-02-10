@@ -45,7 +45,7 @@ load(matfile)
 % 
 
 fig = figure;
-for k = 1:nt-3
+for k = 1:nt
     clf(fig);
     
     gx = geoaxes;
@@ -56,11 +56,16 @@ for k = 1:nt-3
     p = pcolor(lon,lat,pres(:,:,k)); shading flat
     p.FaceAlpha = 0.3;
     colormap(flipud(hot));
+    cb = colorbar;
+    cb.Ticks = 0:0.5:4.0;
+    cb.TickLabels = num2str(cb.Ticks','%0.1f');
+    cb.Position(1) = 0.90;
+    title(cb,'hPa')
     axis tight
     hold on
     plot(lon0,lat0,'kp','MarkerFaceColor','y','MarkerSize',14)
     hold off
-    caxis([0,2]);
+    caxis([0,4]);
     title(sprintf('%d min',t(k)/60),'FontName','Helvetica')    
     ax.Visible = 'off';
     ax.XTick = [];
@@ -69,5 +74,7 @@ for k = 1:nt-3
     print(gcf,'-djpeg',sprintf('step%03d.jpg',k));    
 end
 
-! /usr/local/bin/ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
-! /usr/local/bin/ffmpeg -r 12 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y
+! ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
+! ffmpeg -r 12 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y
+% ! /usr/local/bin/ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
+% ! /usr/local/bin/ffmpeg -r 12 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y

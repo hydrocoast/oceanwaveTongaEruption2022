@@ -24,10 +24,12 @@ t = dt:dt:3600*10;
 nt = length(t);
 speed = 0.3;
 wavelength = 1500*0.3;
+amp = @(r) min(10,180*r^(-0.5));
 
 
 %% draw border lines
 npts = 500;
+pamp = zeros(nt,1);
 deg1 = zeros(nt,1);
 lat1 = zeros(npts,nt);
 lon1 = zeros(npts,nt);
@@ -36,6 +38,7 @@ lonf = zeros(npts,nt);
 latb = zeros(npts,nt);
 lonb = zeros(npts,nt);
 for j = 1:nt
+    pamp(j) = amp(speed*t(j));
     deg1(j) = km2deg(speed*t(j));
     [lat1(:,j),lon1(:,j)] = scircle1(lat0,lon0,deg1(j),[],[],'degrees',npts);
     [latf(:,j),lonf(:,j)] = scircle1(lat0,lon0,km2deg(speed*t(j)+0.5*wavelength),[],[],'degrees',npts);
@@ -51,14 +54,13 @@ edge_lon = vertcat(lon(:), lon(:), repmat(lonrange(1),[nlat,1]), repmat(lonrange
 edge_lat = vertcat(repmat(latrange(1),[nlon,1]), repmat(latrange(2),[nlon,1]), lat(:), lat(:));
 edge_0 = zeros(2*(nlon+nlat),1);
 
-p = 2.0;
 pres = zeros(nlat,nlon,nt);
 for j = 1:nt
     disp(num2str(j,'%d'));
     F = scatteredInterpolant( ...
         vertcat(lon1(:,j),lonf(:,j),lonb(:,j), edge_lon), ...
         vertcat(lat1(:,j),latf(:,j),latb(:,j), edge_lat), ...
-        vertcat(p*ones(npts,1),zeros(npts,1),zeros(npts,1), edge_0), ...
+        vertcat(pamp(j)*ones(npts,1),zeros(npts,1),zeros(npts,1), edge_0), ...
         'natural','none');
     pres(:,:,j) = reshape(F(LON(:),LAT(:)),[nlat,nlon]);    
 end
@@ -67,7 +69,7 @@ end
 %% save
 save('pres.mat','-v7.3',...
      'lon0','lat0','lonrange','latrange','lon','lat',...
-     'nlon','nlat','dl','pres','npts',...
+     'nlon','nlat','dl','pres','npts','pamp',...
      'speed','wavelength','dt','t','nt')
 
  
