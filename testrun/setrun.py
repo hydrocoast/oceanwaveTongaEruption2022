@@ -32,6 +32,9 @@ def days2seconds(days):
 # Scratch directory for storing topo and dtopo files:
 topodir = os.path.join(os.getcwd(), '..', 'bathtopo')
 
+# Directory for gauge location files:
+gaugedir = os.path.join(os.getcwd(), '..', 'gaugeset')
+
 # ------------------------------
 def setrun(claw_pkg='geoclaw'):
 #------------------------------
@@ -85,8 +88,8 @@ def setrun(claw_pkg='geoclaw'):
     clawdata.upper[1] = 60.0   # north latitude
 
     # Number of grid cells
-    clawdata.num_cells[0] = 180  # nx
-    clawdata.num_cells[1] = 120  # ny
+    clawdata.num_cells[0] = 900  # nx
+    clawdata.num_cells[1] = 600  # ny
 
     # ---------------
     # Size of system:
@@ -274,12 +277,12 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 3
+    amrdata.amr_levels_max = 4
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [3,4,5,4]
-    amrdata.refinement_ratios_y = [3,4,5,4]
-    amrdata.refinement_ratios_t = [3,4,5,4]
+    amrdata.refinement_ratios_x = [3,4,4]
+    amrdata.refinement_ratios_y = [3,4,4]
+    amrdata.refinement_ratios_t = [3,4,4]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -328,16 +331,19 @@ def setrun(claw_pkg='geoclaw'):
     regions = rundata.regiondata.regions
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
-    regions.append([1, 3, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
-    regions.append([1, 5, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
-    regions.append([1, 5, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+    regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
+    regions.append([1, 3, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
+    regions.append([1, 4, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
-    gauges.append([1, 129.5333, 28.3167, 0., 1.e10]) # Amami
-    gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
-    gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
-    gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
+    # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
+    dat = np.genfromtxt(os.path.join(gaugedir,'gauge_list_japan.csv'), delimiter=',',  skip_header=0, dtype='float')
+    [gauges.append(dat[i]) for i in range(0,dat.shape[0])]
+    #gauges.append([1, 129.5333, 28.3167, 0., 1.e10]) # Amami
+    #gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
+    #gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
+    #gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
 
     #------------------------------------------------------------------
     # GeoClaw specific parameters:
