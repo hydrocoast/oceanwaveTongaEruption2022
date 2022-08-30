@@ -16,7 +16,7 @@ import shutil
 import gzip
 
 import numpy as np
-
+import clawpack
 from clawpack.geoclaw.surge.storm import Storm
 import clawpack.clawutil as clawutil
 from clawpack.geoclaw import topotools
@@ -404,7 +404,10 @@ def setgeo(rundata):
     #   [topotype, fname]
     # See regions for control over these regions, need better bathy data for the
     # smaller domains
-    topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2021_n60.0_s-60.0_w120.0_e300.0.nc')])
+    if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
+        topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2021_n60.0_s-60.0_w120.0_e300.0.nc')])
+    else: # v5.7.1
+        topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2021_n60.0_s-60.0_w120.0_e300.0.nc')])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data

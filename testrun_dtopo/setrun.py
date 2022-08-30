@@ -22,7 +22,7 @@ import clawpack.clawutil as clawutil
 from clawpack.geoclaw import topotools
 from clawpack.geoclaw import fgmax_tools
 from clawpack.geoclaw.data import ForceDry
-
+import clawpack
 
 # Time Conversions
 def days2seconds(days):
@@ -81,12 +81,12 @@ def setrun(claw_pkg='geoclaw'):
     # Lower and upper edge of computational domain:
     clawdata.lower[0] = 120.0    # west longitude
     clawdata.upper[0] = 200.0   # east longitude
-    clawdata.lower[1] = -60.0    # south latitude
+    clawdata.lower[1] = -55.0    # south latitude
     clawdata.upper[1] = 60.0   # north latitude
 
     # Number of grid cells
     clawdata.num_cells[0] = 80  # nx
-    clawdata.num_cells[1] = 120  # ny
+    clawdata.num_cells[1] = 115  # ny
 
     # ---------------
     # Size of system:
@@ -329,6 +329,7 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 2, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
+    regions.append([1, 5, clawdata.t0, 1800.0, 184.50, 185.00, -20.75, -20.25])
     #regions.append([1, 5, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
     #regions.append([1, 5, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
@@ -387,8 +388,9 @@ def setgeo(rundata):
     refine_data = rundata.refinement_data
     refine_data.wave_tolerance = 0.02
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
-    #refine_data.deep_depth = 3.0e3
-    #refine_data.max_level_deep = 2
+    if clawpack.__version__.find('5.7')==0:
+        refine_data.deep_depth = 3.0e3
+        refine_data.max_level_deep = 2
     refine_data.variable_dt_refinement_ratios = True
 
     # == settopo.data values ==
@@ -398,14 +400,22 @@ def setgeo(rundata):
     #   [topotype, fname]
     # See regions for control over these regions, need better bathy data for the
     # smaller domains
-    topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2021_n60.0_s-60.0_w120.0_e300.0.nc')])
+    if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
+        topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
+    else:
+        topo_data.topofiles.append([4, 1, 5, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
+
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
     dtopo_data.dtopofiles = []
     # for moving topography, append lines of the form :   (<= 1 allowed for now!)
     #   [topotype, minlevel,maxlevel,fname]
-    dtopo_data.dtopofiles.append([3, 1, 3, os.path.join('../julia', 'test_dtopo.asc')])
+    if clawpack.__version__.find('5.8')==0:
+        dtopo_data.dtopofiles.append([3, os.path.join('../julia', 'test_dtopo.asc')])
+    elif clawpack.__version__.find('5.7')==0:
+        dtopo_data.dtopofiles.append([3, 1, 3, os.path.join('../julia', 'test_dtopo.asc')])
+
 
     # == setqinit.data values ==
     rundata.qinit_data.qinit_type = 0
@@ -434,8 +444,8 @@ def setgeo(rundata):
     fg.point_style = 2  # uniform rectangular x-y grid
     fg.dx = 1.0/3.0        # desired resolution of fgmax grid
     fg.x1 = 120.0
-    fg.x2 = 300.0
-    fg.y1 = -60.0
+    fg.x2 = 200.0
+    fg.y1 = -55.0
     fg.y2 = 60.0
     fg.min_level_check = 1 # which levels to monitor max on
     fg.arrival_tol = 2.0e-1

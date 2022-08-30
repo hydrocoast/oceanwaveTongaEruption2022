@@ -6,7 +6,7 @@ matfile = 'pres_10h_dt10min_speed300.mat';
 load(matfile)
 
 ts = seconds(t);
-th = hour(ts);
+th = hours(ts);
 tm = minutes(ts-hours(th));
 
 fc = '1d.con';

@@ -54,6 +54,7 @@ else
 endif
 FFLAGS ?= $(MPFLAG) $(DFLAGS) $(NCFLAGS)
 LFLAGS ?= $(NC_LINK_CMD) $(MPFLAG) $(LDFLAGS)
+FFLAGS += -fallow-argument-mismatch
 
 # ---------------------------------
 # package sources for this program:
