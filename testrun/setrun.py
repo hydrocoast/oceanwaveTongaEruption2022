@@ -83,13 +83,13 @@ def setrun(claw_pkg='geoclaw'):
 
     # Lower and upper edge of computational domain:
     clawdata.lower[0] = 120.0    # west longitude
-    clawdata.upper[0] = 300.0   # east longitude
-    clawdata.lower[1] = -60.0    # south latitude
+    clawdata.upper[0] = 200.0   # east longitude
+    clawdata.lower[1] = -55.0    # south latitude
     clawdata.upper[1] = 60.0   # north latitude
 
     # Number of grid cells
-    clawdata.num_cells[0] = 900  # nx
-    clawdata.num_cells[1] = 600  # ny
+    clawdata.num_cells[0] = 80  # nx
+    clawdata.num_cells[1] = 115  # ny
 
     # ---------------
     # Size of system:
@@ -277,12 +277,12 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 4
+    amrdata.amr_levels_max = 3
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [3,4,4]
-    amrdata.refinement_ratios_y = [3,4,4]
-    amrdata.refinement_ratios_t = [3,4,4]
+    amrdata.refinement_ratios_x = [3,4,5,4]
+    amrdata.refinement_ratios_y = [3,4,5,4]
+    amrdata.refinement_ratios_t = [3,4,5,4]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -338,12 +338,12 @@ def setrun(claw_pkg='geoclaw'):
     # gauges 
     gauges = rundata.gaugedata.gauges
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
-    dat = np.genfromtxt(os.path.join(gaugedir,'gauge_list_japan.csv'), delimiter=',',  skip_header=0, dtype='float')
-    [gauges.append(dat[i]) for i in range(0,dat.shape[0])]
-    #gauges.append([1, 129.5333, 28.3167, 0., 1.e10]) # Amami
-    #gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
-    #gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
-    #gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
+    #dat = np.genfromtxt(os.path.join(gaugedir,'gauge_list_japan.csv'), delimiter=',',  skip_header=0, dtype='float')
+    #[gauges.append(dat[i]) for i in range(0,dat.shape[0])]
+    gauges.append([1, 129.5333, 28.3167, 0., 1.e10]) # Amami
+    gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
+    gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
+    gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
 
     #------------------------------------------------------------------
     # GeoClaw specific parameters:
@@ -405,9 +405,9 @@ def setgeo(rundata):
     # See regions for control over these regions, need better bathy data for the
     # smaller domains
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
-        topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2021_n60.0_s-60.0_w120.0_e300.0.nc')])
+        topo_data.topofiles.append([3, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.asc')])
     else: # v5.7.1
-        topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2021_n60.0_s-60.0_w120.0_e300.0.nc')])
+        topo_data.topofiles.append([3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.asc')])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
@@ -442,8 +442,8 @@ def setgeo(rundata):
     fg.point_style = 2  # uniform rectangular x-y grid
     fg.dx = 1.0/3.0        # desired resolution of fgmax grid
     fg.x1 = 120.0
-    fg.x2 = 300.0
-    fg.y1 = -60.0
+    fg.x2 = 200.0
+    fg.y1 = -55.0
     fg.y2 = 60.0
     fg.min_level_check = 1 # which levels to monitor max on
     fg.arrival_tol = 2.0e-1
@@ -470,7 +470,7 @@ def setgeo(rundata):
     rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
     # num_fgmax_val
-    rundata.fgmax_data.num_fgmax_val = 5  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
+    rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
 
     # ================
     #  Set Surge Data

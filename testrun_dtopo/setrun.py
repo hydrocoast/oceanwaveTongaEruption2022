@@ -472,7 +472,7 @@ def setgeo(rundata):
     rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
     # num_fgmax_val
-    rundata.fgmax_data.num_fgmax_val = 5  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
+    rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
 
     # ================
     #  Set Surge Data

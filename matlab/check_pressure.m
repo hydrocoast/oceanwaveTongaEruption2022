@@ -2,12 +2,12 @@ clear
 close all
 
 %% filename
-matfile = 'pres_10h_dt10min_speed300.mat';
-% matfile = 'pres.mat';
+% matfile = 'pres_10h_dt10min_speed300.mat';
+matfile = 'pres.mat';
 load(matfile)
 
 % %% plot
-% sizen= 512;
+% sizen= 512;q
 % delaytime = 0.25;
 % savegif = 'test.gif';
 % 
@@ -74,7 +74,7 @@ for k = 1:nt
     print(gcf,'-djpeg',sprintf('step%03d.jpg',k));    
 end
 
-! ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
-! ffmpeg -r 12 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y
+% ! ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
+% ! ffmpeg -r 12 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y
 % ! /usr/local/bin/ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
 % ! /usr/local/bin/ffmpeg -r 12 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y
