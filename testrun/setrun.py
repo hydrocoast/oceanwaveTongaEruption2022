@@ -405,9 +405,9 @@ def setgeo(rundata):
     # See regions for control over these regions, need better bathy data for the
     # smaller domains
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
-        topo_data.topofiles.append([3, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.asc')])
+        topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
     else: # v5.7.1
-        topo_data.topofiles.append([3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.asc')])
+        topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
