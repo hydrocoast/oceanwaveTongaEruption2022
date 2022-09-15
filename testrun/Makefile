@@ -24,9 +24,9 @@ PLOTDIR = _plots               # Directory for plots
 # to NetCDF Fortran installation
 NF_CONFIG = nf-config
 LIB_PATHS = $(shell $(NF_CONFIG) --prefix)/lib
-INCLUDE = $(shell $(NF_CONFIG) --fflags)
-NC_LINK_CMD = $(shell $(NF_CONFIG) --includedir)
-NC_LINK_CMD += $(shell $(NF_CONFIG) --cflags)
+INCLUDE = $(shell $(NF_CONFIG) --includedir)
+#NC_LINK_CMD = $(shell $(NF_CONFIG) --includedir)
+NC_LINK_CMD = $(shell $(NF_CONFIG) --cflags)
 
 # Compiler flags
 MPFLAG = -fopenmp
