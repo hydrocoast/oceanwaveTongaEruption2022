@@ -20,30 +20,33 @@ kmmesh = deg2km(degmesh);
 
 %% params
 dt = 600;
-t = dt:dt:3600*10;
+t = dt:dt:3600*12;
 nt = length(t);
 c_phapse = 0.3;
 wavelength = 1500*c_phapse;
 amp = @(r) min(50,180*r^(-0.5));
 
 %% create
+pres = zeros(nlat, nlon);
 for k = 1:nt
-    minpres = amp(c_phapse*t(k));
-
-
-% 
-%     for j = 1:nlat
-%     for i = 1:nlon
-% 
-%     end
-%     end
+    dist_antinode = c_phapse*t(k);
+    amp_antinode = amp(dist_antinode);
+    for i = 1:nlat
+    for j = 1:nlon
+        distance_from_antinode = abs(kmmesh(i,j)-dist_antinode);
+        if distance_from_antinode > 0.5*wavelength; continue; end
+        pres(i,j,k) = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode);
+    end
+    end
 end
 
-% %% save
-% save('pres.mat','-v7.3',...
-%      'lon0','lat0','lonrange','latrange','lon','lat',...
-%      'nlon','nlat','dl','pres',...
-%      'c_phapse','wavelength','dt','t','nt')
+%% save
+save('pres.mat','-v7.3',...
+     'lon0','lat0','lonrange','latrange','lon','lat',...
+     'nlon','nlat','dl','pres',...
+     'c_phapse','wavelength','dt','t','nt')
 
 
-function calpres
+function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
+    pres = interp1([0; 0.5*wavelength], [amp_antinode; 0.0], distance_from_antinode,'spline');
+end
