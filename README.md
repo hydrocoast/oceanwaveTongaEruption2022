@@ -4,13 +4,13 @@
 ## Bathymetry and topography data
 from GEBCO2021  
 <p align="center">
-<img src="https://github.com/hydrocoast/oceanwaveTongaEruption2022/blob/main/topo_gebco2021.png", width="550">
+<img src="/topo_gebco2021.png", width="550">
 </p>
 
 
 ## Forcing test
 <p align="center">
-<img src="https://github.com/hydrocoast/oceanwaveTongaEruption2022/blob/main/testforcing.gif", width="750">
+<img src="/testforcing.gif", width="750">
 </p>
 
 ## Simulation setup
@@ -18,6 +18,6 @@ GeoClaw v5.8.1
 
 test run  
 <p align="center">
-<img src="https://github.com/hydrocoast/oceanwaveTongaEruption2022/blob/main/testsurf.gif", width="750">
+<img src="/testsurf.gif", width="750">
 </p>
 
