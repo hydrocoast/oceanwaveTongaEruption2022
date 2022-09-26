@@ -27,15 +27,25 @@ wavelength = 1500*c_phapse;
 amp = @(r) min(50,180*r^(-0.5));
 
 %% create
-pres = zeros(nlat, nlon);
+pres = zeros(nlat, nlon, nt);
 for k = 1:nt
     dist_antinode = c_phapse*t(k);
     amp_antinode = amp(dist_antinode);
     for i = 1:nlat
     for j = 1:nlon
+        %% Lamb wave
         distance_from_antinode = abs(kmmesh(i,j)-dist_antinode);
-        if distance_from_antinode > 0.5*wavelength; continue; end
-        pres(i,j,k) = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode);
+        if distance_from_antinode > 0.5*wavelength
+            pres_lamb = 0.0;
+        else
+            pres_lamb = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode);
+        end
+
+        %% Gravity wave
+        pres_grav = 0.0;
+
+        %% Composite pressure data
+        pres(i,j,k) = pres_lamb + pres_grav;
     end
     end
 end

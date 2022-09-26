@@ -5,10 +5,6 @@ close all
 matfile = 'pres.mat';
 load(matfile)
 
-ts = seconds(t);
-th = hours(ts);
-tm = minutes(ts-hours(th));
-
 fc = '1d.con';
 fp = 'slp_d01.swt';
 fu = 'u10_d01.swt';
@@ -44,8 +40,9 @@ fprintf(fid_v,fmt_uv,zeros(nlat,nlon)');
 
 for k = 1:nt
     %% time header
-    strtime = strrep(strtime_base,'HH',sprintf('%02d',th(k)));
-    strtime = strrep(strtime,'MM',sprintf('%02d',tm(k)));
+    strtime = strrep(strtime_base,'HH',sprintf('%02d',floor(t(k)/3600)));
+    strtime = strrep(strtime,'MM',sprintf('%02d',floor(t(k)/60)-60*floor(t(k)/3600)));
+    disp(strtime);
 
     %% print
     fprintf(fid_p,strtime);
