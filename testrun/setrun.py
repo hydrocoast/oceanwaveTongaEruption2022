@@ -85,11 +85,11 @@ def setrun(claw_pkg='geoclaw'):
     clawdata.lower[0] = 120.0    # west longitude
     clawdata.upper[0] = 200.0   # east longitude
     clawdata.lower[1] = -55.0    # south latitude
-    clawdata.upper[1] = 60.0   # north latitude
+    clawdata.upper[1] = 55.0   # north latitude
 
     # Number of grid cells
-    clawdata.num_cells[0] = 80  # nx
-    clawdata.num_cells[1] = 115  # ny
+    clawdata.num_cells[0] = 240  # nx
+    clawdata.num_cells[1] = 330  # ny
 
     # ---------------
     # Size of system:
@@ -280,9 +280,9 @@ def setrun(claw_pkg='geoclaw'):
     amrdata.amr_levels_max = 3
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [3,4,5,4]
-    amrdata.refinement_ratios_y = [3,4,5,4]
-    amrdata.refinement_ratios_t = [3,4,5,4]
+    amrdata.refinement_ratios_x = [4,5,4]
+    amrdata.refinement_ratios_y = [4,5,4]
+    amrdata.refinement_ratios_t = [4,5,4]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -444,7 +444,7 @@ def setgeo(rundata):
     fg.x1 = 120.0
     fg.x2 = 200.0
     fg.y1 = -55.0
-    fg.y2 = 60.0
+    fg.y2 = 55.0
     fg.min_level_check = 1 # which levels to monitor max on
     fg.arrival_tol = 2.0e-1
     fg.tstart_max = 0.0    # just before wave arrives
