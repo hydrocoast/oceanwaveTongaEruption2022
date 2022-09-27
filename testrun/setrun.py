@@ -82,13 +82,13 @@ def setrun(claw_pkg='geoclaw'):
     clawdata.num_dim = num_dim
 
     # Lower and upper edge of computational domain:
-    clawdata.lower[0] = 120.0    # west longitude
+    clawdata.lower[0] = 115.0    # west longitude
     clawdata.upper[0] = 200.0   # east longitude
     clawdata.lower[1] = -55.0    # south latitude
     clawdata.upper[1] = 55.0   # north latitude
 
     # Number of grid cells
-    clawdata.num_cells[0] = 240  # nx
+    clawdata.num_cells[0] = 255  # nx
     clawdata.num_cells[1] = 330  # ny
 
     # ---------------
@@ -277,7 +277,7 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 3
+    amrdata.amr_levels_max = 2
 
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [4,5,4]
@@ -441,10 +441,10 @@ def setgeo(rundata):
     fg = fgmax_tools.FGmaxGrid()
     fg.point_style = 2  # uniform rectangular x-y grid
     fg.dx = 1.0/3.0        # desired resolution of fgmax grid
-    fg.x1 = 120.0
-    fg.x2 = 200.0
-    fg.y1 = -55.0
-    fg.y2 = 55.0
+    fg.x1 = rundata.clawdata.lower[0]
+    fg.x2 = rundata.clawdata.upper[0]
+    fg.y1 = rundata.clawdata.lower[1]
+    fg.y2 = rundata.clawdata.upper[1]
     fg.min_level_check = 1 # which levels to monitor max on
     fg.arrival_tol = 2.0e-1
     fg.tstart_max = 0.0    # just before wave arrives
