@@ -18,45 +18,50 @@ lat = linspace(latrange(1),latrange(2),nlat);
 degmesh = sqrt((LON-lon0).^2 + (LAT-lat0).^2);
 kmmesh = deg2km(degmesh);
 
-%% params
+%% parameters
 dt = 600;
 t = dt:dt:3600*12;
 nt = length(t);
-c_phapse = 0.3;
-wavelength = 1500*c_phapse;
-amp = @(r) min(50,180*r^(-0.5));
+cs = 310.0; % m/s
+wavelength = 1500*cs*1e-3; % km
+amp = @(r) min(50,180*r^(-0.5)); % km
 
-%% create
+fig = figure;
+%% create pressure data
 pres = zeros(nlat, nlon, nt);
 for k = 1:nt
-    dist_antinode = c_phapse*t(k);
+    fprintf('%03d,',k);
+
+    %% Lamb wave
+    dist_antinode = cs*t(k)*1e-3; % km
     amp_antinode = amp(dist_antinode);
+
     for i = 1:nlat
     for j = 1:nlon
         %% Lamb wave
-        distance_from_antinode = abs(kmmesh(i,j)-dist_antinode);
-        if distance_from_antinode > 0.5*wavelength
+        dist_from_antinode = abs(kmmesh(i,j)-dist_antinode); % km
+        if dist_from_antinode > 0.5*wavelength
             pres_lamb = 0.0;
         else
-            pres_lamb = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode);
+            pres_lamb = pressure_anomaly_Lamb(amp_antinode, wavelength, dist_from_antinode);
         end
 
-        %% Gravity wave
-        pres_grav = 0.0;
-
         %% Composite pressure data
-        pres(i,j,k) = pres_lamb + pres_grav;
+        pres(i,j,k) = pres(i,j,k) + pres_lamb;
     end
     end
+    clf(fig); p = pcolor(lon,lat,pres(:,:,k)); shading flat; caxis([-2,2]); colorbar; drawnow; 
 end
+fprintf('\n');
 
 %% save
 save('pres.mat','-v7.3',...
      'lon0','lat0','lonrange','latrange','lon','lat',...
      'nlon','nlat','dl','pres',...
-     'c_phapse','wavelength','dt','t','nt')
+     'cs','wavelength','dt','t','nt')
 
 
+%% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
     pres = interp1([0; 0.5*wavelength], [amp_antinode; 0.0], distance_from_antinode,'spline');
 end

@@ -4,7 +4,8 @@ close all
 %% parameters
 g = 9.8; % m/s^2
 cs = 310.0; % m/s
-N = 1.16e-2; % /s
+% N = 1.16e-2; % /s
+N = 1.7e-2; % /s
 mu = 0.5*(N^2/g + g/cs^2); % /m ?
 sigma0 = mu*cs;
 
@@ -12,7 +13,7 @@ sigma0 = mu*cs;
 n = [0,5e-5,10e-5];
 num_n = length(n);
 
-L = [10e3:10e3:500e3]';
+L = [20e3:10e3:1000e3]';
 k = 2*pi./L;
 num_k = length(L);
 
@@ -27,16 +28,17 @@ end
 cg = sigma_g./k;
 
 
-%% plot dispersion-relation
+%% plot dispersion relation
 figure
 ax = axes;
 set(ax,'FontName','Helvetica','FontSize',12);
 
 hold on
-yline(N,'k-');
-yline(sigma0,'k-');
+yline(N,'k--');
+yline(sigma0,'k--');
 plot(k,sigma_g,'-');
 plot(k,sigma_a,'-');
+plot(k,k*cs,'k-');
 grid on
 axis tight
 box on

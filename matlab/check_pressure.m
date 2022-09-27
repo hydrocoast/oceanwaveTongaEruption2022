@@ -6,6 +6,10 @@ close all
 matfile = 'pres.mat';
 load(matfile)
 
+cmap = colormap(jet(100));
+close
+cmap(50:51,:) = repmat([1,1,1],[2,1]);
+
 fig = figure;
 for k = 1:nt
 % for k = 1:10
@@ -18,9 +22,14 @@ for k = 1:nt
     ax = axes;
     p = pcolor(lon,lat,pres(:,:,k)); shading flat
     p.FaceAlpha = 0.3;
-    colormap(flipud(hot));
     cb = colorbar;
-    cb.Ticks = 0:0.5:4.0;
+%     colormap(flipud(hot));
+%     cb.Ticks = 0.0:0.5:4.0;
+%     caxis([0,4]);
+    colormap(cmap);
+    cb.Ticks = -1.0:0.5:1.0;
+    caxis([-1,1]);
+
     cb.TickLabels = num2str(cb.Ticks','%0.1f');
     cb.Position(1) = 0.90;
     title(cb,'hPa')
@@ -28,7 +37,6 @@ for k = 1:nt
     hold on
     plot(lon0,lat0,'kp','MarkerFaceColor','y','MarkerSize',14)
     hold off
-    caxis([0,4]);
     text(200, 45, sprintf('%03d min',t(k)/60),'FontName','Helvetica','FontSize',16,'HorizontalAlignment','center')
     ax.Visible = 'off';
     ax.XTick = [];
