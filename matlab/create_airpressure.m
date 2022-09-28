@@ -24,8 +24,8 @@ t = dt:dt:3600*14;
 nt = length(t);
 cs = 310.0; % m/s
 wavelength = 1500*cs*1e-3; % km
-amp = @(r) min(50,180*r^(-0.5)); % km
-
+amp = @(r,a) min(50,a*r^(-0.5)); % km
+coef_lamb = 180;
 
 %% parameters for air gravity waves
 g = 9.8; % m/s^2
@@ -33,16 +33,18 @@ g = 9.8; % m/s^2
 N = 1.7e-2; % /s
 mu = 0.5*(N^2/g + g/cs^2); % /m ?
 sigma0 = mu*cs;
-wavelength_g = wavelength*[0.5; 0.25; 0.20]; % km
+wavelength_g = wavelength*[1.0; 0.5; 0.25; 0.20]; % km
+coef_g = [-45; -45; -45; -45];
 nwave_g = length(wavelength_g);
 k_g = 2*pi./(wavelength_g.*1e3);
+
 
 sigma_g = zeros(nwave_g,1);
 for iwave = 1:nwave_g
     sigma_g(iwave) = dispersion_relation_airgravitywave(k_g(iwave),mu,N,cs,0.0);
 end
 c_g = sigma_g./k_g;
-amp_g = 0.5;
+
 
 
 fig = figure;
@@ -53,7 +55,7 @@ for k = 1:nt
 
     %% Lamb wave
     dist_antinode = cs*t(k)*1e-3; % km
-    amp_antinode = amp(dist_antinode);
+    amp_antinode = amp(dist_antinode,coef_lamb);
 
     for i = 1:nlat
     for j = 1:nlon
@@ -81,9 +83,10 @@ for k = 1:nt
     for j = 1:nlon
         pres_grav = 0.0;
         for iwave = 1:nwave_g
+           amp_antinode = amp(dist_antinode(iwave),coef_g(iwave));         
            dist_from_antinode = kmmesh(i,j)-dist_antinode(iwave); % km
            if abs(dist_from_antinode) > 0.5*wavelength_g(iwave); continue; end
-           pres_add = pressure_anomaly_airgravitywave(amp_g,wavelength_g(iwave),dist_from_antinode);
+           pres_add = pressure_anomaly_airgravitywave(amp_antinode, wavelength_g(iwave), abs(dist_from_antinode));
            if isnan(pres_add)
                disp(pres_add);
            end
@@ -106,7 +109,7 @@ save('pres.mat','-v7.3',...
 
 %% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
-    pres = interp1([0; 0.5*wavelength], [amp_antinode; 0.0], distance_from_antinode,'spline');
+    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
 end
 
 
@@ -120,9 +123,7 @@ end
 
 %% formula - air gravity wave
 function pres = pressure_anomaly_airgravitywave(amp_antinode, wavelength, distance_from_antinode)
-    x = linspace(-0.5*wavelength,0.5*wavelength,100);
-    p = amp_antinode*sin(2*pi/wavelength*x);
-    pres = interp1(x,p,distance_from_antinode,'linear');
+    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
 end
 
 
