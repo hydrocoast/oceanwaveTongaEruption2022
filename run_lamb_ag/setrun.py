@@ -22,6 +22,7 @@ import clawpack.clawutil as clawutil
 from clawpack.geoclaw import topotools
 from clawpack.geoclaw import fgmax_tools
 from clawpack.geoclaw.data import ForceDry
+from clawpack.geoclaw import fgout_tools
 
 
 # Time Conversions
@@ -277,7 +278,7 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 4
+    amrdata.amr_levels_max = 3
 
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [4,5,4]
@@ -344,6 +345,25 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
     gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
     gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
+
+
+    # Fixed grid output
+    fgout_grids = rundata.fgout_data.fgout_grids  # empty list initially
+
+    # 
+    fgout = fgout_tools.FGoutGrid()
+    fgout.fgno = 1
+    fgout.output_format = 'ascii'
+    fgout.nx = 200
+    fgout.ny = 250
+    fgout.x1 = rundata.clawdata.lower[0]
+    fgout.x2 = rundata.clawdata.upper[0]
+    fgout.y1 = rundata.clawdata.lower[1]
+    fgout.y2 = rundata.clawdata.upper[1]
+    fgout.tstart = 0.
+    fgout.tend = 12.*3600.0
+    fgout.nout = 73
+    fgout_grids.append(fgout)
 
     #------------------------------------------------------------------
     # GeoClaw specific parameters:
