@@ -391,7 +391,7 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.02
+    refine_data.wave_tolerance = 0.01
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     #refine_data.deep_depth = 3.0e3
     #refine_data.max_level_deep = 2
@@ -446,7 +446,7 @@ def setgeo(rundata):
     fg.y1 = rundata.clawdata.lower[1]
     fg.y2 = rundata.clawdata.upper[1]
     fg.min_level_check = 1 # which levels to monitor max on
-    fg.arrival_tol = 2.0e-1
+    fg.arrival_tol = 1.0e-2
     fg.tstart_max = 0.0    # just before wave arrives
     fg.tend_max = 1.e10    # when to stop monitoring max values
     fg.dt_check = 60.0     # how often to update max values
@@ -461,8 +461,8 @@ def setgeo(rundata):
     fg.x2 = 150.0
     fg.y1 = 20.0
     fg.y2 = 50.0
-    fg.min_level_check = 1 # which levels to monitor max on
-    fg.arrival_tol = 2.0e-1
+    fg.min_level_check = 2 # which levels to monitor max on
+    fg.arrival_tol = 1.0e-2
     fg.tstart_max = 0.0    # just before wave arrives
     fg.tend_max = 1.e10    # when to stop monitoring max values
     fg.dt_check = 60.0     # how often to update max values

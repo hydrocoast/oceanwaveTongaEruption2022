@@ -391,7 +391,7 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.02
+    refine_data.wave_tolerance = 0.01
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     #refine_data.deep_depth = 3.0e3
     #refine_data.max_level_deep = 2
@@ -495,7 +495,7 @@ def setgeo(rundata):
     data.display_landfall_time = True
 
     # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/')
+    data.storm_file = os.path.join(os.getcwd(),'../forcing/test_lamb/')
 
     # =======================
     #  Set Variable Friction
