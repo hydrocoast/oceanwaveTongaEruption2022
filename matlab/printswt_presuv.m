@@ -2,7 +2,7 @@ clear
 close all
 
 %% filename
-matfile = 'pres.mat';
+matfile = 'pres_lg.mat';
 load(matfile)
 
 fc = '1d.con';

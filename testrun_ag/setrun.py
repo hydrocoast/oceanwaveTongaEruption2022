@@ -22,6 +22,8 @@ import clawpack.clawutil as clawutil
 from clawpack.geoclaw import topotools
 from clawpack.geoclaw import fgmax_tools
 from clawpack.geoclaw.data import ForceDry
+if int(clawpack.__version__.split('.')[1]) >= 9: # v5.9.0 or later
+    from clawpack.geoclaw import fgout_tools
 
 
 # Time Conversions
@@ -345,6 +347,66 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
     gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
 
+
+    # Fixed grid output
+    if int(clawpack.__version__.split('.')[1]) >= 9: # v5.9.0 or later
+        fgout_grids = rundata.fgout_data.fgout_grids  # empty list initially
+        ## fgout 1
+        fgout = fgout_tools.FGoutGrid()
+        fgout.fgno = 1
+        fgout.output_format = 'ascii'
+        fgout.nx = clawdata.num_cells[0]
+        fgout.ny = clawdata.num_cells[1]
+        fgout.x1 = clawdata.lower[0]
+        fgout.x2 = clawdata.upper[0]
+        fgout.y1 = clawdata.lower[1]
+        fgout.y2 = clawdata.upper[1]
+        fgout.tstart = 0.
+        fgout.tend = 12.*3600.0
+        fgout.nout = 73
+        fgout_grids.append(fgout)
+
+    # ============================
+    # == fgmax.data values =======
+    # ============================
+    fgmax_files = rundata.fgmax_data.fgmax_files
+    # Points on a uniform 2d grid:
+
+    # Domain 1
+    fg = fgmax_tools.FGmaxGrid()
+    fg.point_style = 2  # uniform rectangular x-y grid
+    fg.dx = 1.0/3.0        # desired resolution of fgmax grid
+    fg.x1 = clawdata.lower[0]
+    fg.x2 = clawdata.upper[0]
+    fg.y1 = clawdata.lower[1]
+    fg.y2 = clawdata.upper[1]
+    fg.min_level_check = 1 # which levels to monitor max on
+    fg.arrival_tol = 1.0e-2
+    fg.tstart_max = 0.0    # just before wave arrives
+    fg.tend_max = 1.e10    # when to stop monitoring max values
+    fg.dt_check = 60.0     # how often to update max values
+    fg.interp_method = 0   # 0 ==> pw const in cells, recommended
+    rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
+
+    # around Japan
+    fg = fgmax_tools.FGmaxGrid()
+    fg.point_style = 2  # uniform rectangular x-y grid
+    fg.dx = 1.0/60.0    # desired resolution of fgmax grid
+    fg.x1 = 120.0
+    fg.x2 = 150.0
+    fg.y1 = 20.0
+    fg.y2 = 50.0
+    fg.min_level_check = 2 # which levels to monitor max on
+    fg.arrival_tol = 1.0e-2
+    fg.tstart_max = 0.0    # just before wave arrives
+    fg.tend_max = 1.e10    # when to stop monitoring max values
+    fg.dt_check = 60.0     # how often to update max values
+    fg.interp_method = 0   # 0 ==> pw const in cells, recommended
+    rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
+
+    # num_fgmax_val
+    rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
+
     #------------------------------------------------------------------
     # GeoClaw specific parameters:
     #------------------------------------------------------------------
@@ -393,9 +455,10 @@ def setgeo(rundata):
     refine_data = rundata.refinement_data
     refine_data.wave_tolerance = 0.01
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
-    #refine_data.deep_depth = 3.0e3
-    #refine_data.max_level_deep = 2
     refine_data.variable_dt_refinement_ratios = True
+    if int(clawpack.__version__.split('.')[1]) < 8: # up to v5.7.1
+        refine_data.deep_depth = 3.0e3
+        refine_data.max_level_deep = 2
 
     # == settopo.data values ==
     topo_data = rundata.topo_data
@@ -428,49 +491,11 @@ def setgeo(rundata):
     #rundata.qinit_data.force_dry_list.append(force_dry)
 
     # == setfixedgrids.data values ==
-    rundata.fixed_grid_data.fixedgrids = []
+    #rundata.fixed_grid_data.fixedgrids = []
     # for fixed grids append lines of the form
     # [t1,t2,noutput,x1,x2,y1,y2,xpoints,ypoints,\
     #  ioutarrivaltimes,ioutsurfacemax]
 
-    # == fgmax.data values ==
-    fgmax_files = rundata.fgmax_data.fgmax_files
-    # Points on a uniform 2d grid:
-
-    # Domain 1
-    fg = fgmax_tools.FGmaxGrid()
-    fg.point_style = 2  # uniform rectangular x-y grid
-    fg.dx = 1.0/3.0        # desired resolution of fgmax grid
-    fg.x1 = rundata.clawdata.lower[0]
-    fg.x2 = rundata.clawdata.upper[0]
-    fg.y1 = rundata.clawdata.lower[1]
-    fg.y2 = rundata.clawdata.upper[1]
-    fg.min_level_check = 1 # which levels to monitor max on
-    fg.arrival_tol = 1.0e-2
-    fg.tstart_max = 0.0    # just before wave arrives
-    fg.tend_max = 1.e10    # when to stop monitoring max values
-    fg.dt_check = 60.0     # how often to update max values
-    fg.interp_method = 0   # 0 ==> pw const in cells, recommended
-    rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
-
-    # around Japan
-    fg = fgmax_tools.FGmaxGrid()
-    fg.point_style = 2  # uniform rectangular x-y grid
-    fg.dx = 1.0/60.0    # desired resolution of fgmax grid
-    fg.x1 = 120.0
-    fg.x2 = 150.0
-    fg.y1 = 20.0
-    fg.y2 = 50.0
-    fg.min_level_check = 2 # which levels to monitor max on
-    fg.arrival_tol = 1.0e-2
-    fg.tstart_max = 0.0    # just before wave arrives
-    fg.tend_max = 1.e10    # when to stop monitoring max values
-    fg.dt_check = 60.0     # how often to update max values
-    fg.interp_method = 0   # 0 ==> pw const in cells, recommended
-    rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
-
-    # num_fgmax_val
-    rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
 
     # ================
     #  Set Surge Data
