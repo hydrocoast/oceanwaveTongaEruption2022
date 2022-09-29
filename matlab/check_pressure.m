@@ -2,7 +2,6 @@ clear
 close all
 
 %% filename
-% matfile = 'pres_10h_dt10min_speed300.mat';
 matfile = 'pres.mat';
 load(matfile)
 
@@ -27,8 +26,8 @@ for k = 1:nt
 %     cb.Ticks = 0.0:0.5:4.0;
 %     caxis([0,4]);
     colormap(cmap);
-    cb.Ticks = -1.0:0.5:1.0;
-    caxis([-1,1]);
+    cb.Ticks = -2.0:0.5:2.0;
+    caxis([-2,2]);
 
     cb.TickLabels = num2str(cb.Ticks','%0.1f');
     cb.Position(1) = 0.90;
