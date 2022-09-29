@@ -99,7 +99,9 @@ print("end\n")
 if !isempty(gauges)
     print("plotting gauges ...     ")
     for g in gauges
-        local plt = plotsgaugewaveform(g; title=g.label)
+        tg = g.time[1]:Hour(1):g.time[end]
+	local plt = plotsgaugewaveform(g; title=g.label, label=false, 
+				       xticks=(tg,Dates.format.(tg,"HH:MM")), xrot=45)
         savefig(plt, joinpath(plotdir,"gauge_"*@sprintf("%04d",g.id)*".svg"))
     end
     print("end\n")
