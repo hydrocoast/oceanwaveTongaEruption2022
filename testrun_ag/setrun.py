@@ -279,7 +279,7 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 2
+    amrdata.amr_levels_max = 4
 
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [4,5,4]
@@ -334,18 +334,25 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
-    regions.append([1, 3, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
-    regions.append([1, 4, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+    regions.append([1, 2, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
+    regions.append([1, 2, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+    # region around gauges
+    dat = np.genfromtxt(os.path.join(gaugedir,'gauges_IOC.txt'), delimiter=',',  skip_header=0, dtype='float', comments='#')
+    for i in range(0,dat.shape[0]):
+        regions.append([amrdata.amr_levels_max-1, amrdata.amr_levels_max-1, clawdata.t0, clawdata.tfinal, \
+                        dat[i][2]-1.0/10.0, dat[i][2]+1.0/10.0, dat[i][3]-1.0/10.0, dat[i][3]+1.0/10.0])
+        regions.append([amrdata.amr_levels_max, amrdata.amr_levels_max, clawdata.t0, clawdata.tfinal, \
+                        dat[i][2]-1.0/60.0, dat[i][2]+1.0/60.0, dat[i][3]-1.0/60.0, dat[i][3]+1.0/60.0])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
-    #dat = np.genfromtxt(os.path.join(gaugedir,'gauge_list_japan.csv'), delimiter=',',  skip_header=0, dtype='float')
-    #[gauges.append(dat[i]) for i in range(0,dat.shape[0])]
-    gauges.append([1, 129.5333, 28.3167, 0., 1.e10]) # Amami
-    gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
-    gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
-    gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
+    dat = np.genfromtxt(os.path.join(gaugedir,'gauges_IOC.txt'), delimiter=',',  skip_header=0, dtype='float', comments='#')
+    [gauges.append(dat[i]) for i in range(0,dat.shape[0])]
+    #gauges.append([1, 129.5333, 28.3167, 0., 1.e10]) # Amami
+    #gauges.append([2, 124.1667, 24.3333, 0., 1.e10]) # Ishigaki
+    #gauges.append([3, 135.7667, 33.4833, 0., 1.e10]) # Kushimoto
+    #gauges.append([4, 144.2833, 44.0167, 0., 1.e10]) # Abashiri
 
 
     # Fixed grid output
