@@ -1,8 +1,11 @@
 clear
 close all
 
+%% 作成した気圧データをGeoClawで計算するためのテキストファイルに出力
+% -- 風速は常にどこでも0
+
 %% filename
-matfile = 'pres_lg.mat';
+matfile = 'pres.mat';
 load(matfile)
 
 fc = '1d.con';

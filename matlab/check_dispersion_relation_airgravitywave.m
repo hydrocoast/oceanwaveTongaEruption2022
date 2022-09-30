@@ -1,6 +1,8 @@
 clear
 close all
 
+%% 大気重力波の分散関係の確認用
+
 %% parameters
 g = 9.8; % m/s^2
 cs = 310.0; % m/s

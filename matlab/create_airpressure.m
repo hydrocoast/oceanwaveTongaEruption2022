@@ -1,6 +1,10 @@
 clear
 close all
 
+%% 気圧データの作成
+% --- Lamb波＋大気重力波
+
+
 %% gravity wave switch
 active_g = 1; % 1: on, otherwise: off
 

@@ -1,6 +1,8 @@
 clear
 close all
 
+%% 生成した気圧データの可視化・確認
+
 %% filename
 matfile = 'pres.mat';
 load(matfile)

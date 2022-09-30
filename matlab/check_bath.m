@@ -1,6 +1,11 @@
 clear
 close all
 
+%% 水深データの確認空間分布の表示
+% --- GEBCO2022, 2021
+% --- sqrt(g*h) から長波の波速分布も表示
+
+
 %% read
 topofile = '../bathtopo/gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc';
 [lon,lat,topo] = Topo.grdread2(topofile);
