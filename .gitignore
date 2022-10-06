@@ -12,6 +12,7 @@
 *.jld2
 *.mat
 *.nc
+*.nc4
 *.grd
 *.pdf
 *.svg
