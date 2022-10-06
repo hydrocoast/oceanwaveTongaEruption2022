@@ -38,6 +38,4 @@ _plots/
 xgeoclaw
 .output
 .plots
-!testforcing.gif
-!testsurf.gif
-!topo_gebco2021.png
+!fig/**
