@@ -10,8 +10,8 @@ from GEBCO2021
 
 ## Forcing test
 <p align="center">
-<img src="/fig/testforcing.gif", width="example_dispersion_relation.png">
-<img src="/fig/testforcing.gif", width="example_phasespeed.png">
+<img src="/fig/example_dispersion_relation.png", width="400">
+<img src="/fig/example_phasespeed.png", width="400">
 </p>
 <p align="center">
 <img src="/fig/testforcing.gif", width="750">
