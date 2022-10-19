@@ -8,7 +8,7 @@ close all
 
 %% read
 topofile = '../bathtopo/gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc';
-[lon,lat,topo] = Topo.grdread2(topofile);
+[lon,lat,topo] = grdread2(topofile);
 
 %% bath
 figure
