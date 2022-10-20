@@ -40,7 +40,7 @@ ifeq ($(DEBUG),1)
 	DFLAGS = -g -fbacktrace -fbounds-check -ffpe-trap=invalid,overflow,zero
     else ifeq ($(FC),ifort)
 	#DEBUG = -g -C -fpe0 -traceback -ftrapuv -warn all
-	DFLAGS = -g -C -fpe0 -traceback -nogen-interface
+	DFLAGS = -g -CB -fpe0 -traceback -nogen-interface
     endif
 else ifeq ($(PROFILE),1)
     LDFLAGS = -pg
