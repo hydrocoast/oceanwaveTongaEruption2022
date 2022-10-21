@@ -29,6 +29,7 @@
 *.asv
 *.cpt
 *.zip
+*.gz
 fort.*
 tmp*
 gmt.*
