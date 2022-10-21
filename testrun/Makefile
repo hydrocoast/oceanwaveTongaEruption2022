@@ -24,10 +24,10 @@ PLOTDIR = _plots               # Directory for plots
 # set `nf-config` in your PATH
 NF_CONFIG := nf-config
 NCFLAGS := $(shell $(NF_CONFIG) --cflags) -DNETCDF
-NC_LINK_CMD := $(shell $(NF_CONFIG) --flibs
+NC_LINK_CMD := $(shell $(NF_CONFIG) --flibs)
 #NC_CONFIG := nc-config
 #NCFLAGS := $(shell $(NF_CONFIG) --cflags) $(shell $(NC_CONFIG) --cflags) -DNETCDF
-#NC_LINK_CMD := $(shell $(NF_CONFIG) --flibs $(shell $(NC_CONFIG) --libs))
+#NC_LINK_CMD := $(shell $(NF_CONFIG) --flibs) $(shell $(NC_CONFIG) --libs)
 
 
 # Compiler flags

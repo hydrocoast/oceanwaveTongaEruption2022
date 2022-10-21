@@ -334,8 +334,8 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
-    regions.append([1, 3, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
-    regions.append([1, 4, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+    regions.append([1, 2, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
+    regions.append([1, 2, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
@@ -346,6 +346,8 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([2, 124.170, 24.320, 0., 1.e10]) # Ishigaki
     gauges.append([3, 135.761, 33.470, 0., 1.e10]) # Kushimoto
     gauges.append([4, 144.295, 44.018, 0., 1.e10]) # Abashiri
+
+    regions.append([1, 2, clawdata.t0, clawdata.tfinal, gauges[1][2]-0.5, gauges[1][2]+0.5, gauges[1][3]-0.5, gauges[1][3]+0.5])
 
 
     # Fixed grid output
