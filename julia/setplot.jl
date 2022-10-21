@@ -79,7 +79,6 @@ print("end\n")
 print("plotting eta ...     ")
 plts = plotsamr(amrall; clims=(-0.05,0.05), c=:bwr, colorbar=true)
 plts = map((p,s)->plot!(p; title=s), plts, tstr)
-#plts = map((p,k)->plotstrack!(p, track, 1:k; lc=:black), plts, 1:amrall.nstep)
 map((p,k)->savefig(p, joinpath(plotdir,"surf_"*@sprintf("%03d",k)*".png")), plts, 1:amrall.nstep)
 print("end\n")
 
@@ -124,22 +123,24 @@ print("end\n")
 ## plot fgmax
 if !isempty(fg)
     print("plotting fgmax ...     ")
+    #converttodatetime!.(fgmax, t0_datetime)
+    replaceunit!.(fgmax, :hour)
     nfg = length(fg)
     for k = 1:nfg
         ## dep
         local plt = plotsfgmax(fg[k], fgmax[k], :D; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
-        savefig(plt, joinpath(plotdir,"fgmax_"*@sprintf("%03d",k)*".svg"))
+        savefig(plt, joinpath(plotdir, @sprintf("fgmax_%03d.svg",k)))
         local plt = plotsfgmax(fg[k], fgmax[k], :tD; c=cgrad(:phase, 12, categorical = true))
-        savefig(plt, joinpath(plotdir,"fgmax_maxtime_"*@sprintf("%03d",k)*".svg"))
+        savefig(plt, joinpath(plotdir, @sprintf("fgmax_maxtime_%03d.svg",k)))
         ## arrival
         local plt = plotsfgmax(fg[k], fgmax[k], :tarrival; c=cgrad(:phase, 12, categorical = true))
-        savefig(plt, joinpath(plotdir,"fgmax_arrivaltime_"*@sprintf("%03d",k)*".svg"))
+        savefig(plt, joinpath(plotdir, @sprintf("fgmax_arrivaltime_%03d.svg",k)))
         ## maxvel
         if fg[k].nval > 1
             local plt = plotsfgmax(fg[k], fgmax[k], :v; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
-            savefig(plt, joinpath(plotdir,"fgmax_vel_"*@sprintf("%03d",k)*".svg"))
+            savefig(plt, joinpath(plotdir, @sprintf("fgmax_vel_%03d.svg",k)))
             local plt = plotsfgmax(fg[k], fgmax[k], :tv; c=cgrad(:phase, 12, categorical = true))
-            savefig(plt, joinpath(plotdir,"fgmax_velmaxtime_"*@sprintf("%03d",k)*".svg"))
+            savefig(plt, joinpath(plotdir, @sprintf("fgmax_velmaxtime_%03d.svg",k)))
         end
     end
     print("end\n")

@@ -279,7 +279,7 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 2
+    amrdata.amr_levels_max = 3
 
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [4,5,4]
@@ -342,12 +342,16 @@ def setrun(claw_pkg='geoclaw'):
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
     #dat = np.genfromtxt(os.path.join(gaugedir,'gauge_list_japan.csv'), delimiter=',',  skip_header=0, dtype='float')
     #[gauges.append(dat[i]) for i in range(0,dat.shape[0])]
-    gauges.append([1, 129.540, 28.327, 0., 1.e10]) # Amami
-    gauges.append([2, 124.170, 24.320, 0., 1.e10]) # Ishigaki
-    gauges.append([3, 135.761, 33.470, 0., 1.e10]) # Kushimoto
-    gauges.append([4, 144.295, 44.018, 0., 1.e10]) # Abashiri
+    gauges.append([1, 129.555, 28.325, 0., 1.e10]) # Amami
+    gauges.append([2, 124.171, 24.315, 0., 1.e10]) # Ishigaki
+    gauges.append([3, 135.758, 33.470, 0., 1.e10]) # Kushimoto
+    gauges.append([4, 144.297, 44.020, 0., 1.e10]) # Abashiri
 
-    regions.append([1, 2, clawdata.t0, clawdata.tfinal, gauges[1][2]-0.5, gauges[1][2]+0.5, gauges[1][3]-0.5, gauges[1][3]+0.5])
+    # regions 
+    for i in np.arange(0, len(gauges)):
+        regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.25, gauges[i][1]+0.25, gauges[i][2]-0.25, gauges[i][2]+0.25])
+    for i in np.arange(0, len(gauges)):
+        regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
 
 
     # Fixed grid output
@@ -455,12 +459,12 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.01
+    refine_data.wave_tolerance = 0.02
     refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     refine_data.variable_dt_refinement_ratios = True
     if int(clawpack.__version__.split('.')[1]) < 8: # up to v5.7.1
-        refine_data.deep_depth = 3.0e3
-        refine_data.max_level_deep = 2
+        refine_data.deep_depth = 2.0e3
+        refine_data.max_level_deep = 1
 
     # == settopo.data values ==
     topo_data = rundata.topo_data
@@ -511,8 +515,8 @@ def setgeo(rundata):
     data.pressure_forcing = True
 
     # AMR parameters
-    data.wind_refine = [10.0, 20.0, 30.0, 40.0] # m/s
-    data.R_refine = [200.0e3, 100.0e3, 50.0e3, 25.0e3]  # m
+    #data.wind_refine = [10.0, 20.0, 30.0, 40.0] # m/s
+    #data.R_refine = [200.0e3, 100.0e3, 50.0e3, 25.0e3]  # m
     
     # Storm parameters
     #data.storm_type = 1 # Type of storm
