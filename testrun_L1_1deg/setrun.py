@@ -90,8 +90,8 @@ def setrun(claw_pkg='geoclaw'):
     clawdata.upper[1] = 55.0   # north latitude
 
     # Number of grid cells
-    clawdata.num_cells[0] = 425  # nx
-    clawdata.num_cells[1] = 550  # ny
+    clawdata.num_cells[0] = 85  # nx
+    clawdata.num_cells[1] = 110  # ny
 
     # ---------------
     # Size of system:
@@ -279,12 +279,12 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 4
+    amrdata.amr_levels_max = 5
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [3,4,4]
-    amrdata.refinement_ratios_y = [3,4,4]
-    amrdata.refinement_ratios_t = [3,4,4]
+    amrdata.refinement_ratios_x = [5,3,4,4]
+    amrdata.refinement_ratios_y = [5,3,4,4]
+    amrdata.refinement_ratios_t = [5,3,4,4]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -334,8 +334,8 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
-    regions.append([1, 1, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
-    regions.append([1, 2, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+    regions.append([1, 2, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
+    regions.append([1, 3, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
@@ -349,9 +349,9 @@ def setrun(claw_pkg='geoclaw'):
 
     # regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
     for i in np.arange(0, len(gauges)):
-        regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.25, gauges[i][1]+0.25, gauges[i][2]-0.25, gauges[i][2]+0.25])
+        regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.25, gauges[i][1]+0.25, gauges[i][2]-0.25, gauges[i][2]+0.25])
     for i in np.arange(0, len(gauges)):
-        regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
+        regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
 
 
     # Fixed grid output
@@ -381,7 +381,7 @@ def setrun(claw_pkg='geoclaw'):
     # Domain 1
     fg = fgmax_tools.FGmaxGrid()
     fg.point_style = 2  # uniform rectangular x-y grid
-    fg.dx = 1.0/3.0        # desired resolution of fgmax grid
+    fg.dx = 1.0/5.0        # desired resolution of fgmax grid
     fg.x1 = clawdata.lower[0]
     fg.x2 = clawdata.upper[0]
     fg.y1 = clawdata.lower[1]
@@ -476,7 +476,7 @@ def setgeo(rundata):
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
         topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
     else: # v5.7.1
-        topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
+        topo_data.topofiles.append([4, 1, 5, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
