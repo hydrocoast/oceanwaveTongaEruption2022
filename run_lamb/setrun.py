@@ -90,8 +90,8 @@ def setrun(claw_pkg='geoclaw'):
     clawdata.upper[1] = 55.0   # north latitude
 
     # Number of grid cells
-    clawdata.num_cells[0] = 255  # nx
-    clawdata.num_cells[1] = 330  # ny
+    clawdata.num_cells[0] = 425  # nx
+    clawdata.num_cells[1] = 550  # ny
 
     # ---------------
     # Size of system:
@@ -282,9 +282,9 @@ def setrun(claw_pkg='geoclaw'):
     amrdata.amr_levels_max = 4
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [4,5,4]
-    amrdata.refinement_ratios_y = [4,5,4]
-    amrdata.refinement_ratios_t = [4,5,4]
+    amrdata.refinement_ratios_x = [3,4,4]
+    amrdata.refinement_ratios_y = [3,4,4]
+    amrdata.refinement_ratios_t = [3,4,4]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -334,7 +334,7 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
-    regions.append([1, 2, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0])
+    regions.append([1, 1, clawdata.t0, clawdata.tfinal, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
     regions.append([1, 2, clawdata.t0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
     # gauges 
@@ -347,7 +347,7 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([3, 135.758, 33.470, 0., 1.e10]) # Kushimoto
     gauges.append([4, 144.297, 44.020, 0., 1.e10]) # Abashiri
 
-    # regions 
+    # regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
     for i in np.arange(0, len(gauges)):
         regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.25, gauges[i][1]+0.25, gauges[i][2]-0.25, gauges[i][2]+0.25])
     for i in np.arange(0, len(gauges)):
