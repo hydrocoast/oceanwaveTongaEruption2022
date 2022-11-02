@@ -279,12 +279,12 @@ def setrun(claw_pkg='geoclaw'):
     amrdata = rundata.amrdata
 
     # max number of refinement levels:
-    amrdata.amr_levels_max = 4
+    amrdata.amr_levels_max = 5
 
     # List of refinement ratios at each level (length at least mxnest-1)
-    amrdata.refinement_ratios_x = [3,4,4]
-    amrdata.refinement_ratios_y = [3,4,4]
-    amrdata.refinement_ratios_t = [3,4,4]
+    amrdata.refinement_ratios_x = [3,4,4,3]
+    amrdata.refinement_ratios_y = [3,4,4,3]
+    amrdata.refinement_ratios_t = [3,4,4,3]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -342,16 +342,25 @@ def setrun(claw_pkg='geoclaw'):
     # for gauges append lines of the form  [gaugeno, x, y, t1, t2]
     #dat = np.genfromtxt(os.path.join(gaugedir,'gauge_list_japan.csv'), delimiter=',',  skip_header=0, dtype='float')
     #[gauges.append(dat[i]) for i in range(0,dat.shape[0])]
-    gauges.append([1, 129.555, 28.325, 0., 1.e10]) # Amami
-    gauges.append([2, 124.171, 24.315, 0., 1.e10]) # Ishigaki
-    gauges.append([3, 135.758, 33.470, 0., 1.e10]) # Kushimoto
-    gauges.append([4, 144.297, 44.020, 0., 1.e10]) # Abashiri
+    #gauges.append([1, 129.555, 28.325, 0., 1.e10]) # Amami
+    #gauges.append([2, 124.171, 24.315, 0., 1.e10]) # Ishigaki
+    #gauges.append([3, 135.758, 33.470, 0., 1.e10]) # Kushimoto
+    #gauges.append([4, 144.297, 44.020, 0., 1.e10]) # Abashiri
 
-    # regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
-    for i in np.arange(0, len(gauges)):
-        regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.25, gauges[i][1]+0.25, gauges[i][2]-0.25, gauges[i][2]+0.25])
-    for i in np.arange(0, len(gauges)):
-        regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
+    # # regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
+    # for i in np.arange(0, len(gauges)):
+    #     regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.25, gauges[i][1]+0.25, gauges[i][2]-0.25, gauges[i][2]+0.25])
+    # for i in np.arange(0, len(gauges)):
+    #     regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
+
+    gauges.append([1, 129.5370, 28.3229, 0., 1.e10]) # Amami
+    gauges.append([2, 129.5490, 28.3243, 0., 1.e10]) # Amami
+    gauges.append([3, 129.5550, 28.3250, 0., 1.e10]) # Amami
+
+    ## 奄美周辺を細かい地形でテスト
+    regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.250, gauges[1][1]+0.250, gauges[1][2]-0.250, gauges[1][2]+0.250])
+    regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.125, gauges[1][1]+0.125, gauges[1][2]-0.125, gauges[1][2]+0.125])
+    regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.100, gauges[1][1]+0.100, gauges[1][2]-0.100, gauges[1][2]+0.100])
 
 
     # Fixed grid output
@@ -475,8 +484,10 @@ def setgeo(rundata):
     # smaller domains
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
         topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
+        topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')])
     else: # v5.7.1
         topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
+        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data

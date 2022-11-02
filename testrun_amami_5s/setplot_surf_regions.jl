@@ -63,6 +63,21 @@ print("end\n")
 print("plotting eta ...     ")
 ind_time = 31:amrall.nstep
 
+## around Japan
+for i = 3:3
+    local plts = plotsamr(amrall, ind_time; clims=(-0.10,0.10), c=:bwr, colorbar=true, region=regions[i])
+    local plts = map((p,s)->plot!(p; title=s), plts, tstr[ind_time])
+    map((p,k)->savefig(p, joinpath(plotdir,@sprintf("region_%d_surf_%03d.png",i,k))), plts, ind_time)
+end
+## around Amami
+for i = [4,6]
+    local plts = plotsamr(amrall, ind_time; clims=(-0.10,0.10), c=:bwr, colorbar=true, region=regions[i])
+    local plts = map((p,s)->plot!(p; title=s), plts, tstr[ind_time])
+    local plts = map(p->plotsgaugelocation!(p, gauges[1]; marker=(:magenta, 0.5, Plots.stroke(2, :black))), plts)
+    map((p,k)->savefig(p, joinpath(plotdir,@sprintf("region_%d_surf_%03d.png",i,k))), plts, ind_time)
+end
+
+#=
 ## around gauges
 for i = 3:7
     local plts = plotsamr(amrall, ind_time; clims=(-0.10,0.10), c=:bwr, colorbar=true, region=regions[i])
@@ -73,4 +88,4 @@ for i = 3:7
     map((p,k)->savefig(p, joinpath(plotdir,@sprintf("region_%d_surf_%03d.png",i,k))), plts, ind_time)
 end
 print("end\n")
-
+=#
