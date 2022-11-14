@@ -353,9 +353,9 @@ def setrun(claw_pkg='geoclaw'):
     # for i in np.arange(0, len(gauges)):
     #     regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
 
-    gauges.append([1, 129.5370, 28.3229, 0., 1.e10]) # Amami
-    gauges.append([2, 129.5490, 28.3243, 0., 1.e10]) # Amami
-    gauges.append([3, 129.5550, 28.3250, 0., 1.e10]) # Amami
+    gauges.append([1, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
+    gauges.append([2, 135.7700, 33.4729, 0., 1.e10]) # Kushimoto
+    gauges.append([3, 135.7580, 33.4700, 0., 1.e10]) # Kushimoto
 
     ## gauge周辺を細かい地形でテスト
     regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.250, gauges[1][1]+0.250, gauges[1][2]-0.250, gauges[1][2]+0.250])
@@ -484,10 +484,10 @@ def setgeo(rundata):
     # smaller domains
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
         topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
-        topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')])
+        topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-03_zone06_lonlat.asc')])
     else: # v5.7.1
         topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
-        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')])
+        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone06_lonlat.asc')])
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
