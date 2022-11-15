@@ -7,10 +7,11 @@ list_gauge = dir(fullfile(simdir,'gauge*.txt'));
 ngauge = size(list_gauge,1);
 
 %% obs data
-obsdir = '~/Dropbox/miyashita/dataset/Tonga2022/IOC_Filtered_JPRUS_10_100';
-obsfile = 'Ftd_Kushimoto.txt';
-obsdat = readmatrix(fullfile(obsdir,obsfile),"FileType","text");
-
+load('IOC_JPRUS_surf.mat');
+%% extraction from the obs data
+location = "Kushimoto";
+ind = find(table_obs.Name==location);
+obsdat = cell2mat(table2array(table_obs(ind,{'Time','Eta_filtered'})));
 
 g = cell(ngauge,1);
 for i = 1:ngauge
@@ -32,16 +33,10 @@ for i = 1:ngauge
     title("Kushimoto")
 
     hold on
-    plot(obsdat(:,1)./3600,obsdat(:,2),'k-'); xlim([-1,13])
-
-    xline(0.0,'k-');
+    plot(obsdat(:,1)./3600,obsdat(:,2),'k-');
+    xlim([-1,13])
+    xline(0.0,'k--');
     
     
 end
-
-
-
-
-
-
 
