@@ -4,9 +4,8 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 
-
 %% gravity wave switch
-active_g = 1; % 1: on, otherwise: off
+active_g = 0; % 1: on, otherwise: off
 
 %% origin
 lat0 =  -20.544686;
@@ -25,8 +24,13 @@ lat = linspace(latrange(1),latrange(2),nlat);
 degmesh = sqrt((LON-lon0).^2 + (LAT-lat0).^2);
 kmmesh = deg2km(degmesh);
 
+checkpoint = [135.0,32.5];
+[~,indchk_lon] = min(abs(checkpoint(1)-lon));
+[~,indchk_lat] = min(abs(checkpoint(2)-lat));
+
+
 %% parameters
-dt = 600;
+dt = 300;
 t = dt:dt:3600*14;
 nt = length(t);
 %% parameters below are based on Gusman et al.(2022), PAGEOPH
@@ -37,15 +41,19 @@ coef_lamb_peak = 169;
 coef_lamb_trough = -107;
 amp = @(r,a) sign(a)*min(abs(a),abs(a*r^(-0.5))); % km
 
+coef_lamb_add = 30;
+wavelength_add = 5.0*wavelength; % km
+
+
 %% parameters for air gravity waves
 if active_g == 1
     g = 9.8; % m/s^2
-    % N = 1.16e-2; % /s
+%     N = 1.16e-2; % /s
     N = 1.7e-2; % /s
     mu = 0.5*(N^2/g + g/cs^2); % /m
     sigma0 = mu*cs;
-    wavelength_g = wavelength*[1.0; 0.75; 0.5; 0.25; 0.20]; % km
-    coef_g = [-100; -100; -100; -100; -100];
+    wavelength_g = wavelength*[1.0; 0.5; 0.3; 0.20]; % km
+    coef_g = [-20; -20; -20; -20];
     nwave_g = length(wavelength_g);
     k_g = 2*pi./(wavelength_g.*1e3);
 
@@ -70,6 +78,9 @@ for k = 1:nt
     dist_trough = max(1,dist_peak-wavelength); % km
     amp_trough = amp(dist_trough,coef_lamb_trough);
 
+    dist_peak_add = max(1,dist_peak-0.7*wavelength_add); % km
+    amp_peak_add = amp(dist_peak_add,coef_lamb_add);
+
     for i = 1:nlat
     for j = 1:nlon
         %% Lamb wave peak side
@@ -85,11 +96,17 @@ for k = 1:nt
             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_trough, wavelength, dist_from_antinode);
         end
 
+        %% Additional peak
+        dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
+        if dist_from_antinode <= 0.5*wavelength_add
+            pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode);
+        end
+        
         %% Composite pressure data
         pres(i,j,k) = pres(i,j,k) + pres_lamb;
     end
     end
-    clf(fig); pcolor(lon,lat,pres(:,:,k)); shading flat; caxis([-1,1]); colorbar; drawnow; 
+%     clf(fig); pcolor(lon,lat,pres(:,:,k)); shading flat; caxis([-1,1]); colorbar; drawnow; 
 end
 fprintf('\n');
 
@@ -124,22 +141,30 @@ if active_g == 1
                 pres(i,j,k) = pres(i,j,k) + pres_grav;
             end
         end
-        clf(fig); pcolor(lon,lat,pres(:,:,k)); shading flat; caxis([-1,1]); colorbar; drawnow;
+%         clf(fig); pcolor(lon,lat,pres(:,:,k)); shading flat; caxis([-1,1]); colorbar; drawnow;
     end
     fprintf('\n');
 
 end
 
-%% save
-save('pres.mat','-v7.3',...
-     'lon0','lat0','lonrange','latrange','lon','lat',...
-     'nlon','nlat','dl','pres',...
-     'cs','wavelength','dt','t','nt','active_g')
+%% check time-series of the air pressure
+figure
+plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
+xlim([6.0,9.0]);
+grid on
+
+
+% %% save
+% save('pres.mat','-v7.3',...
+%      'lon0','lat0','lonrange','latrange','lon','lat',...
+%      'nlon','nlat','dl','pres',...
+%      'cs','wavelength','dt','t','nt','active_g')
 
 
 %% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
-    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+%     pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+    pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 
 
@@ -153,7 +178,8 @@ end
 
 %% formula - air gravity wave
 function pres = pressure_anomaly_airgravitywave(amp_antinode, wavelength, distance_from_antinode)
-    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+%    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+    pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 
 
