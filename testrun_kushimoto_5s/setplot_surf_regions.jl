@@ -24,7 +24,7 @@ print("end\n")
 
 
 ## set t0 time
-t0_datetime = DateTime(2022,01,15,13,0,0)
+#t0_datetime = DateTime(2022,01,15,13,0,0)
 
 ## load surface
 print("loading eta ...     ")
@@ -34,9 +34,10 @@ else
     amrall = loadsurface(outdir)
 end
 coarsegridmask!(amrall)
-#replaceunit!(amrall, :hour)
-converttodatetime!(amrall, t0_datetime)
-tstr = Dates.format.(amrall.timelap, "yyyy/mm/dd HH:MM")
+tstr = map(t -> @sprintf("%02d h %02d min", floor(t/3600), floor(t/60)-60*floor(t/3600)), amrall.timelap)
+replaceunit!(amrall, :hour)
+#converttodatetime!(amrall, t0_datetime)
+#tstr = Dates.format.(amrall.timelap, "yyyy/mm/dd HH:MM")
 print("end\n")
 
 
@@ -49,6 +50,7 @@ else
 end
 print("end\n")
 
+
 ## load gauges
 print("loading gauges ...     ")
 if isfile(joinpath(jld2dir, "gauges.jld2"))
@@ -56,8 +58,10 @@ if isfile(joinpath(jld2dir, "gauges.jld2"))
 else
     gauges = loadgauge(outdir)
 end
-converttodatetime!.(gauges, t0_datetime)
+#converttodatetime!.(gauges, t0_datetime)
+replaceunit!.(gauges, :hour)
 print("end\n")
+
 
 ## plot eta
 print("plotting eta ...     ")
@@ -69,7 +73,7 @@ for i = 3:3
     local plts = map((p,s)->plot!(p; title=s), plts, tstr[ind_time])
     map((p,k)->savefig(p, joinpath(plotdir,@sprintf("region_%d_surf_%03d.png",i,k))), plts, ind_time)
 end
-## around Amami
+## around specific regions
 for i = [4,6]
     local plts = plotsamr(amrall, ind_time; clims=(-0.10,0.10), c=:bwr, colorbar=true, region=regions[i])
     local plts = map((p,s)->plot!(p; title=s), plts, tstr[ind_time])
@@ -77,15 +81,3 @@ for i = [4,6]
     map((p,k)->savefig(p, joinpath(plotdir,@sprintf("region_%d_surf_%03d.png",i,k))), plts, ind_time)
 end
 
-#=
-## around gauges
-for i = 3:7
-    local plts = plotsamr(amrall, ind_time; clims=(-0.10,0.10), c=:bwr, colorbar=true, region=regions[i])
-    local plts = map((p,s)->plot!(p; title=s), plts, tstr)
-    if i > 3
-        local plts = map(p->plotsgaugelocation!(p, gauges[i-3]; marker=(:magenta, 0.5, Plots.stroke(2, :black))), plts)
-    end
-    map((p,k)->savefig(p, joinpath(plotdir,@sprintf("region_%d_surf_%03d.png",i,k))), plts, ind_time)
-end
-print("end\n")
-=#

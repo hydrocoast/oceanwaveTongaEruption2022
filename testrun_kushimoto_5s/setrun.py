@@ -537,7 +537,7 @@ def setgeo(rundata):
     data.display_landfall_time = True
 
     # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/test_lamb/')
+    data.storm_file = os.path.join(os.getcwd(),'../forcing/test_lamb_g/')
 
     # =======================
     #  Set Variable Friction

@@ -59,6 +59,8 @@ if active_g == 1
     N = 1.7e-2; % /s
     mu = 0.5*(N^2/g + g/cs^2); % /m
     sigma0 = mu*cs;
+%     wavelength_g = wavelength*[2.0; 1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20; 0.18; 0.17; 0.16; 0.15; 0.14]; % km
+%     coef_g = [20; -20; -10; -10; -10; -10; -40; -40; -40; -20; 20; -20; 20; -20; 20];
     wavelength_g = wavelength*[2.0; 1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20; 0.18; 0.17; 0.16; 0.15; 0.14]; % km
     coef_g = [20; -20; -10; -10; -10; -10; -40; -40; -40; -20; 20; -20; 20; -20; 20];
     nwave_g = length(wavelength_g);
@@ -104,11 +106,11 @@ for k = 1:nt
             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_trough, wavelength, dist_from_antinode);
         end
 
-        %% Additional peak
-        dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
-        if dist_from_antinode <= 0.5*wavelength_add
-            pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode);
-        end
+%         %% Additional peak
+%         dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
+%         if dist_from_antinode <= 0.5*wavelength_add
+%             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode);
+%         end
         
         %% Composite pressure data
         pres(i,j,k) = pres(i,j,k) + pres_lamb;
