@@ -9,8 +9,8 @@ lon_obs = [table_obs_pres.Lon];
 np_obs = size(table_obs_pres,1);
 
 %% parametric pressure file
-load('pres_l.mat');
-% load('pres_lg.mat');
+% load('pres_l.mat');
+load('pres_lg.mat');
 
 
 %% 
@@ -28,30 +28,33 @@ figure
 tile = tiledlayout(2,1);
 
 i = 6;
-ax = nexttile;
+ax(1) = nexttile;
 p1 = plot(t./3600, squeeze(pres(indobs_lat(i), indobs_lon(i),:))); hold on
 p2 = plot(cell2mat(table_obs_pres{i,"Time"})./3600,cell2mat(table_obs_pres{i,"Pressure_anomaly"}));
-xlim(ax,[-0.5,13.0]);
+xlim(ax(1),[-0.5,13.0]);
 grid on
-set(ax,'FontName','Helvetica','FontSize',12)
-xlabel(ax,'Time (hour)','FontName','Helvetica','FontSize',14);
-ylabel(ax,'Pressure anomaly (hPa)','FontName','Helvetica','FontSize',14);
-text(ax, 0.1*(ax.XLim(end)-ax.XLim(1))+ax.XLim(1), 0.9*(ax.YLim(end)-ax.YLim(1))+ax.YLim(1), table_obs_pres{i,"Station"},'FontName','Helvetica','FontSize',14);
-legend([p1,p2],{'cal.','obs.'},'FontName','Helvetica','FontSize',14)
+set(ax(1),'FontName','Helvetica','FontSize',12)
+% xlabel(ax(1),'Time (hour)','FontName','Helvetica','FontSize',14);
+% ylabel(ax(1),'Pressure anomaly (hPa)','FontName','Helvetica','FontSize',14);
+ax(1).XAxis.TickLabels = [];
+% text(ax(1), 0.1*(ax(1).XLim(end)-ax(1).XLim(1))+ax(1).XLim(1), 0.9*(ax(1).YLim(end)-ax(1).YLim(1))+ax(1).YLim(1), table_obs_pres{i,"Station"},'FontName','Helvetica','FontSize',14);
+text(ax(1),1.0,1.5,table_obs_pres{i,"Station"},'FontName','Helvetica','FontSize',14)
+legend(ax(1),[p1,p2],{'cal.','obs.'},'FontName','Helvetica','FontSize',14)
 
 i = 15;
-ax = nexttile;
+ax(2) = nexttile;
 p1 = plot(t./3600, squeeze(pres(indobs_lat(i), indobs_lon(i),:))); hold on
 p2 = plot(cell2mat(table_obs_pres{i,"Time"})./3600,cell2mat(table_obs_pres{i,"Pressure_anomaly"}));
-xlim(ax,[-0.5,13.0]);
+xlim(ax(2),[-0.5,13.0]);
 grid on
-set(ax,'FontName','Helvetica','FontSize',12)
-xlabel(ax,'Time (hour)','FontName','Helvetica','FontSize',14);
-ylabel(ax,'Pressure anomaly (hPa)','FontName','Helvetica','FontSize',14);
-text(ax, 0.1*(ax.XLim(end)-ax.XLim(1))+ax.XLim(1), 0.9*(ax.YLim(end)-ax.YLim(1))+ax.YLim(1), table_obs_pres{i,"Station"},'FontName','Helvetica','FontSize',14);
+set(ax(2),'FontName','Helvetica','FontSize',12)
+xlabel(ax(2),'Time (hour)','FontName','Helvetica','FontSize',14);
+ylabel(ax(2),'Pressure anomaly (hPa)','FontName','Helvetica','FontSize',14);
+% text(ax(2), 0.1*(ax(2).XLim(end)-ax(2).XLim(1))+ax(2).XLim(1), 0.9*(ax(2).YLim(end)-ax(2).YLim(1))+ax(1).YLim(1), table_obs_pres{i,"Station"},'FontName','Helvetica','FontSize',14);
+text(ax(2),1.0,1.5,table_obs_pres{i,"Station"},'FontName','Helvetica','FontSize',14)
 legend([p1,p2],{'cal.','obs.'},'FontName','Helvetica','FontSize',14)
 
-
+linkaxes(ax,'xy');
 tile.Padding = 'compact';
 tile.TileSpacing = 'tight';
 

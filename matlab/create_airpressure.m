@@ -4,7 +4,7 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 0; % 1: on, otherwise: off
+active_g = 1; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
@@ -59,8 +59,8 @@ if active_g == 1
     N = 1.7e-2; % /s
     mu = 0.5*(N^2/g + g/cs^2); % /m
     sigma0 = mu*cs;
-    wavelength_g = wavelength*[1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20]; % km
-    coef_g = [-20; -20; -20; -20; -20; -20; -20; -20; -20];
+    wavelength_g = wavelength*[2.0; 1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20; 0.18; 0.17; 0.16; 0.15; 0.14]; % km
+    coef_g = [20; -20; -10; -10; -10; -10; -40; -40; -40; -20; 20; -20; 20; -20; 20];
     nwave_g = length(wavelength_g);
     k_g = 2*pi./(wavelength_g.*1e3);
 
