@@ -11,8 +11,30 @@ close all
 % topofile = '../bathtopo/gebco_2022_n34.0_s33.0_w135.0_e136.0.nc';
 % gauge_lonlat = [135.758, 33.470]; % Kushimoto
 % -----
-topofile = '../bathtopo/gebco_2022_n44.5_s43.5_w144.0_e145.0.nc';
-gauge_lonlat = [144.297, 44.020]; % Abashiri
+% topofile = '../bathtopo/gebco_2022_n44.5_s43.5_w144.0_e145.0.nc';
+% gauge_lonlat = [144.297, 44.020]; % Abashiri
+% -----
+% topofile = '../bathtopo/gebco_2022_n43.5_s42.5_w144.0_e146.0.nc';
+% gauge_lonlat = [145.5770, 43.2771]; % Hanasaki
+% -----
+% topofile = '../bathtopo/gebco_2022_n43.5_s42.5_w144.0_e146.0.nc';
+% gauge_lonlat = [144.369, 42.9813]; % Kushiro
+% -----
+% topofile = '../bathtopo/gebco_2022_n42.0_s41.0_w140.0_e141.0.nc';
+% gauge_lonlat = [140.723, 41.7854]; % Hakodate
+% -----
+% topofile = '../bathtopo/gebco_2022_n40.0_s38.0_w140.0_e142.0.nc';
+% gauge_lonlat = [141.75, 39.02]; % Ofunato
+% -----
+% topofile = '../bathtopo/gebco_2022_n36.0_s34.0_w139.0_e140.0.nc';
+% gauge_lonlat = [139.8230, 34.9188]; % Mera
+% -----
+% topofile = '../bathtopo/gebco_2022_n36.0_s34.0_w137.0_e139.0.nc';
+% gauge_lonlat = [138.2270, 34.6146]; % Omaezaki
+% -----
+topofile = '../bathtopo/gebco_2022_n37.0_s25.0_w127.0_e129.0.nc';
+gauge_lonlat = [127.6520, 26.2271]; % Naha
+% -----
 
 
 ngauge = size(gauge_lonlat,1);
