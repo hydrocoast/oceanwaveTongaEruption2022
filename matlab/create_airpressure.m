@@ -3,9 +3,15 @@ close all
 
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
-
 %% gravity wave switch
-active_g = 1; % 1: on, otherwise: off
+active_g = 0; % 1: on, otherwise: off
+
+%% filenames
+if active_g==1
+    matname_pres = 'pres_lg.mat';
+else
+    matname_pres = 'pres_l.mat';
+end
 
 %% origin
 lat0 =  -20.544686;
@@ -35,14 +41,15 @@ t = dt:dt:3600*14;
 nt = length(t);
 %% parameters below are based on Gusman et al.(2022), PAGEOPH
 % https://link.springer.com/article/10.1007/s00024-022-03154-1
-cs = 317.0; % m/s
+% cs = 317.0; % m/s
+cs = 310.0; % m/s
 wavelength = 1500*cs*1e-3; % km
 coef_lamb_peak = 169;
 coef_lamb_trough = -107;
 amp = @(r,a) sign(a)*min(abs(a),abs(a*r^(-0.5))); % km
 
-coef_lamb_add = 30;
-wavelength_add = 5.0*wavelength; % km
+coef_lamb_add = 25;
+wavelength_add = 4.0*wavelength; % km
 
 
 %% parameters for air gravity waves
@@ -66,7 +73,7 @@ if active_g == 1
 end
 
 
-fig = figure;
+% fig = figure;
 %% create pressure data
 pres = zeros(nlat, nlon, nt);
 for k = 1:nt
@@ -75,7 +82,8 @@ for k = 1:nt
     %% Lamb wave
     dist_peak = cs*t(k)*1e-3; % km
     amp_peak = amp(dist_peak,coef_lamb_peak);
-    dist_trough = max(1,dist_peak-wavelength); % km
+%     dist_trough = max(1,dist_peak-wavelength); % km
+    dist_trough = max(1,dist_peak-0.4*wavelength); % km
     amp_trough = amp(dist_trough,coef_lamb_trough);
 
     dist_peak_add = max(1,dist_peak-0.7*wavelength_add); % km
@@ -150,15 +158,15 @@ end
 %% check time-series of the air pressure
 figure
 plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
-xlim([6.0,9.0]);
+xlim([6.0,12.0]);
 grid on
 
 
-% %% save
-% save('pres.mat','-v7.3',...
-%      'lon0','lat0','lonrange','latrange','lon','lat',...
-%      'nlon','nlat','dl','pres',...
-%      'cs','wavelength','dt','t','nt','active_g')
+%% save
+save(matname_pres,'-v7.3',...
+     'lon0','lat0','lonrange','latrange','lon','lat',...
+     'nlon','nlat','dl','pres',...
+     'cs','wavelength','dt','t','nt','active_g')
 
 
 %% formula - Lamb wave

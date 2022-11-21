@@ -34,7 +34,7 @@ else
     amrall = loadsurface(outdir)
 end
 coarsegridmask!(amrall)
-tstr = map(tt -> @sprintf("%02d h %02d min", floor(tt/3600), floor(tt/60)-60*floor(tt/3600)), amrall.timelap)
+tstr = map(t -> @sprintf("%02d h %02d min", floor(t/3600), floor(t/60)-60*floor(t/3600)), amrall.timelap)
 replaceunit!(amrall, :hour)
 #converttodatetime!(amrall, t0_datetime)
 #tstr = Dates.format.(amrall.timelap, "yyyy/mm/dd HH:MM")
