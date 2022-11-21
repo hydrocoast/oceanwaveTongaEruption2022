@@ -75,7 +75,6 @@ for i = 3:3
 end
 ## around specific regions
 for i = 4:14
-    gcnt += 1
     local plts = plotsamr(amrall, ind_time; clims=(-0.10,0.10), c=:bwr, colorbar=true, region=regions[i])
     local plts = map((p,s)->plot!(p; title=s), plts, tstr[ind_time])
     local plts = map(p->plotsgaugelocation!(p, gauges[i-3]; marker=(:magenta, 0.5, Plots.stroke(2, :black))), plts)
