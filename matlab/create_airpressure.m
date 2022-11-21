@@ -4,7 +4,7 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 1; % 1: on, otherwise: off
+active_g = 0; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
@@ -106,11 +106,11 @@ for k = 1:nt
             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_trough, wavelength, dist_from_antinode);
         end
 
-%         %% Additional peak
-%         dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
-%         if dist_from_antinode <= 0.5*wavelength_add
-%             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode);
-%         end
+        %% Additional peak
+        dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
+        if dist_from_antinode <= 0.5*wavelength_add
+            pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) -0.1;
+        end
         
         %% Composite pressure data
         pres(i,j,k) = pres(i,j,k) + pres_lamb;
@@ -173,8 +173,8 @@ save(matname_pres,'-v7.3',...
 
 %% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
-%     pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
-    pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
+    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+%     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 
 
@@ -188,8 +188,8 @@ end
 
 %% formula - air gravity wave
 function pres = pressure_anomaly_airgravitywave(amp_antinode, wavelength, distance_from_antinode)
-%    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
-    pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
+   pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+%     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 
 
