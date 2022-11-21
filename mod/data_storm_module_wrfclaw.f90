@@ -21,11 +21,11 @@ module data_storm_module
     logical, private :: module_setup = .false.
 
     ! Internal tracking variables for storm
-	logical, private :: DEBUG = .true. 
+    logical, private :: DEBUG = .true. 
     !logical, private :: DEBUG = .false. 
 
     ! Tolerance for floating point inequalities
-	real(kind=8), parameter :: eps = 1.0e-8 
+    real(kind=8), parameter :: eps = 1.0e-8 
 
     ! WRF storm type definition
     ! Specified wind & pressure field 
@@ -351,24 +351,20 @@ contains
         ! This should probably be changed in the future.
 
         ! Read the u-velocity file
-        data_path = trim(storm%data_path) // "u10_d01.swt"
-        call read_wrf_storm_file(data_path,storm%u_next,storm%num_lats,storm%last_storm_index,timestamp)
+        !data_path = trim(storm%data_path) // "u10_d01.swt"
+        !call read_wrf_storm_file(data_path,storm%u_next,storm%num_lats,storm%last_storm_index,timestamp)
         ! Error handling: set to clear skies if file ended
-        if (timestamp == -1) then
-            storm%u_next = 0
-            storm%t_next = storm%t_next + 365*24*60
-        else
-            ! Save timestamp (sec) of next snapshot
-            storm%t_next = timestamp
-        endif
+        !if (timestamp == -1) then
+            storm%u_next(:,:) = 0.0d0
+        !endif
 
         ! Read v-velocity file
-        data_path = trim(storm%data_path) // "v10_d01.swt"
-        call read_wrf_storm_file(data_path,storm%v_next,storm%num_lats,storm%last_storm_index,timestamp)
+        !data_path = trim(storm%data_path) // "v10_d01.swt"
+        !call read_wrf_storm_file(data_path,storm%v_next,storm%num_lats,storm%last_storm_index,timestamp)
         ! Error handling: set to clear skies if file ended
-        if (timestamp == -1) then
-            storm%v_next = 0
-        endif
+        !if (timestamp == -1) then
+            storm%v_next = 0.0d0
+        !endif
 
         ! Read pressure file
         data_path = trim(storm%data_path) // "slp_d01.swt"
@@ -377,7 +373,10 @@ contains
         if (timestamp == -1) then
             storm%p_next = ambient_pressure
             storm%eye_next = [0,0]
+            storm%t_next = storm%t_next + 365*24*60
         else
+            ! Save timestamp (sec) of next snapshot
+            storm%t_next = timestamp
             ! Convert pressure units: mbar to Pa
             storm%p_next = storm%p_next * 1.0e2
             ! Estimate storm center location based on lowest pressure
