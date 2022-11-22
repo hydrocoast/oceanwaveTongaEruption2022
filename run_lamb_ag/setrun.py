@@ -355,28 +355,21 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([10, 145.577, 43.2771, 0., 1.e10]) # Hanasaki
     gauges.append([11, 144.297, 44.0200, 0., 1.e10]) # Abashiri
 
-    ## gauge周辺を細かい地形でテスト
-
     ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
-    #for i in np.arange(0, len(gauges)):
-    #     regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.25, gauges[i][1]+0.25, gauges[i][2]-0.25, gauges[i][2]+0.25])
     for i in np.arange(0, len(gauges)):
          regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
 
-    #regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.250, gauges[1][1]+0.250, gauges[1][2]-0.250, gauges[1][2]+0.250])
-    #regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.125, gauges[1][1]+0.125, gauges[1][2]-0.125, gauges[1][2]+0.125])
+    ## gauge周辺を細かい地形でテスト
     regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.100, gauges[1][1]+0.100, gauges[1][2]-0.100, gauges[1][2]+0.100])
-
-    ## gauge周辺を細かい地形でテスト
-    #regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[2][1]-0.250, gauges[2][1]+0.250, gauges[2][2]-0.250, gauges[2][2]+0.250])
-    #regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[2][1]-0.125, gauges[2][1]+0.125, gauges[2][2]-0.125, gauges[2][2]+0.125])
     regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[2][1]-0.100, gauges[2][1]+0.100, gauges[2][2]-0.100, gauges[2][2]+0.100])
-
-    ## gauge周辺を細かい地形でテスト
-    #regions.append([3, 3, 5.0*3600.0, clawdata.tfinal, gauges[3][1]-0.250, gauges[3][1]+0.250, gauges[3][2]-0.250, gauges[3][2]+0.250])
-    #regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[3][1]-0.125, gauges[3][1]+0.125, gauges[3][2]-0.125, gauges[3][2]+0.125])
     regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[3][1]-0.100, gauges[3][1]+0.100, gauges[3][2]-0.100, gauges[3][2]+0.100])
 
+    # DART buoy 地点を gauge に追加
+    gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
+    gauges.append([21420, 134.968, 28.912, 0., 1.e10]) #
+    gauges.append([52401, 155.739, 19.285, 0., 1.e10]) #
+    gauges.append([52402, 153.895, 11.930, 0., 1.e10]) #
+    gauges.append([52404, 132.139, 20.629, 0., 1.e10]) #
 
     # Fixed grid output
     if int(clawpack.__version__.split('.')[1]) >= 9: # v5.9.0 or later
