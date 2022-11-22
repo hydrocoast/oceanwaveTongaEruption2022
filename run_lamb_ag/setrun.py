@@ -348,7 +348,7 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([3, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
     gauges.append([4, 127.6520, 26.2271, 0., 1.e10]) # Naha
     gauges.append([5, 138.2270, 34.6146, 0., 1.e10]) # Omaezaki
-    gauges.append([6, 139.8230, 34.9188, 0., 1.e10]) # Mera
+    gauges.append([6, 139.8210, 34.9210, 0., 1.e10]) # Mera
     gauges.append([7, 141.7500, 39.0200, 0., 1.e10]) # Ofunato
     gauges.append([8, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
     gauges.append([9, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
