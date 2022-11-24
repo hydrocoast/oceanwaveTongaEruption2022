@@ -9,6 +9,7 @@ ngauge = size(list_gauge,1);
 
 %% obs data
 load('IOC_JPRUS_surf.mat');
+% load('JMA_records.mat');
 load('DART_records.mat');
 
 g = cell(ngauge,1);
