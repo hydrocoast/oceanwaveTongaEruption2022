@@ -26,11 +26,11 @@ test run
 </p>
 
 <p align="center">
-<img src="/fig/gauge_0001.svg", width="250">
-<img src="/fig/gauge_0002.svg", width="250">
-<img src="/fig/gauge_0004.svg", width="250">
-<img src="/fig/gauge_0007.svg", width="250">
-<img src="/fig/gauge_0009.svg", width="250">
-<img src="/fig/gauge_0013.svg", width="250">
+<img src="/fig/test_DART21418.png", width="250">
+<img src="/fig/test_DART21420.png", width="250">
+<img src="/fig/test_Abashiri.png", width="250">
+<img src="/fig/test_Kushiro.png", width="250">
+<img src="/fig/test_Ofunato.png", width="250">
+<img src="/fig/test_Kushimoto.png", width="250">
 </p>
 

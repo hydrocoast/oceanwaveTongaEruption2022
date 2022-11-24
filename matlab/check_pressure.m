@@ -4,7 +4,7 @@ close all
 %% 生成した気圧データの可視化・確認
 
 %% filename
-matfile = 'pres.mat';
+matfile = 'pres_lg.mat';
 load(matfile)
 
 cmap = colormap(jet(100));

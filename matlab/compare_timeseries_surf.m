@@ -2,7 +2,7 @@ clear
 close all
 
 %% sim data
-simdir1 = '../run_lamb_ag/_output';
+simdir1 = '../run_pres1/_output';
 list_gauge = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge,1);
 
