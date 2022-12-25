@@ -49,7 +49,21 @@ axis tight
 
 
 %% print
-grdwrite2(lon,lat,eta_source,"dtopo_test.grd");
+dtopofile = "./dtopo_test.asc";
+% % topotype 3
+fmt = [repmat('%14.6e ',[1,nlon]),'\n'];
+fid = fopen(dtopofile,'w');
+fprintf(fid,'%d     mx\n',nlon);
+fprintf(fid,'%d     my\n',nlat);
+fprintf(fid,'%d     mt\n',1);
+fprintf(fid,'%e     xlower\n',lon(1));
+fprintf(fid,'%e     ylower\n',lat(1));
+fprintf(fid,'%f     t0\n',1.0);
+fprintf(fid,'%14.8e     dx\n',dl);
+fprintf(fid,'%14.8e     dy\n',dl);
+fprintf(fid,'%f     dt\n',0.0);
+fprintf(fid,fmt,flipud(eta_source)');
+fclose(fid);
 
 
 %% function
