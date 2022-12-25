@@ -518,9 +518,10 @@ def setgeo(rundata):
     # for moving topography, append lines of the form :   (<= 1 allowed for now!)
     #   [topotype, minlevel,maxlevel,fname]
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
-        dtopo_data.dtopofiles.append([4, os.path.join(dtopodir, 'dtopo_test.grd')])
+        dtopo_data.dtopofiles.append([3, os.path.join(dtopodir, 'dtopo_test.asc')])
     else: # v5.7.1
-        dtopo_data.dtopofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(dtopodir, 'dtopo_test.grd')])
+        dtopo_data.dtopofiles.append([3, 1, 4, os.path.join(dtopodir, 'dtopo_test.asc')])
+    dtopo_data.dt_max_dtopo = 10.0
 
     # == setqinit.data values ==
     rundata.qinit_data.qinit_type = 0
@@ -544,27 +545,27 @@ def setgeo(rundata):
     # ================
     #  Set Surge Data
     # ================
-    data = rundata.surge_data
+    #data = rundata.surge_data
 
-    # Source term controls - These are currently not respected
-    data.wind_forcing = False
-    #data.drag_law = 1
-    data.drag_law = 4 # Mitsuyasu & Kusaba no limit drag coeff
-    data.pressure_forcing = False
+    ## Source term controls - These are currently not respected
+    #data.wind_forcing = False
+    ##data.drag_law = 1
+    #data.drag_law = 4 # Mitsuyasu & Kusaba no limit drag coeff
+    #data.pressure_forcing = False
 
-    # AMR parameters
-    #data.wind_refine = [10.0, 20.0, 30.0, 40.0] # m/s
-    #data.R_refine = [200.0e3, 100.0e3, 50.0e3, 25.0e3]  # m
+    ## AMR parameters
+    ##data.wind_refine = [10.0, 20.0, 30.0, 40.0] # m/s
+    ##data.R_refine = [200.0e3, 100.0e3, 50.0e3, 25.0e3]  # m
 
-    # Storm parameters
-    #data.storm_type = 1 # Type of storm
-    data.storm_type = -1 # Explicit storm fields. See ./wrf_storm_module.f90
-    data.storm_specification_type = 'WRF'
-    #data.landfall = 3600.0
-    data.display_landfall_time = True
+    ## Storm parameters
+    ##data.storm_type = 1 # Type of storm
+    #data.storm_type = -1 # Explicit storm fields. See ./wrf_storm_module.f90
+    #data.storm_specification_type = 'WRF'
+    ##data.landfall = 3600.0
+    #data.display_landfall_time = True
 
-    # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/NONE/')
+    ## Storm type 2 - Idealized storm track
+    #data.storm_file = os.path.join(os.getcwd(),'../forcing/NONE/')
 
     # =======================
     #  Set Variable Friction
