@@ -11,6 +11,8 @@ cmap = colormap(jet(100));
 close
 cmap(50:51,:) = repmat([1,1,1],[2,1]);
 
+if ~isfolder("fig_pred2d"); mkdir("fig_pres2d"); end
+
 fig = figure;
 for k = 1:nt
 % for k = 1:10
@@ -41,9 +43,9 @@ for k = 1:nt
     text(200, 45, sprintf('%03d min',t(k)/60),'FontName','Helvetica','FontSize',16,'HorizontalAlignment','center')
     ax.Visible = 'off';
     ax.XTick = [];
-    ax.YTick = [];    
+    ax.YTick = [];
     ax.Position = gx.Position;
-    print(gcf,'-djpeg',sprintf('step%03d.jpg',k));    
+    print(gcf,'-djpeg',sprintf('fig_pres2d/step%03d.jpg',k));
 end
 
 
