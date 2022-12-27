@@ -4,7 +4,7 @@ close all
 %% 生成した気圧データの可視化・確認
 
 %% filename
-matfile = 'pres_lg.mat';
+matfile = 'pres_l_fluc.mat';
 load(matfile)
 
 cmap = colormap(jet(100));
@@ -14,8 +14,8 @@ cmap(50:51,:) = repmat([1,1,1],[2,1]);
 if ~isfolder("fig_pred2d"); mkdir("fig_pres2d"); end
 
 fig = figure;
-for k = 1:nt
-% for k = 1:10
+% for k = 1:nt
+for k = 1:10:nt
     clf(fig);
     
     gx = geoaxes;

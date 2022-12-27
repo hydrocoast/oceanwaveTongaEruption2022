@@ -119,13 +119,15 @@ for k = 1:nt
 
 %         %% Additional peak
 %         dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
-%         if (dist_from_antinode <= 0.5*wavelength_add) && (dist_peak > 0.5*wavelength_add)
+%         if (dist_from_antinode <= 0.5*wavelength_add) && (dist_diff > 0.0)
 %             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) - 0.1;
 %         end
 
         %% Disturbance
         dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
-        if (dist_from_antinode <= wavelength_add) && (dist_peak > wavelength_add)
+        dist_diff = dist_peak+0.5*wavelength-kmmesh(i,j); % km
+%         if (dist_from_antinode <= wavelength_add) && (dist_diff > 0.0)
+        if dist_diff > 0.0
             for iw = 1:nwave_fluc
                 pres_lamb = pres_lamb + pressure_fluctuation(fac_fluc(iw)*amp_peak_add, cs*Tmin(iw)*60/1000, dist_from_antinode, phase_rand(iw));
             end
