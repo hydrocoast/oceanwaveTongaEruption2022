@@ -50,17 +50,6 @@ print("end\n")
 #print("end\n")
 
 
-## load track
-print("loading track ...     ")
-if isfile(joinpath(jld2dir, "track.jld2"))
-    @load joinpath(jld2dir, "track.jld2") track
-else
-    track = loadtrack(outdir)
-end
-#converttodatetime!(track, t0_datetime)
-print("end\n")
-
-
 ## load surface
 print("loading eta ...     ")
 if isfile(joinpath(jld2dir, "amrall.jld2"))

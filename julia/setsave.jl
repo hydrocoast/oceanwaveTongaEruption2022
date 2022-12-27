@@ -29,13 +29,15 @@ print("end\n")
 
 
 ## track
-print("loading track ...     ")
-track = loadtrack(outdir)
-print("end\n")
+if isfile("_output/fort.track")
+    print("loading track ...     ")
+    track = loadtrack(outdir)
+    print("end\n")
 
-print("saving track ...     ")
-@save joinpath(jld2dir, "track.jld2") track
-print("end\n")
+    print("saving track ...     ")
+    @save joinpath(jld2dir, "track.jld2") track
+    print("end\n")
+end
 
 
 ## region
