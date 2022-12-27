@@ -4,7 +4,7 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 1; % 1: on, otherwise: off
+active_g = 0; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
@@ -12,6 +12,13 @@ if active_g==1
 else
     matname_pres = 'pres_l.mat';
 end
+
+%% pressure fluctuation
+Tmin = 5:25; % min
+fac_fluc = [0.20*ones(6,1); 0.05*ones(4,1); 0.10*ones(11,1)];
+nwave_fluc = length(Tmin);
+rseed = rng('default');
+phase_rand = pi*rand(nwave_fluc,1);
 
 %% origin
 lat0 =  -20.544686;
@@ -36,7 +43,7 @@ checkpoint = [135.0,32.5];
 
 
 %% parameters
-dt = 300;
+dt = 60;
 t = dt:dt:3600*14;
 nt = length(t);
 %% parameters below are based on Gusman et al.(2022), PAGEOPH
@@ -99,7 +106,8 @@ end
 %% create pressure data
 pres = zeros(nlat, nlon, nt);
 for k = 1:nt
-    fprintf('%03d,',k);
+
+    if mod(k,20)==0; fprintf('%03d,',k); end
 
     %% Lamb wave
     dist_peak = cs*t(k)*1e-3; % km
@@ -110,6 +118,7 @@ for k = 1:nt
 
     dist_peak_add = max(1,dist_peak-0.7*wavelength_add); % km
     amp_peak_add = amp(dist_peak_add,coef_lamb_add);
+
 
     for i = 1:nlat
     for j = 1:nlon
@@ -129,7 +138,14 @@ for k = 1:nt
         %% Additional peak
         dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
         if dist_from_antinode <= 0.5*wavelength_add
-            pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) -0.1;
+            pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) - 0.1;
+        end
+
+        %% Disturbance
+        if dist_from_antinode <= wavelength_add
+            for iw = 1:nwave_fluc
+                pres_lamb = pres_lamb + pressure_fluctuation(fac_fluc(iw)*amp_peak_add, cs*Tmin(iw)*60/1000, dist_from_antinode, phase_rand(iw));
+            end
         end
         
         %% Composite pressure data
@@ -193,8 +209,13 @@ save(matname_pres,'-v7.3',...
 
 %% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
-    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+    pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
 %     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
+end
+
+%% formula - fluctuation
+function pres = pressure_fluctuation(amp_antinode, wavelength, distance_from_antinode, phase_shift)
+    pres = amp_antinode*cospi(1/wavelength*distance_from_antinode + phase_shift);
 end
 
 
@@ -208,7 +229,7 @@ end
 
 %% formula - air gravity wave
 function pres = pressure_anomaly_airgravitywave(amp_antinode, wavelength, distance_from_antinode)
-   pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+   pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
 %     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 

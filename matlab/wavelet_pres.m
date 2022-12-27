@@ -19,8 +19,8 @@ dt = 1/fs; % s
 if ~isfolder(figdir); mkdir(figdir); end
 fig = figure; print(fig,'-dpng','tmp.png'); delete('tmp.png');
 
-for i = 1:nstation
-% for i = 1:1
+% for i = 1:nstation
+for i = 1:1
 
     label_station = table_obs_pres.Station{i};
     %% 時系列データを等間隔に内挿
