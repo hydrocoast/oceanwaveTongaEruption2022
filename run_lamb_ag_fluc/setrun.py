@@ -542,9 +542,9 @@ def setgeo(rundata):
     data = rundata.surge_data
 
     # Source term controls - These are currently not respected
-    data.wind_forcing = True
-    #data.drag_law = 1
-    data.drag_law = 4 # Mitsuyasu & Kusaba no limit drag coeff
+    data.wind_forcing = False
+    data.drag_law = 1
+    #data.drag_law = 4 # Mitsuyasu & Kusaba no limit drag coeff
     data.pressure_forcing = True
 
     # AMR parameters
@@ -556,7 +556,7 @@ def setgeo(rundata):
     data.storm_type = -1 # Explicit storm fields. See ./wrf_storm_module.f90
     data.storm_specification_type = 'WRF'
     #data.landfall = 3600.0
-    data.display_landfall_time = True
+    data.display_landfall_time = False
 
     # Storm type 2 - Idealized storm track
     data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag_fluc/')
@@ -567,7 +567,7 @@ def setgeo(rundata):
     data = rundata.friction_data
 
     # Variable friction
-    data.variable_friction = True
+    data.variable_friction = False
 
     # Region based friction
     # Entire domain
