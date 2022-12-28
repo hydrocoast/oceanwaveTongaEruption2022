@@ -4,11 +4,11 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 0; % 1: on, otherwise: off
+active_g = 1; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
-    matname_pres = 'pres_lg.mat';
+    matname_pres = 'pres_lg_fluc.mat';
 else
     matname_pres = 'pres_l_fluc.mat';
 end
@@ -17,7 +17,7 @@ end
 % Tmin = 5:25; % min
 % fac_fluc = [0.20*ones(6,1); 0.05*ones(4,1); 0.10*ones(11,1)];
 Tmin = 5:60; % min
-fac_fluc = [0.25*ones(6,1); 0.10*ones(15,1); 0.05*ones(45,1)];
+fac_fluc = [0.25*ones(6,1); 0.20*ones(15,1); 0.05*ones(45,1)];
 nwave_fluc = length(Tmin);
 rseed = rng('default');
 phase_rand = pi*rand(nwave_fluc,1);
@@ -145,7 +145,7 @@ if active_g == 1
 
     %% Gravity wave(s)
     for k = 1:nt
-        fprintf('%03d,',k);
+        if mod(k,20)==0; fprintf('%03d,',k); end
         dist_peak = c_g.*t(k)*1e-3; % km
         for i = 1:nlat
             for j = 1:nlon
@@ -163,7 +163,8 @@ if active_g == 1
                     dist_trough = max(1,dist_peak(iwave)-wavelength_g(iwave)); % km
                     amp_trough = -amp(dist_trough,coef_g_t(iwave));
                     dist_from_antinode = kmmesh(i,j)-dist_trough; % km
-                    if abs(dist_from_antinode) <= 0.5*wavelength_g(iwave)
+                    dist_diff = dist_peak(iwave)+0.5*wavelength-kmmesh(i,j); % km
+                    if (abs(dist_from_antinode) <= 0.5*wavelength_g(iwave)) && (dist_diff > 0.0)
                         pres_add = pressure_anomaly_airgravitywave(amp_trough, wavelength_g(iwave), abs(dist_from_antinode));
                     end
 
@@ -183,8 +184,8 @@ figure
 plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
 xlim([6.0,12.0]);
 grid on
+print(gcf,'気圧波形_l','-djpeg','-r150');
 
-print('気圧波形_l','-djpeg')
 %% save
 save(matname_pres,'-v7.3',...
      'lon0','lat0','lonrange','latrange','lon','lat',...
