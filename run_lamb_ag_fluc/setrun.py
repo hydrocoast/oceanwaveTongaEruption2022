@@ -335,7 +335,7 @@ def setrun(claw_pkg='geoclaw'):
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
     regions.append([1, 2, clawdata.t0, 2.0*3600.0, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
-    regions.append([1, 3, 4.0*3600.0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
@@ -354,10 +354,20 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([9, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
     gauges.append([10, 145.577, 43.2771, 0., 1.e10]) # Hanasaki
     gauges.append([11, 144.297, 44.0200, 0., 1.e10]) # Abashiri
+    gauges.append([12, 140.8585, 35.7522, 0., 1.e10]) # Choshi 以下追加
+    gauges.append([13, 140.5745, 36.3054, 0., 1.e10]) # Oarai0
+    gauges.append([14, 139.6065, 35.1472, 0., 1.e10]) # Miurashimisakigyoko *
+    gauges.append([15, 141.8060, 40.1879, 0., 1.e10]) # Kujiko
+    gauges.append([16, 134.1590, 33.2631, 0., 1.e10]) # Murotoshimurotomisaki*
+    gauges.append([17, 132.9464, 32.7605, 0., 1.e10]) # Tosashimizu
+    gauges.append([18, 140.8916, 36.9330, 0., 1.e10]) # Iwakishionahama
+    gauges.append([19, 135.9277, 33.5666, 0., 1.e10]) # Nachikatsuurachouragami**
+    gauges.append([20, 141.0379, 38.2682, 0., 1.e10]) # Sendaiko
+    gauges.append([21, 140.2622, 35.1245, 0., 1.e10]) # Katsuurashiokitsu
 
     ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
-    for i in np.arange(0, len(gauges)):
-         regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
+    #for i in np.arange(0, len(gauges)):
+    #     regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
 
     ## gauge周辺を細かい地形でテスト
     regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.100, gauges[1][1]+0.100, gauges[1][2]-0.100, gauges[1][2]+0.100])
@@ -540,7 +550,7 @@ def setgeo(rundata):
     # AMR parameters
     #data.wind_refine = [10.0, 20.0, 30.0, 40.0] # m/s
     #data.R_refine = [200.0e3, 100.0e3, 50.0e3, 25.0e3]  # m
-    
+
     # Storm parameters
     #data.storm_type = 1 # Type of storm
     data.storm_type = -1 # Explicit storm fields. See ./wrf_storm_module.f90
@@ -549,7 +559,7 @@ def setgeo(rundata):
     data.display_landfall_time = True
 
     # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/pres1/')
+    data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag_fluc/')
 
     # =======================
     #  Set Variable Friction
@@ -561,10 +571,10 @@ def setgeo(rundata):
 
     # Region based friction
     # Entire domain
-    data.friction_regions.append([rundata.clawdata.lower, 
-                                  rundata.clawdata.upper,
-                                  [np.infty, 0.0, -np.infty],
-                                  [0.030, 0.022]])
+    #data.friction_regions.append([rundata.clawdata.lower,
+    #                              rundata.clawdata.upper,
+    #                              [np.infty, 0.0, -np.infty],
+    #                              [0.030, 0.022]])
 
     return rundata
     # end of function setgeo
@@ -580,3 +590,4 @@ if __name__ == '__main__':
         rundata = setrun()
 
     rundata.write()
+
