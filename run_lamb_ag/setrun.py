@@ -335,7 +335,7 @@ def setrun(claw_pkg='geoclaw'):
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
     regions.append([1, 2, clawdata.t0, 2.0*3600.0, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
-    regions.append([1, 3, 4.0*3600.0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
@@ -356,13 +356,13 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([11, 144.297, 44.0200, 0., 1.e10]) # Abashiri
 
     ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
-    for i in np.arange(0, len(gauges)):
-         regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
+    #for i in np.arange(0, len(gauges)):
+    #     regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
 
     ## gauge周辺を細かい地形でテスト
-    regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.100, gauges[1][1]+0.100, gauges[1][2]-0.100, gauges[1][2]+0.100])
-    regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[2][1]-0.100, gauges[2][1]+0.100, gauges[2][2]-0.100, gauges[2][2]+0.100])
-    regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[3][1]-0.100, gauges[3][1]+0.100, gauges[3][2]-0.100, gauges[3][2]+0.100])
+    #regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.100, gauges[1][1]+0.100, gauges[1][2]-0.100, gauges[1][2]+0.100])
+    #regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[2][1]-0.100, gauges[2][1]+0.100, gauges[2][2]-0.100, gauges[2][2]+0.100])
+    #regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[3][1]-0.100, gauges[3][1]+0.100, gauges[3][2]-0.100, gauges[3][2]+0.100])
 
     # DART buoy 地点を gauge に追加
     gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
@@ -494,12 +494,18 @@ def setgeo(rundata):
         topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
         topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')])
         topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-03_zone06_lonlat.asc')])
+        topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-07_zone09_lonlat.asc')])
         topo_data.topofiles.append([4, os.path.join(topodir, 'M7023.grd')])
+        topo_data.topofiles.append([4, os.path.join(topodir, 'M7021.grd')])
+        topo_data.topofiles.append([4, os.path.join(topodir, 'M7020.grd')])
     else: # v5.7.1
         topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
-        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')])
-        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone06_lonlat.asc')])
-        topo_data.topofiles.append([4, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'M7023.grd')])
+        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')]) # Amami 5-arcsec
+        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone06_lonlat.asc')]) # Kushimoto 5-arcsec
+        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-07_zone09_lonlat.asc')]) # Mera 5-arcsec
+        topo_data.topofiles.append([4, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'M7023.grd')]) # Chichijima
+        topo_data.topofiles.append([4, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'M7021.grd')]) # Ishigaki
+        topo_data.topofiles.append([4, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'M7020.grd')]) # Naha
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
@@ -532,9 +538,9 @@ def setgeo(rundata):
     data = rundata.surge_data
 
     # Source term controls - These are currently not respected
-    data.wind_forcing = True
-    #data.drag_law = 1
-    data.drag_law = 4 # Mitsuyasu & Kusaba no limit drag coeff
+    data.wind_forcing = False
+    data.drag_law = 1
+    #data.drag_law = 4 # Mitsuyasu & Kusaba no limit drag coeff
     data.pressure_forcing = True
 
     # AMR parameters
@@ -546,7 +552,7 @@ def setgeo(rundata):
     data.storm_type = -1 # Explicit storm fields. See ./wrf_storm_module.f90
     data.storm_specification_type = 'WRF'
     #data.landfall = 3600.0
-    data.display_landfall_time = True
+    data.display_landfall_time = False
 
     # Storm type 2 - Idealized storm track
     data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag/')
@@ -557,14 +563,14 @@ def setgeo(rundata):
     data = rundata.friction_data
 
     # Variable friction
-    data.variable_friction = True
+    data.variable_friction = False
 
     # Region based friction
     # Entire domain
-    data.friction_regions.append([rundata.clawdata.lower, 
-                                  rundata.clawdata.upper,
-                                  [np.infty, 0.0, -np.infty],
-                                  [0.030, 0.022]])
+    #data.friction_regions.append([rundata.clawdata.lower, 
+    #                              rundata.clawdata.upper,
+    #                              [np.infty, 0.0, -np.infty],
+    #                              [0.030, 0.022]])
 
     return rundata
     # end of function setgeo
