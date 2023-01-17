@@ -36,7 +36,7 @@ checkpoint = [135.0,32.5];
 
 
 %% parameters
-dt = 300;
+dt = 60;
 t = dt:dt:3600*14;
 nt = length(t);
 %% parameters below are based on Gusman et al.(2022), PAGEOPH
@@ -56,15 +56,17 @@ wavelength_add = 4.0*wavelength; % km
 if active_g == 1
     g = 9.8; % m/s^2
 %     N = 1.16e-2; % /s
-    N = 1.7e-2; % /s
+    N = 1.8e-2; % /s
     mu = 0.5*(N^2/g + g/cs^2); % /m
     sigma0 = mu*cs;
-%     wavelength_g = wavelength*[2.0; 1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20; 0.18; 0.17; 0.16; 0.15; 0.14]; % km
+%     wavelength_g = wavelength*[2.00; 1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20; 0.18; 0.17; 0.16; 0.15; 0.14]; % km
+%     nwave_g = length(wavelength_g);
 %     coef_g = [20; -20; -10; -10; -10; -10; -40; -40; -40; -20; 20; -20; 20; -20; 20];
-    wavelength_g = wavelength*[2.0; 1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20; 0.18; 0.17; 0.16; 0.15; 0.14]; % km
-    coef_g = [20; -20; -10; -10; -10; -10; -40; -40; -40; -20; 20; -20; 20; -20; 20];
-%     coef_g = [50; -50; -50; 50; -50; 50; -40; -40; -40; -20; 20; -20; 20; -20; 20];
+    wavelength_g = [750; 350; 265; 225; 199; ...
+                    181; 167; 157; 149; 142; ...
+                    136; 131; 126; 122; ]; % km
     nwave_g = length(wavelength_g);
+    coef_g = 5*ones(nwave_g,1);
     k_g = 2*pi./(wavelength_g.*1e3);
 
 
@@ -143,7 +145,8 @@ if active_g == 1
                     dist_trough = max(1,dist_peak(iwave)-wavelength_g(iwave)); % km
                     amp_trough = -amp(dist_trough,coef_g(iwave));
                     dist_from_antinode = kmmesh(i,j)-dist_trough; % km
-                    if abs(dist_from_antinode) <= 0.5*wavelength_g(iwave)
+                    dist_diff = dist_peak(iwave)+0.5*wavelength-kmmesh(i,j); % km
+                    if (dist_from_antinode <= 0.5*wavelength_g(iwave)) && (dist_diff > 0.0)
                         pres_add = pressure_anomaly_airgravitywave(amp_trough, wavelength_g(iwave), abs(dist_from_antinode));
                     end
 
@@ -163,6 +166,7 @@ figure
 plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
 xlim([6.0,12.0]);
 grid on
+print(gcf,'気圧波形_l','-djpeg','-r150');
 
 
 %% save
@@ -174,7 +178,7 @@ save(matname_pres,'-v7.3',...
 
 %% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
-    pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+    pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
 %     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 
@@ -189,7 +193,7 @@ end
 
 %% formula - air gravity wave
 function pres = pressure_anomaly_airgravitywave(amp_antinode, wavelength, distance_from_antinode)
-   pres = amp_antinode*cos(pi/wavelength*distance_from_antinode);
+   pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
 %     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 

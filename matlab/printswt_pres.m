@@ -5,9 +5,9 @@ close all
 
 %% filename
 % % matfile = 'pres_l.mat';
-% matfile = 'pres_lg.mat';
+matfile = 'pres_lg.mat';
 % matfile = 'pres_l_fluc.mat';
-matfile = 'pres_lg_fluc.mat';
+% matfile = 'pres_lg_fluc.mat';
 load(matfile)
 
 fc = '1d.con';
