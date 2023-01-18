@@ -34,6 +34,23 @@ def days2seconds(days):
 # Scratch directory for storing topo and dtopo files:
 topodir = os.path.join(os.getcwd(), '..', 'bathtopo')
 
+# topolist
+topoflist = {
+             "GEBCO2022" :"gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc",
+             "Amami":"depth_0090-03_zone01_lonlat.asc",
+             "Kushimoto":"depth_0090-03_zone06_lonlat.asc",
+             "Omaezaki":"depth_0090-01_zone08_lonlat.asc",
+             "Mera":"depth_0090-07_zone09_lonlat.asc",
+             "Chichijima":"M7023.asc",
+             "Ishigaki":"M7021.asc",
+             "Naha":"M7020.asc",
+             "Kuji":"M7005.asc",
+             "Hakodate":"M7006.asc",
+             "Nemuro":"M7007.asc",
+            }
+
+
+
 # Directory for gauge location files:
 gaugedir = os.path.join(os.getcwd(), '..', 'gaugeset')
 
@@ -334,8 +351,30 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
-    regions.append([1, 2, clawdata.t0, 2.0*3600.0, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
+    #regions.append([1, 2, clawdata.t0, 2.0*3600.0, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
     regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 120.0, 150.0, 20.0, 50.0])
+
+    ## Level 5
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kushimoto']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Omaezaki']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Mera']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Chichijima']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Naha']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Hakodate']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Nemuro']), topo_type=3)
+    regions.append([3, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
@@ -354,16 +393,7 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([9, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
     gauges.append([10, 145.577, 43.2771, 0., 1.e10]) # Hanasaki
     gauges.append([11, 144.297, 44.0200, 0., 1.e10]) # Abashiri
-
-    ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
-    #for i in np.arange(0, len(gauges)):
-    #     regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.125, gauges[i][1]+0.125, gauges[i][2]-0.125, gauges[i][2]+0.125])
-
-    ## gauge周辺を細かい地形でテスト
-    #regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[1][1]-0.100, gauges[1][1]+0.100, gauges[1][2]-0.100, gauges[1][2]+0.100])
-    #regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[2][1]-0.100, gauges[2][1]+0.100, gauges[2][2]-0.100, gauges[2][2]+0.100])
-    #regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[3][1]-0.100, gauges[3][1]+0.100, gauges[3][2]-0.100, gauges[3][2]+0.100])
-
+    
     # DART buoy 地点を gauge に追加
     gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
     gauges.append([21420, 134.968, 28.912, 0., 1.e10]) #
@@ -491,21 +521,29 @@ def setgeo(rundata):
     # See regions for control over these regions, need better bathy data for the
     # smaller domains
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
-        topo_data.topofiles.append([4, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
-        topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')])
-        topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-03_zone06_lonlat.asc')])
-        topo_data.topofiles.append([3, os.path.join(topodir, 'depth_0090-07_zone09_lonlat.asc')])
-        topo_data.topofiles.append([4, os.path.join(topodir, 'M7023.grd')])
-        topo_data.topofiles.append([4, os.path.join(topodir, 'M7021.grd')])
-        topo_data.topofiles.append([4, os.path.join(topodir, 'M7020.grd')])
+        topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['GEBCO2022'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Amami'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kushimoto'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Omaezaki'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Mera'])] )
+        topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['Chichijima'])] )
+        topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['Ishigaki'])] )
+        topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['Naha'])] )
+        topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['Kuji'])] )
+        topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['Hakodate'])] )
+        topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['Nemuro'])] )
     else: # v5.7.1
-        topo_data.topofiles.append([4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, 'gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc')])
-        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone01_lonlat.asc')]) # Amami 5-arcsec
-        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-03_zone06_lonlat.asc')]) # Kushimoto 5-arcsec
-        topo_data.topofiles.append([3, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'depth_0090-07_zone09_lonlat.asc')]) # Mera 5-arcsec
-        topo_data.topofiles.append([4, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'M7023.grd')]) # Chichijima
-        topo_data.topofiles.append([4, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'M7021.grd')]) # Ishigaki
-        topo_data.topofiles.append([4, 5, 5, 0.0, 1.0e10, os.path.join(topodir, 'M7020.grd')]) # Naha
+        topo_data.topofiles.append( [4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['GEBCO2022'])] )
+        topo_data.topofiles.append( [3, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Amami'])] )
+        topo_data.topofiles.append( [3, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kushimoto'])] )
+        topo_data.topofiles.append( [3, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Omaezaki'])] )
+        topo_data.topofiles.append( [3, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Mera'])] )
+        topo_data.topofiles.append( [4, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Chichijima'])] )
+        topo_data.topofiles.append( [4, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ishigaki'])] )
+        topo_data.topofiles.append( [4, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Naha'])] )
+        topo_data.topofiles.append( [4, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kuji'])] )
+        topo_data.topofiles.append( [4, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Hakodate'])] )
+        topo_data.topofiles.append( [4, 3, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Nemuro'])] )
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
@@ -555,7 +593,7 @@ def setgeo(rundata):
     data.display_landfall_time = False
 
     # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag/')
+    data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag_long/')
 
     # =======================
     #  Set Variable Friction
