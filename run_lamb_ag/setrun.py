@@ -511,7 +511,7 @@ def setgeo(rundata):
     refine_data.variable_dt_refinement_ratios = True
     if int(clawpack.__version__.split('.')[1]) < 8: # up to v5.7.1
         refine_data.deep_depth = 2.0e3
-        refine_data.max_level_deep = 1
+        refine_data.max_level_deep = 2
 
     # == settopo.data values ==
     topo_data = rundata.topo_data
