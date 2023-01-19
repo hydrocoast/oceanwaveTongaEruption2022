@@ -383,16 +383,20 @@ def setrun(claw_pkg='geoclaw'):
     #[gauges.append(dat[i]) for i in range(0,dat.shape[0])]
     
     gauges.append([1, 142.1960, 27.0931, 0., 1.e10]) # Chichijima
-    gauges.append([2, 129.5370, 28.3229, 0., 1.e10]) # Amami
-    gauges.append([3, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
-    gauges.append([4, 127.6520, 26.2271, 0., 1.e10]) # Naha
-    gauges.append([5, 138.2270, 34.6146, 0., 1.e10]) # Omaezaki
-    gauges.append([6, 139.8210, 34.9210, 0., 1.e10]) # Mera
-    gauges.append([7, 141.7500, 39.0200, 0., 1.e10]) # Ofunato
-    gauges.append([8, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
-    gauges.append([9, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
-    gauges.append([10, 145.577, 43.2771, 0., 1.e10]) # Hanasaki
-    gauges.append([11, 144.297, 44.0200, 0., 1.e10]) # Abashiri
+    gauges.append([2, 124.1390, 24.3229, 0., 1.e10]) # Ishigaki
+    gauges.append([3, 127.6560, 26.2229, 0., 1.e10]) # Naha
+    gauges.append([4, 129.5370, 28.3229, 0., 1.e10]) # Amami
+    gauges.append([5, 134.1590, 33.2631, 0., 1.e10]) # Muroto
+    gauges.append([6, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
+    gauges.append([7, 138.2220, 34.6097, 0., 1.e10]) # Omaezaki
+    gauges.append([8, 139.8240, 34.9199, 0., 1.e10]) # Mera
+    gauges.append([9, 140.8585, 35.7522, 0., 1.e10]) # Choshi
+    gauges.append([10, 141.7500, 39.0200, 0., 1.e10]) # Ofunato
+    gauges.append([11, 141.8060, 40.1879, 0., 1.e10]) # Kuji
+    gauges.append([12, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
+    gauges.append([13, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
+    gauges.append([14, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
+    gauges.append([15, 144.2970, 44.0200, 0., 1.e10]) # Abashiri
     
     # DART buoy 地点を gauge に追加
     gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
