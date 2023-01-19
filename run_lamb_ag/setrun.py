@@ -387,16 +387,23 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([3, 127.6560, 26.2229, 0., 1.e10]) # Naha
     gauges.append([4, 129.5370, 28.3229, 0., 1.e10]) # Amami
     gauges.append([5, 134.1590, 33.2631, 0., 1.e10]) # Muroto
-    gauges.append([6, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
-    gauges.append([7, 138.2220, 34.6097, 0., 1.e10]) # Omaezaki
-    gauges.append([8, 139.8240, 34.9199, 0., 1.e10]) # Mera
-    gauges.append([9, 140.8585, 35.7522, 0., 1.e10]) # Choshi
-    gauges.append([10, 141.7500, 39.0200, 0., 1.e10]) # Ofunato
-    gauges.append([11, 141.8060, 40.1879, 0., 1.e10]) # Kuji
-    gauges.append([12, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
-    gauges.append([13, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
-    gauges.append([14, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
-    gauges.append([15, 144.2970, 44.0200, 0., 1.e10]) # Abashiri
+    gauges.append([6, 132.9464, 32.7605, 0., 1.e10]) # Tosashimizu
+    gauges.append([7, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
+    gauges.append([8, 135.9277, 33.5666, 0., 1.e10]) # Nachikatsuurachouragami**
+    gauges.append([9, 138.2220, 34.6097, 0., 1.e10]) # Omaezaki
+    gauges.append([10, 139.6065, 35.1472, 0., 1.e10]) # Miurashimisakigyoko *
+    gauges.append([11, 139.8240, 34.9199, 0., 1.e10]) # Mera
+    gauges.append([12, 140.2622, 35.1245, 0., 1.e10]) # Katsuurashiokitsu
+    gauges.append([13, 140.8585, 35.7522, 0., 1.e10]) # Choshi
+    gauges.append([14, 140.5745, 36.3054, 0., 1.e10]) # Oarai
+    gauges.append([15, 140.8916, 36.9330, 0., 1.e10]) # Onahama
+    gauges.append([16, 141.0379, 38.2682, 0., 1.e10]) # Sendaiko+
+    gauges.append([17, 141.7525, 39.0183, 0., 1.e10]) # Ofunato
+    gauges.append([18, 141.8060, 40.1879, 0., 1.e10]) # Kuji
+    gauges.append([19, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
+    gauges.append([20, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
+    gauges.append([21, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
+    gauges.append([22, 144.2970, 44.0200, 0., 1.e10]) # Abashiri
     
     # DART buoy 地点を gauge に追加
     gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
