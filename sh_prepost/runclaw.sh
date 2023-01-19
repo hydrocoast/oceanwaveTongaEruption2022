@@ -4,6 +4,6 @@ if [ $# -ge 1 ] ; then
     export OMP_NUM_THREADS=$1
 fi
 
-make && make data && (make output 2>&1 | tee calc.log) && \
-(make juliaall 2>&1 | tee -a calc.log) && ./creategif.sh
+make && make data && (make output | tee calc.log 2>&1 ) && \
+(make juliaall | tee -a calc.log 2>&1 ) && ./creategif.sh
 ##make matlabplots
