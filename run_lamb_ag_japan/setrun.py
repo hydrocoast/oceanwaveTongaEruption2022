@@ -407,7 +407,12 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([20, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
     gauges.append([21, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
     gauges.append([22, 144.2970, 44.0200, 0., 1.e10]) # Abashiri
-    
+
+    ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
+    for i in np.arange(0, len(gauges)):
+         regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.10, gauges[i][1]+0.10, gauges[i][2]-0.10, gauges[i][2]+0.10])
+
+
     # DART buoy 地点を gauge に追加
     gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
     gauges.append([21420, 134.968, 28.912, 0., 1.e10]) #
@@ -442,7 +447,7 @@ def setrun(claw_pkg='geoclaw'):
     # Domain 1
     fg = fgmax_tools.FGmaxGrid()
     fg.point_style = 2  # uniform rectangular x-y grid
-    fg.dx = 1.0/3.0        # desired resolution of fgmax grid
+    fg.dx = 1.0/15.0        # desired resolution of fgmax grid
     fg.x1 = clawdata.lower[0]
     fg.x2 = clawdata.upper[0]
     fg.y1 = clawdata.lower[1]
@@ -520,7 +525,7 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.01
+    refine_data.wave_tolerance = 0.03
     #refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     refine_data.variable_dt_refinement_ratios = True
     if int(clawpack.__version__.split('.')[1]) < 8: # up to v5.7.1

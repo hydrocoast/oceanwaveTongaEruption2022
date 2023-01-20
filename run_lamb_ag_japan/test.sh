@@ -13,9 +13,5 @@ if [ $# -ge 2 ] ; then
 #================
 EOF
     chmod 777 set_qsub.sh
-    source ./set_qsub.sh
 fi
 
-make && make data && (make output | tee calc.log 2>&1 ) && \
-(make juliaall | tee -a calc.log 2>&1 ) && ./creategif.sh
-##make matlabplots

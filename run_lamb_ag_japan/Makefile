@@ -111,7 +111,7 @@ juliasave:
 converttomat:
 	julia setconvert.jl
 juliaall:
-	julia -e 'include("./setsave.jl"); include("./setplot.jl"); include("./setconvert.jl"); include("./setplot_surf_regions.jl")'
+	julia -e 'include("./setsave.jl"); include("./setplot.jl"); include("./setconvert.jl");'
 matlabplots:
 	matlab -nodesktop -r 'run setplot_fgmax.m; exit'
 
