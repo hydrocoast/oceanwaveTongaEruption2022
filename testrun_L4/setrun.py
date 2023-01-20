@@ -357,21 +357,21 @@ def setrun(claw_pkg='geoclaw'):
     #regions.append([1, 2, clawdata.t0, 2.0*3600.0, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
     regions.append([1, 2, 4.0*3600.0, clawdata.tfinal, 124.0, 146.0, 20.0, 45.0])
 
-    ## Level 5
+    ## Level 4
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami']), topo_type=3)
     regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kushimoto']), topo_type=3)
     regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Omaezaki']), topo_type=3)
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Mera']), topo_type=3)
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Omaezaki']), topo_type=3)
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Mera']), topo_type=3)
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Chichijima']), topo_type=3)
     regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Naha']), topo_type=3)
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Naha']), topo_type=3)
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
     regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Hakodate']), topo_type=3)
@@ -393,21 +393,25 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([6, 132.9464, 32.7605, 0., 1.e10]) # Tosashimizu
     gauges.append([7, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
     gauges.append([8, 135.9277, 33.5666, 0., 1.e10]) # Nachikatsuurachouragami**
-    gauges.append([9, 138.2220, 34.6097, 0., 1.e10]) # Omaezaki
+    gauges.append([9, 138.2270, 34.6146, 0., 1.e10]) # Omaezaki
     gauges.append([10, 139.6065, 35.1472, 0., 1.e10]) # Miurashimisakigyoko *
-    gauges.append([11, 139.8240, 34.9199, 0., 1.e10]) # Mera
+    gauges.append([11, 139.8210, 34.9210, 0., 1.e10]) # Mera
     gauges.append([12, 140.2622, 35.1245, 0., 1.e10]) # Katsuurashiokitsu
     gauges.append([13, 140.8585, 35.7522, 0., 1.e10]) # Choshi
     gauges.append([14, 140.5745, 36.3054, 0., 1.e10]) # Oarai
     gauges.append([15, 140.8916, 36.9330, 0., 1.e10]) # Onahama
     gauges.append([16, 141.0379, 38.2682, 0., 1.e10]) # Sendaiko+
-    gauges.append([17, 141.7525, 39.0183, 0., 1.e10]) # Ofunato
+    gauges.append([17, 141.7490, 39.0174, 0., 1.e10]) # Ofunato
     gauges.append([18, 141.8060, 40.1879, 0., 1.e10]) # Kuji
     gauges.append([19, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
     gauges.append([20, 144.3690, 42.9813, 0., 1.e10]) # Kushiro
     gauges.append([21, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
     gauges.append([22, 144.2970, 44.0200, 0., 1.e10]) # Abashiri
-    
+
+    ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
+    for i in np.arange(0, len(gauges)):
+         regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.10, gauges[i][1]+0.10, gauges[i][2]-0.10, gauges[i][2]+0.10])
+
     # DART buoy 地点を gauge に追加
     gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
     gauges.append([21420, 134.968, 28.912, 0., 1.e10]) #
@@ -454,22 +458,6 @@ def setrun(claw_pkg='geoclaw'):
     fg.dt_check = 60.0     # how often to update max values
     fg.interp_method = 0   # 0 ==> pw const in cells, recommended
     rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
-
-    ## around Japan
-    #fg = fgmax_tools.FGmaxGrid()
-    #fg.point_style = 2  # uniform rectangular x-y grid
-    #fg.dx = 1.0/60.0    # desired resolution of fgmax grid
-    #fg.x1 = 120.0
-    #fg.x2 = 150.0
-    #fg.y1 = 20.0
-    #fg.y2 = 50.0
-    #fg.min_level_check = 2 # which levels to monitor max on
-    #fg.arrival_tol = 1.0e-2
-    #fg.tstart_max = 0.0    # just before wave arrives
-    #fg.tend_max = 1.e10    # when to stop monitoring max values
-    #fg.dt_check = 60.0     # how often to update max values
-    #fg.interp_method = 0   # 0 ==> pw const in cells, recommended
-    #rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
     # num_fgmax_val
     rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
@@ -538,11 +526,11 @@ def setgeo(rundata):
         topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['GEBCO2022'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Amami'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kushimoto'])] )
-        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Omaezaki'])] )
-        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Mera'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Omaezaki'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Mera'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Chichijima'])] )
-        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Ishigaki'])] )
-        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Naha'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Ishigaki'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Naha'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kuji'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Hakodate'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Nemuro'])] )
@@ -550,11 +538,11 @@ def setgeo(rundata):
         topo_data.topofiles.append( [4, 1, 3, 0.0, 1.0e10, os.path.join(topodir, topoflist['GEBCO2022'])] )
         topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Amami'])] )
         topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kushimoto'])] )
-        #topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Omaezaki'])] )
-        #topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Mera'])] )
+        topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Omaezaki'])] )
+        topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Mera'])] )
         topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Chichijima'])] )
-        #topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ishigaki'])] )
-        #topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Naha'])] )
+        topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ishigaki'])] )
+        topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Naha'])] )
         topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kuji'])] )
         topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Hakodate'])] )
         topo_data.topofiles.append( [3, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['Nemuro'])] )
@@ -607,7 +595,7 @@ def setgeo(rundata):
     data.display_landfall_time = False
 
     # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag_long/')
+    data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag_tuned/')
 
     # =======================
     #  Set Variable Friction
