@@ -3,16 +3,19 @@ close all
 
 %% topo
 % -----
-% topofile = '../bathtopo/M7005.asc';
-% gauge_lonlat = [...
-%                 141.7500, 39.0200; ... % Ofunato
-%                 141.8060, 40.1879; ... % Kuji
-%                 ]; % 
+% topofile = '../bathtopo/M7005a.asc';
+% gauge_lonlat = [141.5040, 38.2931; 141.7490, 39.0174]; % Ayukawa, Ofunato
+% -----
+% topofile = '../bathtopo/M7005b.asc';
+% gauge_lonlat = [141.8060, 40.1879]; % Kuji
 % -----
 % topofile = '../bathtopo/M7006.asc';
 % gauge_lonlat = [140.7230, 41.7854]; % Hakodate
 % -----
-% topofile = '../bathtopo/M7007.asc';
+% topofile = '../bathtopo/M7007a.asc';
+% gauge_lonlat = [144.3690, 42.9813]; % Kushiro
+% -----
+% topofile = '../bathtopo/M7007b.asc';
 % gauge_lonlat = [145.5700, 43.2771]; % Hanasaki
 % -----
 % topofile = '../bathtopo/M7020.asc';
@@ -24,11 +27,35 @@ close all
 % topofile = '../bathtopo/M7023.asc';
 % gauge_lonlat = [142.1960, 27.0931]; % Chichijima
 % -----
-% topofile = '../bathtopo/depth_0090-07_zone09_lonlat.asc';
-% gauge_lonlat = [139.8240, 34.9199]; % Mera
-% -----
 % topofile = '../bathtopo/depth_0090-01_zone08_lonlat.asc';
 % gauge_lonlat = [138.2220, 34.6097]; % Omaezaki
+% -----
+% topofile = '../bathtopo/depth_0090-03_zone01_lonlat.asc';
+% gauge_lonlat = [129.5370, 28.3229]; % Amami
+% -----
+% topofile = '../bathtopo/depth_0090-03_zone06_lonlat.asc';
+% gauge_lonlat = [135.7720, 33.4757; 135.9060, 33.5618]; % Kushimoto, Uragami
+% -----
+% topofile = '../bathtopo/depth_0090-02_zone04_lonlat.asc';
+% gauge_lonlat = [132.9580, 32.7745]; % Tosashimizu
+% -----
+% topofile = '../bathtopo/depth_0090-04_zone04_lonlat.asc';
+% gauge_lonlat = [134.1640, 33.2634]; % Muroto
+% -----
+% topofile = '../bathtopo/depth_0090-05_zone09_lonlat.asc';
+% gauge_lonlat = [139.6130, 35.1477]; % Misakigyoko
+% -----
+% topofile = '../bathtopo/depth_0090-07_zone09_lonlat.asc';
+% gauge_lonlat = [139.8240, 34.9199; 140.2500, 35.1310]; % Mera, Katuura
+% -----
+% topofile = '../bathtopo/depth_0090-09_zone09_lonlat.asc';
+% gauge_lonlat = [140.8585, 35.7522]; % Choshi
+% -----
+% topofile = '../bathtopo/depth_0090-10_zone09_lonlat.asc';
+% gauge_lonlat = [140.5745, 36.3054]; % Oarai
+% -----
+% topofile = '../bathtopo/depth_0090-11_zone09_lonlat.asc';
+% gauge_lonlat = [140.8916, 36.9330]; % Onahama
 % -----
 
 
