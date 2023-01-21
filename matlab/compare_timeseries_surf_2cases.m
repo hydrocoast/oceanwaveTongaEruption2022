@@ -2,10 +2,10 @@ clear
 close all
 
 %% sim data
-simdir1 = '../run_lamb/_output';
-simdir2 = '../run_lamb_ag/_output';
-simcase_label = {'Lamb','Lamb + gravity'};
-simcase_prefix = 'Lamb_LambGravity';
+simdir1 = '../testrun_japan/_output';
+simdir2 = '../testrun_L4/_output';
+simcase_label = {'NW Pacific','W Pacific'};
+simcase_prefix = 'NWP_WP';
 
 list_gauge1 = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge1,1);
