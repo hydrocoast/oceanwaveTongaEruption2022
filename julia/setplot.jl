@@ -89,7 +89,7 @@ print("end\n")
 if !isempty(gauges)
     print("plotting gauges ...     ")
     for g in gauges
-        local plt = plotsgaugewaveform(g; title=g.label, label=false, ylims=(-0.5,1.0), xlims=(6.0,13.0))
+        local plt = plotsgaugewaveform(g; title=g.label, label=false, ylims=(-0.5,1.0), xlims=(6.0,15.0))
         #tg = g.time[1]:Hour(1):g.time[end]
 	#local plt = plotsgaugewaveform(g; title=g.label, label=false, ylims=(-0.5,1.0),
 	#			       xticks=(tg,Dates.format.(tg,"HH:MM")), xrot=45)

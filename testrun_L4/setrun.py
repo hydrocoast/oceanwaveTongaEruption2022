@@ -156,7 +156,7 @@ def setrun(claw_pkg='geoclaw'):
     # The solution at initial time t0 is always written in addition.
 
     clawdata.output_style = 2
-    clawdata.tfinal = 3600.0*14.0
+    clawdata.tfinal = 3600.0*15.0
 
     if clawdata.output_style == 1:
         # Output nout frames at equally spaced times up to tfinal:
@@ -165,9 +165,8 @@ def setrun(claw_pkg='geoclaw'):
 
     elif clawdata.output_style == 2:
         # Specify a list of output times.
-        #clawdata.output_times = [0.0, 10.0, 20.0, 30.0, 40.0, 50.0, 60.0]
-        #clawdata.output_times = [i*600.0 for i in range(0,25)]
-        clawdata.output_times = [i*600.0 for i in range(0,73)]
+        #clawdata.output_times = [i*600.0 for i in range(0,73)] # every 10 min, 12 h
+        clawdata.output_times = [i*900.0 for i in range(0,61)] # every 15 min, 15 h
 
     elif clawdata.output_style == 3:
         # Output every iout timesteps with a total of ntot time steps:
@@ -359,7 +358,7 @@ def setrun(claw_pkg='geoclaw'):
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
     #regions.append([1, 2, clawdata.t0, 2.0*3600.0, 175.0, 195.0, -30.0, -10.0]) # [1,2, ...] でなくても十分?
-    regions.append([1, 2, 4.0*3600.0, clawdata.tfinal, 124.0, 146.0, 20.0, 45.0])
+    regions.append([1, 3, 4.0*3600.0, clawdata.tfinal, 124.0, 146.0, 20.0, 45.0])
 
     ## Level 4
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami']), topo_type=3)
