@@ -110,11 +110,11 @@ for k = 1:nt
             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_trough, wavelength, dist_from_antinode);
         end
 
-        %% Additional peak
-        dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
-        if dist_from_antinode <= 0.5*wavelength_add
-            pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) -0.1;
-        end
+%         %% Additional peak
+%         dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
+%         if dist_from_antinode <= 0.5*wavelength_add
+%             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) -0.1;
+%         end
         
         %% Composite pressure data
         pres(i,j,k) = pres(i,j,k) + pres_lamb;
@@ -139,7 +139,7 @@ if active_g == 1
                     amp_peak = amp(dist_peak(iwave),coef_g(iwave));
                     dist_from_antinode = kmmesh(i,j) - dist_peak(iwave); % km
                     if (dist_from_antinode <= 0.5*wavelength) && ...
-                       (dist_from_antinode >= -20.0*wavelength_g(iwave)) && ...
+                       (dist_from_antinode >= -50.0*wavelength_g(iwave)) && ...
                        (dist_peak_lamb - dist_peak(iwave) >= wavelength_g(iwave)) 
                         pres_add = pressure_anomaly_airgravitywave(amp_peak, wavelength_g(iwave), abs(dist_from_antinode));
                     end
@@ -174,7 +174,7 @@ end
 %% check time-series of the air pressure
 figure
 plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
-xlim([6.0,12.0]);
+xlim([6.0,14.0]);
 grid on
 print(gcf,'気圧波形_l','-djpeg','-r150');
 
