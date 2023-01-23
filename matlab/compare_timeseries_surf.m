@@ -2,7 +2,7 @@ clear
 close all
 
 %% sim data
-simdir1 = '../testrun_japan/_output';
+simdir1 = '../testrun_L5_d3000/_output';
 list_gauge = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge,1);
 
@@ -79,7 +79,7 @@ for i = 1:ngauge
         title(table_JMA.Name(ind_row),'FontName','Helvetica','FontSize',14);
     end
 
-    xlim([-1,13])
+    xlim([-1,16])
     xline(0.0,'k--');
     hold off
 

@@ -15,6 +15,7 @@ if ~isfolder("fig_pred2d"); mkdir("fig_pres2d"); end
 
 fig = figure;
 % for k = 1:nt
+% for k = 1:10:nt
 for k = 1:10:nt
     clf(fig);
     
