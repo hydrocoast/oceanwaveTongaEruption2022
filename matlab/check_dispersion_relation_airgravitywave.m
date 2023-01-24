@@ -5,9 +5,8 @@ close all
 
 %% parameters
 g = 9.8; % m/s^2
-cs = 310.0; % m/s
-% N = 1.16e-2; % /s
-N = 1.8e-2; % /s
+cs = 360.0; % m/s
+N = 1.16e-2; % /s
 mu = 0.5*(N^2/g + g/cs^2); % /m ?
 sigma0 = mu*cs;
 

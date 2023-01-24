@@ -2,10 +2,10 @@ clear
 close all
 
 %% sim data
-simdir1 = '../testrun_japan/_output';
-simdir2 = '../testrun_L4/_output';
-simcase_label = {'NW Pacific','W Pacific'};
-simcase_prefix = 'NWP_WP';
+simdir1 = '../run_lamb/_output';
+simdir2 = '../run_tuned_B/_output';
+simcase_label = {'Lamb wave only','Lamb + grav. wave'};
+simcase_prefix = 'Lamb_Lamb_ag';
 
 list_gauge1 = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge1,1);
@@ -100,7 +100,7 @@ for i = 1:ngauge
         title(table_JMA.Name(ind_row),'FontName','Helvetica','FontSize',14);
     end
 
-    xlim([-1,13])
+    xlim([-1,15])
     xline(0.0,'k--');
     hold off
 

@@ -2,7 +2,7 @@ clear
 close all
 
 %% sim data
-simdir1 = '../testrun_L5_d3000/_output';
+simdir1 = '../run_tuned_B/_output';
 list_gauge = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge,1);
 

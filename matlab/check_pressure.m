@@ -1,11 +1,11 @@
-clear
+% clear
 close all
 
 %% 生成した気圧データの可視化・確認
 
 %% filename
 matfile = 'pres_lg.mat';
-load(matfile)
+% load(matfile)
 
 cmap = colormap(jet(100));
 close
@@ -14,10 +14,15 @@ cmap(50:51,:) = repmat([1,1,1],[2,1]);
 if ~isfolder("fig_pred2d"); mkdir("fig_pres2d"); end
 
 fig = figure;
+print(fig,'-dpng','tmp.png'); !rm tmp.png
 % for k = 1:nt
 % for k = 1:10:nt
+
+isnap = 0;
+
 for k = 1:10:nt
     clf(fig);
+    isnap = isnap + 1;
     
     gx = geoaxes;
     geobasemap(gx,'colorterrain')
@@ -46,13 +51,13 @@ for k = 1:10:nt
     ax.XTick = [];
     ax.YTick = [];
     ax.Position = gx.Position;
-    print(gcf,'-djpeg',sprintf('fig_pres2d/step%03d.jpg',k));
+    print(gcf,'-djpeg',sprintf('fig_pres2d/step%03d.jpg',isnap));
 end
 
 
 %% animation
-% ! ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
-% ! ffmpeg -r 12 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y
+! ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
+! ffmpeg -r 6 -i step%03d.jpg -i palette.png -filter_complex paletteuse pres.gif -y
 
 %% animation (mac)
 % ! /usr/local/bin/ffmpeg -i step%03d.jpg -vf palettegen palette.png -y
