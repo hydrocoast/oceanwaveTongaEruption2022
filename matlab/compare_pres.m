@@ -9,8 +9,9 @@ lon_obs = [table_obs_pres.Lon];
 np_obs = size(table_obs_pres,1);
 
 %% parametric pressure file
-% load('pres_l.mat');
-load('pres_lg.mat');
+load('pres_l.mat');
+% load('pres_lg_cs360.mat');
+% load('pres_lg_N1.6.mat');
 
 
 %% 

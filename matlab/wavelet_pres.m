@@ -57,7 +57,7 @@ for i = 1:1
     set(axt,'FontName','Helvetica','FontSize',12);
     ylabel(axt,'P_{a} (hPa)','FontName','Helvetica','FontSize',14);
     axt.XAxis.TickLabels = [];
-    xline(t_pmax/3600,'k--');    
+    xline(t_pmax/3600,'k--');
     
     %% scalogram
     axw = nexttile([2,1]);
