@@ -4,7 +4,7 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 0; % 1: on, otherwise: off
+active_g = 1; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
@@ -18,9 +18,9 @@ lat0 =  -20.544686;
 lon0 = -175.393311 + 360.0;
 
 %% lonlat
-latrange = [-60,60];
-lonrange = [110,300];
-dl = 0.25;
+latrange = [0,60];
+lonrange = [110,210];
+dl = 0.20;
 nlon = round(abs(diff(lonrange))/dl)+1;
 nlat = round(abs(diff(latrange))/dl)+1;
 lon = linspace(lonrange(1),lonrange(2),nlon);
@@ -52,21 +52,33 @@ coef_lamb_add = 25;
 wavelength_add = 4.0*wavelength; % km
 
 
-% cs_g = 360.0;
-% N = 1.16e-2; % /s
 
-cs_g = cs;
-N = 1.6e-2; % /s
+g = 9.8; % m/s^2
 
 %% parameters for air gravity waves
 if active_g == 1
-    g = 9.8; % m/s^2
+%     wavelength_g = wavelength*[2.00; 1.00; 0.50; 0.40; 0.35; 0.30; 0.27; 0.25; 0.22; 0.20; 0.18; 0.17; 0.16; 0.15; 0.14]; % km
+%     nwave_g = length(wavelength_g);
+%     coef_g = [20; -20; -10; -10; -10; -10; -40; -40; -40; -20; 20; -20; 20; -20; 20];
+
+%     cs_g = cs;
+%     N = 1.8e-2; % /s
+%     mu = 0.5*(N^2/g + g/cs^2); % /m
+%     sigma0 = mu*cs;
+%     wavelength_g = [750; 350; 265; 225; 199; ...
+%                     181; 167; 157; 149; 142; ...
+%                     136; 131; 126; 122; ]; % km
+
+    cs_g = 360.0;
+    N = 1.16e-2; % /s
     mu = 0.5*(N^2/g + g/cs_g^2); % /m
     sigma0 = mu*cs_g;
     wavelength_g = [1370; 910; 760; 610; 460; ...
                      370; 300; 270; 250; 220; 195; ...
                      181; 167; 162; 157; 149; ...
                      142; 131; 122; 100; 90]; % km
+
+
     nwave_g = length(wavelength_g);
     coef_g = 5*ones(nwave_g,1);
     k_g = 2*pi./(wavelength_g.*1e3);
@@ -185,7 +197,7 @@ print(gcf,'気圧波形_l','-djpeg','-r150');
 save(matname_pres,'-v7.3',...
      'lon0','lat0','lonrange','latrange','lon','lat',...
      'nlon','nlat','dl','pres',...
-     'cs','cs_g','wavelength','dt','t','nt','active_g')
+     'cs','wavelength','dt','t','nt','active_g')
 
 
 %% formula - Lamb wave
