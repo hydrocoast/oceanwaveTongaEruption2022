@@ -35,6 +35,9 @@
 fort.*
 tmp*
 gmt.*
+*.sh.o*
+*.sh.p*
+*.sh.e*
 *.DS_Store
 nohup.out
 _output/

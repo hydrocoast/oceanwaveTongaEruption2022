@@ -2,19 +2,6 @@
 if [ $# -ge 1 ] ; then
     export OMP_NUM_THREADS=$1
 fi
-if [ $# -ge 2 ] ; then
-    cat  <<EOF > set_qsub.sh
-#!/bin/bash
-#=== SGE options ===
-#$ -q ocean.q@$2
-#$ -l h_rt=120:00:00
-#$ -pe mpi_fu $1
-#$ -cwd
-#================
-EOF
-    chmod 777 set_qsub.sh
-    source ./set_qsub.sh
-fi
 
 make && make data && (make output | tee calc.log 2>&1 ) && \
 (make juliaall | tee -a calc.log 2>&1 ) && ./creategif.sh
