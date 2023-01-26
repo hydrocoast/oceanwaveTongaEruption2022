@@ -2,10 +2,10 @@ clear
 close all
 
 %% sim data
-simdir1 = '../run_lamb/_output';
+simdir1 = '../run_lamb_ag_N1.6/_output';
 simdir2 = '../run_tuned_B/_output';
-simcase_label = {'Lamb wave only','Lamb + grav. wave'};
-simcase_prefix = 'Lamb_Lamb_ag';
+simcase_label = {'N=1.6e-2','N=1.8e-2'};
+simcase_prefix = 'diff_N';
 
 list_gauge1 = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge1,1);
