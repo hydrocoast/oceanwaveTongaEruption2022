@@ -6,13 +6,8 @@
 #$ -cwd
 #================
 
-#if [ -z ${MACHINEFILE} ] ; then
-#    echo "define the ENV of MACHINE"
-#    exit 1
-#fi
-#source $MACHINEFILE
 export OMP_NUM_THREADS=40
 
-make && make data && (make output | tee calc.log 2>&1 ) && \
-(make juliaall | tee -a calc.log 2>&1 ) && ./creategif.sh
-##make matlabplots
+./xgeoclaw 1>calc.log 2>&1
+julia -e 'include("./setsave.jl"); include("./setplot.jl"); include("./setconvert.jl");'
+./creategif.sh
