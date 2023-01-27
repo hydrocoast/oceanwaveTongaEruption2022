@@ -4,13 +4,13 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 0; % 1: on, otherwise: off
+active_g = 1; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
-    matname_pres = 'pres_lg_nwp.mat';
+    matname_pres = 'pres_lg_wp.mat';
 else
-    matname_pres = 'pres_l_nwp.mat';
+    matname_pres = 'pres_l_wp.mat';
 end
 
 %% origin
@@ -18,9 +18,9 @@ lat0 =  -20.544686;
 lon0 = -175.393311 + 360.0;
 
 %% lonlat
-% North-Western Pacific Only
-latrange = [0,60];
-lonrange = [110,200];
+% Western Pacific Only
+latrange = [-60,60];
+lonrange = [110,200.2];
 dl = 0.20;
 nlon = round(abs(diff(lonrange))/dl)+1;
 nlat = round(abs(diff(latrange))/dl)+1;

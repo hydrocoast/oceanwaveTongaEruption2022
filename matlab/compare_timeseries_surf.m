@@ -2,7 +2,8 @@ clear
 close all
 
 %% sim data
-simdir1 = '../testrun_westjapan/_output';
+% simdir1 = '../run_lamb_nwp/_output';
+simdir1 = '/home/miyashita/h100_home/miyashita/Research/AMR/oceanwaveTongaEruption2022/testrun_westjapan2/_output';
 list_gauge = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge,1);
 
