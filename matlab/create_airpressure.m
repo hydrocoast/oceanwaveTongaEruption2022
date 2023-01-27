@@ -188,8 +188,8 @@ save(matname_pres,'-v7.3',...
 
 %% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
-%     pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
-    pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
+    pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
+%     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 
 
