@@ -5,8 +5,7 @@ close all
 
 %% filename
 % matfile = 'pres_l.mat';
-% matfile = 'pres_lg_N1.6.mat';
-matfile = 'pres_lg_cs360.mat';
+matfile = 'pres_lg_nwp.mat';
 load(matfile)
 
 fc = '1d.con';

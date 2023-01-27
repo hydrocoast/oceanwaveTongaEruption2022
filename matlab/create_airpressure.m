@@ -4,13 +4,13 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 1; % 1: on, otherwise: off
+active_g = 0; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
-    matname_pres = 'pres_lg.mat';
+    matname_pres = 'pres_lg_nwp.mat';
 else
-    matname_pres = 'pres_l.mat';
+    matname_pres = 'pres_l_nwp.mat';
 end
 
 %% origin
@@ -18,8 +18,9 @@ lat0 =  -20.544686;
 lon0 = -175.393311 + 360.0;
 
 %% lonlat
+% North-Western Pacific Only
 latrange = [0,60];
-lonrange = [110,210];
+lonrange = [110,200];
 dl = 0.20;
 nlon = round(abs(diff(lonrange))/dl)+1;
 nlat = round(abs(diff(latrange))/dl)+1;
@@ -73,12 +74,6 @@ if active_g == 1
     N = 1.16e-2; % /s
     mu = 0.5*(N^2/g + g/cs_g^2); % /m
     sigma0 = mu*cs_g;
-%     wavelength_g = [1370; 910; 760; 610; 460; ...
-%                      370; 300; 270; 250; 235; ...
-%                      220; 205; 195; 186; 181; ...
-%                      175; 167; 162; 157; 149; ...
-%                      142; 135; 131; 126; 122; ...
-%                      115; 110; 105; 100; 90]; % km
     wavelength_g = [1370; 910; 760; 610; 460; ...
                      370; 300; 270; 250; 235; ...
                      220; 205; 195; 186; 181; ...
@@ -165,23 +160,6 @@ if active_g == 1
                        (dist_peak_lamb - dist_peak(iwave) >= wavelength_g(iwave)) 
                         pres_add = pressure_anomaly_airgravitywave(amp_peak, wavelength_g(iwave), abs(dist_from_antinode));
                     end
-
-%                     amp_peak = amp(dist_peak(iwave),coef_g(iwave));
-%                     %% peak side
-%                     dist_from_antinode = kmmesh(i,j)-dist_peak(iwave); % km
-%                     if abs(dist_from_antinode) <= 0.5*wavelength_g(iwave)
-%                         pres_add = pressure_anomaly_airgravitywave(amp_peak, wavelength_g(iwave), abs(dist_from_antinode));
-%                     end
-% 
-%                     %% trough side
-%                     dist_trough = max(1,dist_peak(iwave)-wavelength_g(iwave)); % km
-%                     amp_trough = -amp(dist_trough,coef_g(iwave));
-%                     dist_from_antinode = kmmesh(i,j)-dist_trough; % km
-%                     dist_diff = dist_peak(iwave)+0.5*wavelength-kmmesh(i,j); % km
-%                     if (dist_from_antinode <= 0.5*wavelength_g(iwave)) && (dist_diff > 0.0)
-%                         pres_add = pressure_anomaly_airgravitywave(amp_trough, wavelength_g(iwave), abs(dist_from_antinode));
-%                     end
-
                     pres_grav = pres_grav + pres_add;
                 end
                 pres(i,j,k) = pres(i,j,k) + pres_grav;
@@ -198,7 +176,7 @@ figure
 plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
 xlim([6.0,15.0]);
 grid on
-print(gcf,'気圧波形_l','-djpeg','-r150');
+% print(gcf,'気圧波形_l','-djpeg','-r150');
 
 
 %% save
@@ -210,8 +188,8 @@ save(matname_pres,'-v7.3',...
 
 %% formula - Lamb wave
 function pres = pressure_anomaly_Lamb(amp_antinode, wavelength, distance_from_antinode)
-    pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
-%     pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
+%     pres = amp_antinode*cospi(1/wavelength*distance_from_antinode);
+    pres = amp_antinode*(1-min(distance_from_antinode/wavelength,1));
 end
 
 
