@@ -284,7 +284,7 @@ def setrun(claw_pkg='geoclaw'):
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [3,4,4,3]
     amrdata.refinement_ratios_y = [3,4,4,3]
-    amrdata.refinement_ratios_t = [3,4,2,1]
+    amrdata.refinement_ratios_t = [3,4,4,1]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
