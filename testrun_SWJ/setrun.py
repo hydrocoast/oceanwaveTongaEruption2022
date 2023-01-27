@@ -137,7 +137,7 @@ def setrun(claw_pkg='geoclaw'):
     # -------------
     # Initial time:
     # -------------
-    clawdata.t0 = 3600.0*3.0
+    clawdata.t0 = 0.0
 
     # Restart from checkpoint file of a previous run?
     # If restarting, t0 above should be from original run, and the
@@ -167,7 +167,9 @@ def setrun(claw_pkg='geoclaw'):
         # Specify a list of output times.
         #clawdata.output_times = [i*600.0 for i in range(0,73)] # every 10 min, 12 h
         #clawdata.output_times = [i*900.0 for i in range(0,61)] # every 15 min, 15 h
-        clawdata.output_times = [i*1800.0 for i in range(6,31)] # every 30 min, 3 to 15 h
+        #clawdata.output_times = [i*1800.0 for i in range(6,31)] # every 30 min, 3 to 15 h
+        clawdata.output_times = [i*1800.0 for i in range(0,31)] # every 30 min, 0 to 15 h
+
 
     elif clawdata.output_style == 3:
         # Output every iout timesteps with a total of ntot time steps:
