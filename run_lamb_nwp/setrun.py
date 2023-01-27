@@ -450,8 +450,8 @@ def setrun(claw_pkg='geoclaw'):
         fgout.x2 = clawdata.upper[0]
         fgout.y1 = clawdata.lower[1]
         fgout.y2 = clawdata.upper[1]
-        fgout.tstart = 0.
-        fgout.tend = 12.*3600.0
+        fgout.tstart = clawdata.t0
+        fgout.tend = clawdata.tfinal
         fgout.nout = 73
         fgout_grids.append(fgout)
 
@@ -471,8 +471,8 @@ def setrun(claw_pkg='geoclaw'):
     fg.y2 = clawdata.upper[1]
     fg.min_level_check = 1 # which levels to monitor max on
     fg.arrival_tol = 1.0e-2
-    fg.tstart_max = 0.0    # just before wave arrives
-    fg.tend_max = 1.e10    # when to stop monitoring max values
+    fg.tstart_max = clawdata.t0    # just before wave arrives
+    fg.tend_max = clawdata.tfinal    # when to stop monitoring max values
     fg.dt_check = 10.0     # how often to update max values
     fg.interp_method = 0   # 0 ==> pw const in cells, recommended
     rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
