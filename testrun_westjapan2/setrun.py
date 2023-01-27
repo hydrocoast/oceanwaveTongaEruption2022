@@ -208,12 +208,11 @@ def setrun(claw_pkg='geoclaw'):
 
     # Max time step to be allowed if variable dt used:
     clawdata.dt_max = 1e+99
-    #clawdata.dt_max = 6.0e+2
 
     # Desired Courant number if variable dt used, and max to allow without
     # retaking step with a smaller dt:
-    clawdata.cfl_desired = 0.50
-    clawdata.cfl_max = 0.70
+    clawdata.cfl_desired = 0.70
+    clawdata.cfl_max = 0.90
 
     # Maximum number of time steps to allow between output times:
     clawdata.steps_max = 500000
@@ -362,7 +361,7 @@ def setrun(claw_pkg='geoclaw'):
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 124.0, 148.0, 15.0, 45.0])
     regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 124.0, 140.0, 15.0, 35.5]) # West Japan
 
-    ## Level 4
+    ## Level 5
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
     regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['Naha']), topo_type=3)
