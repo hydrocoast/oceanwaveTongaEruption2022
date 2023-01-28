@@ -9,4 +9,5 @@ rsync -av "$1/" "$2/" --exclude="_output*/" --exclude="_plots/" --exclude="_jld2
 		      --exclude="*.kml" --exclude="*.log" \
 		      --exclude="xgeoclaw" --exclude="*.out" \
 		      --exclude="*.mod" --exclude="*.o" \
-		      --exclude="__pycache__/" --exclude="*.html"
+		      --exclude="__pycache__/" --exclude="*.html" \
+		      --exclude="*.sh.*"
