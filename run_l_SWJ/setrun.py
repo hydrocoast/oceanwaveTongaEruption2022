@@ -435,10 +435,10 @@ def setrun(claw_pkg='geoclaw'):
          regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, g[1]-0.10, g[1]+0.10, g[2]-0.10, g[2]+0.10])
 
     # DART buoy 地点を gauge に追加
-    gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
-    gauges.append([21420, 134.968, 28.912, 0., 1.e10]) #
-    gauges.append([52401, 155.739, 19.285, 0., 1.e10]) #
-    gauges.append([52402, 153.895, 11.930, 0., 1.e10]) #
+    #gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
+    #gauges.append([21420, 134.968, 28.912, 0., 1.e10]) #
+    #gauges.append([52401, 155.739, 19.285, 0., 1.e10]) #
+    #gauges.append([52402, 153.895, 11.930, 0., 1.e10]) #
     gauges.append([52404, 132.139, 20.629, 0., 1.e10]) #
 
     # Fixed grid output
