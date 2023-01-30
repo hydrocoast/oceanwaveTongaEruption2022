@@ -9,8 +9,8 @@ lon_obs = [table_obs_pres.Lon];
 np_obs = size(table_obs_pres,1);
 
 %% parametric pressure file
-% load('pres_l.mat');
-load('pres_lg_nwp.mat');
+% load('pres_l_wp.mat');
+load('pres_lg_wp.mat');
 
 
 %% 
@@ -31,7 +31,7 @@ i = 6;
 ax(1) = nexttile;
 p1 = plot(t./3600, squeeze(pres(indobs_lat(i), indobs_lon(i),:))); hold on
 p2 = plot(cell2mat(table_obs_pres{i,"Time"})./3600,cell2mat(table_obs_pres{i,"Pressure_anomaly"}));
-xlim(ax(1),[-0.5,13.0]);
+xlim(ax(1),[-0.5,16.0]);
 grid on
 set(ax(1),'FontName','Helvetica','FontSize',12)
 % xlabel(ax(1),'Time (hour)','FontName','Helvetica','FontSize',14);
@@ -46,7 +46,7 @@ i = 15;
 ax(2) = nexttile;
 p1 = plot(t./3600, squeeze(pres(indobs_lat(i), indobs_lon(i),:))); hold on
 p2 = plot(cell2mat(table_obs_pres{i,"Time"})./3600,cell2mat(table_obs_pres{i,"Pressure_anomaly"}));
-xlim(ax(2),[-0.5,13.0]);
+xlim(ax(2),[-0.5,16.0]);
 grid on
 set(ax(2),'FontName','Helvetica','FontSize',12)
 xlabel(ax(2),'Time (hour)','FontName','Helvetica','FontSize',14);

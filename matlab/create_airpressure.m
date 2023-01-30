@@ -8,7 +8,7 @@ active_g = 1; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
-    matname_pres = 'pres_lg_wp.mat';
+    matname_pres = 'pres_lg_wp_cs365.mat';
 else
     matname_pres = 'pres_l_wp.mat';
 end
@@ -49,7 +49,7 @@ coef_lamb_peak = 169;
 coef_lamb_trough = -107;
 amp = @(r,a) sign(a)*min(abs(a),abs(a*r^(-0.5))); % km
 
-coef_lamb_add = 25;
+coef_lamb_add = 15;
 wavelength_add = 4.0*wavelength; % km
 
 
@@ -62,6 +62,7 @@ if active_g == 1
 %     nwave_g = length(wavelength_g);
 %     coef_g = [20; -20; -10; -10; -10; -10; -40; -40; -40; -20; 20; -20; 20; -20; 20];
 
+%% N を無理やり大きくして波速をチューニング
 %     cs_g = cs;
 %     N = 1.8e-2; % /s
 %     mu = 0.5*(N^2/g + g/cs^2); % /m
@@ -70,18 +71,32 @@ if active_g == 1
 %                     181; 167; 157; 149; 142; ...
 %                     136; 131; 126; 122; ]; % km
 
-    cs_g = 360.0;
+%      %% 音速を無理やり大きくして波速をチューニング
+%     cs_g = 360.0;
+%     N = 1.16e-2; % /s
+%     mu = 0.5*(N^2/g + g/cs_g^2); % /m
+%     sigma0 = mu*cs_g;
+%     wavelength_g = [1370; 910; 760; 610; 460; ...
+%                      370; 300; 270; 250; 235; ...
+%                      220; 205; 195; 186; 181; ...
+%                      175; 167; 162; 157; 149; ...
+%                      142; 135; 131; 126; 122; ...
+%                      115; 110; 105; 100; 90]; % km
+
+    %% 音速を無理やり大きくして波速をチューニング その2
+    cs_g = 365.0;
     N = 1.16e-2; % /s
     mu = 0.5*(N^2/g + g/cs_g^2); % /m
     sigma0 = mu*cs_g;
-    wavelength_g = [1370; 910; 760; 610; 460; ...
-                     370; 300; 270; 250; 235; ...
+    wavelength_g = [1470; 980; 820; 650; 485; ...
+                     400; 317; 270; 250; 235; ...
                      220; 205; 195; 186; 181; ...
                      175; 167; 162; 157; 149; ...
                      142; 135; 131; 126; 122; ...
                      115; 110; 105; 100; 90]; % km
+    
 
-
+    %% 
     nwave_g = length(wavelength_g);
     coef_g = 5*ones(nwave_g,1);
     k_g = 2*pi./(wavelength_g.*1e3);
@@ -127,11 +142,11 @@ for k = 1:nt
             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_trough, wavelength, dist_from_antinode);
         end
 
-%         %% Additional peak
-%         dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
-%         if dist_from_antinode <= 0.5*wavelength_add
-%             pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) -0.1;
-%         end
+        %% Additional peak
+        dist_from_antinode = abs(kmmesh(i,j)-dist_peak_add); % km
+        if dist_from_antinode <= 0.5*wavelength_add
+            pres_lamb = pres_lamb + pressure_anomaly_Lamb(amp_peak_add, wavelength_add, dist_from_antinode) - 0.12;
+        end
         
         %% Composite pressure data
         pres(i,j,k) = pres(i,j,k) + pres_lamb;

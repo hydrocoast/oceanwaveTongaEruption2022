@@ -2,8 +2,7 @@ clear
 close all
 
 % matname_pres = 'pres_l.mat';
-matname_pres = 'pres_lg.mat';
-% matname_pres = 'pres_lg_N1.6.mat';
+matname_pres = 'pres_lg_wp_cs365.mat';
 load(matname_pres);
 
 %% parameters

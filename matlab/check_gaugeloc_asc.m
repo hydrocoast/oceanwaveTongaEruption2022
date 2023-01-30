@@ -36,11 +36,23 @@ close all
 % topofile = '../bathtopo/depth_0090-03_zone06_lonlat.asc';
 % gauge_lonlat = [135.7720, 33.4757; 135.9060, 33.5618]; % Kushimoto, Uragami
 % -----
+% topofile = '../bathtopo/depth_0030-07_zone06_lonlat.asc';
+% gauge_lonlat = [135.7740, 33.4773]; % Kushimoto
+% -----
+% topofile = '../bathtopo/depth_0030-08_zone06_lonlat.asc';
+% gauge_lonlat = [135.8970, 33.5591]; % Uragami
+% -----
 % topofile = '../bathtopo/depth_0090-02_zone04_lonlat.asc';
 % gauge_lonlat = [132.9580, 32.7745]; % Tosashimizu
 % -----
+% topofile = '../bathtopo/depth_0030-06_zone04_lonlat.asc';
+% gauge_lonlat = [132.9580, 32.7779]; % Tosashimizu
+% -----
 % topofile = '../bathtopo/depth_0090-04_zone04_lonlat.asc';
 % gauge_lonlat = [134.1640, 33.2634]; % Muroto
+% -----
+% topofile = '../bathtopo/depth_0030-11_zone04_lonlat.asc';
+% gauge_lonlat = [134.1642, 33.2644]; % Muroto
 % -----
 % topofile = '../bathtopo/depth_0090-05_zone09_lonlat.asc';
 % gauge_lonlat = [139.6130, 35.1477]; % Misakigyoko
