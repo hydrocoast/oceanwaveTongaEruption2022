@@ -37,14 +37,14 @@ topodir = os.path.join(os.getcwd(), '..', 'bathtopo')
 # topolist
 topoflist = {
              "GEBCO2022" :"gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc",
-             "Amami":"depth_0090-03_zone01_lonlat.asc",
-             "Tosashimizu":"depth_0090-02_zone04_lonlat.asc",
-             "Muroto":"depth_0090-04_zone04_lonlat.asc",
-             "Kushimoto":"depth_0090-03_zone06_lonlat.asc",
-             "Omaezaki":"depth_0090-01_zone08_lonlat.asc",
-             "Mera":"depth_0090-07_zone09_lonlat.asc",
-             "Oarai":"depth_0090-10_zone09_lonlat.asc",
-             "Onahama":"depth_0090-11_zone09_lonlat.asc",
+             "Amami":"zone01_depth_0090-03_lonlat.asc",
+             "Tosashimizu":"zone04_depth_0090-02_lonlat.asc",
+             "Muroto":"zone04_depth_0090-04_lonlat.asc",
+             "Kushimoto":"zone06_depth_0090-03_lonlat.asc",
+             "Omaezaki":"zone08_depth_0090-01_lonlat.asc",
+             "Mera":"zone09_depth_0090-07_lonlat.asc",
+             "Oarai":"zone09_depth_0090-10_lonlat.asc",
+             "Onahama":"zone09_depth_0090-11_lonlat.asc",
              "Chichijima":"M7023.asc",
              "Ishigaki":"M7021.asc",
              "Naha":"M7020.asc",
@@ -53,9 +53,13 @@ topoflist = {
              "Hakodate":"M7006.asc",
              "Kushiro":"M7007a.asc",
              "Nemuro":"M7007b.asc",
+             "Amami30":"zone01_depth_0030-08_lonlat.asc",
+             "Tosashimizu30":"zone04_depth_0030-06_lonlat.asc",
+             "Muroto30":"zone04_depth_0030-11_lonlat.asc",
+             "Kushimoto30":"zone04_depth_0030-07_lonlat.asc",
+             "Uragami30":"zone06_depth_0030-08_lonlat.asc",
+             "Omaezaki30":"zone08_depth_0030-03_lonlat.asc",
             }
-
-
 
 # Directory for gauge location files:
 gaugedir = os.path.join(os.getcwd(), '..', 'gaugeset')
@@ -625,7 +629,7 @@ def setgeo(rundata):
     data.display_landfall_time = False
 
     # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/lamb_ag_wp/')
+    data.storm_file = os.path.join(os.getcwd(),'../forcing/lg_cs365/')
 
     # =======================
     #  Set Variable Friction
