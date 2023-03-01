@@ -1,9 +1,6 @@
 #!/bin/bash
 
-output="bathtopo_gebco.ps"
-
-#bath="../bathtopo/gebco_2022_n60.0_s-60.0_w110.0_e240.0.nc"
-bath="./gebco_2022_n60.0_s-60.0_w110.0_e240.0_1m.nc"
+bath="./gebco_2022_n60.0_s-60.0_w110.0_e240.0_2m.nc"
 proj="X8.5/11"
 region="115/200/-55/55"
 cpt="tmptopo.cpt"
@@ -20,7 +17,7 @@ EOF
 
 gmt begin bath pdf
     gmt grdimage $bath -J$proj -R$region -Ba30f15 -C$cpt
-    gmt coast -Wthinnest,gray30 -Dl
+    gmt coast -Wthin,gray30 -Dl
     gmt colorbar -C$cpt -Bxa2000f1000 -By+lm -DJMR+w10.0/0.3+o0.7/0.0 
     gmt plot -Gred -St0.3 -W0.1p lonlat_hungatonga.dat
     gmt text -F+f11p,0,red+jTC -Dj0/0.12 lonlat_hungatonga.dat
@@ -29,4 +26,4 @@ gmt begin bath pdf
 gmt end
 
 rm lonlat_*.dat
-rm tmptopo.cpt
+rm $cpt

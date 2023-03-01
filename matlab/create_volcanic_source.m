@@ -9,7 +9,7 @@ lon0 = -175.393311 + 360.0;
 %% lonlat
 latrange = [-20.60,-20.50];
 lonrange = [-175.45,-175.35] + 360.0;
-dl = 1/720;
+dl = 1/2880;
 nlon = round(abs(diff(lonrange))/dl)+1;
 nlat = round(abs(diff(latrange))/dl)+1;
 lon = linspace(lonrange(1),lonrange(2),nlon);
@@ -46,7 +46,10 @@ surf(LON,LAT,eta_source); shading flat
 cb = colorbar;
 caxis([-200,200])
 axis tight
+box on
 
+%% grdwrite
+grdwrite2(lon,lat,eta_source,"../dtopo/dtopo_test.grd")
 
 %% print
 dtopofile = "./dtopo_test.asc";
