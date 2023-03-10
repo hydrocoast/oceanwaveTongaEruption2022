@@ -10,7 +10,8 @@ np_obs = size(table_obs_pres,1);
 
 %% parametric pressure file
 % load('pres_l_wp.mat');
-load('pres_lg_wp.mat');
+% load('pres_lg_wp.mat');
+load('pres_lg_tuned.mat');
 
 
 %% 

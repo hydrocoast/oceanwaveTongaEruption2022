@@ -5,7 +5,7 @@ close all
 
 %% filename
 % matfile = 'pres_l_wp.mat';
-matfile = 'pres_lg_wp_cs365.mat';
+matfile = 'pres_lg_A.mat';
 load(matfile)
 
 fc = '1d.con';

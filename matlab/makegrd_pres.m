@@ -2,7 +2,7 @@ clear
 close all
 
 %% filename
-matfile = 'pres_l.mat';
+matfile = 'pres_lg_wp.mat';
 load(matfile)
 
 nskip = 20;
