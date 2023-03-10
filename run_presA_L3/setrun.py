@@ -466,8 +466,8 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([38, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
 
     ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
-    for i in np.arange(0, len(gauges)):
-         regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, gauges[i][1]-0.15, gauges[i][1]+0.15, gauges[i][2]-0.15, gauges[i][2]+0.15])
+    for g in gauges:
+         regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, g[1]-0.15, g[1]+0.15, g[2]-0.15, g[2]+0.15])
     for g in gauges:
          regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, g[1]-0.10, g[1]+0.10, g[2]-0.10, g[2]+0.10])
 
