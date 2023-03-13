@@ -18,8 +18,6 @@ lat0 =  -20.544686;
 lon0 = -175.393311 + 360.0;
 
 %% lonlat
-%latrange = [-60,60];
-%lonrange = [110,300];
 latrange = [-60,60];
 lonrange = [110,200.2];
 dl = 0.20;
@@ -39,7 +37,7 @@ checkpoint = [135.0,32.5];
 
 %% parameters
 dt = 120;
-t = dt:dt:3600*15;
+t = dt:dt:3600*16;
 nt = length(t);
 %% parameters below are based on Gusman et al.(2022), PAGEOPH
 % https://link.springer.com/article/10.1007/s00024-022-03154-1

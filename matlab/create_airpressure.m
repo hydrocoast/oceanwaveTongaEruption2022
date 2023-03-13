@@ -4,13 +4,13 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 1; % 1: on, otherwise: off
+active_g = 0; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
     matname_pres = 'pres_lg_wp_cs365.mat';
 else
-    matname_pres = 'pres_l_wp.mat';
+    matname_pres = 'pres_lamb.mat';
 end
 
 %% origin
@@ -38,7 +38,7 @@ checkpoint = [135.0,32.5];
 
 %% parameters
 dt = 120;
-t = dt:dt:3600*15;
+t = dt:dt:3600*16;
 nt = length(t);
 %% parameters below are based on Gusman et al.(2022), PAGEOPH
 % https://link.springer.com/article/10.1007/s00024-022-03154-1
