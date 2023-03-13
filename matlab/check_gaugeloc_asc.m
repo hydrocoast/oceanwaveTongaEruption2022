@@ -48,8 +48,8 @@ close all
 % topofile = '../bathtopo/depth_0030-07_zone06_lonlat.asc';
 % gauge_lonlat = [135.7740, 33.4773]; % Kushimoto
 % -----
-% topofile = '../bathtopo/depth_0030-08_zone06_lonlat.asc';
-% gauge_lonlat = [135.8970, 33.5591]; % Uragami
+topofile = '../bathtopo/zone06_depth_0030-08_lonlat.asc';
+gauge_lonlat = [135.8970, 33.5591]; % Uragami
 % -----
 % topofile = '../bathtopo/depth_0090-02_zone04_lonlat.asc';
 % gauge_lonlat = [132.9580, 32.7745]; % Tosashimizu
@@ -123,8 +123,8 @@ close all
 % topofile = '../bathtopo/zone02_depth_0090-10_lonlat.asc';
 % gauge_lonlat = [131.9600, 32.9507]; % Saiki Matsuura
 % -----
-topofile = '../bathtopo/zone02_depth_0090-10_lonlat.asc';
-gauge_lonlat = [132.5490, 33.2271]; % Uwajima
+% topofile = '../bathtopo/zone02_depth_0090-10_lonlat.asc';
+% gauge_lonlat = [132.5490, 33.2271]; % Uwajima
 % -----
 load('./JMA.mat');
 

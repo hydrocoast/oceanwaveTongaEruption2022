@@ -2,10 +2,10 @@ clear
 close all
 
 %% sim data
-simdir1 = '../run_lamb_ag_N1.6/_output';
-simdir2 = '../run_tuned_B/_output';
-simcase_label = {'N=1.6e-2','N=1.8e-2'};
-simcase_prefix = 'diff_N';
+simdir1 = '../run_presA_L3/_output';
+simdir2 = '../run_presA_L4/_output';
+simcase_label = {'\Deltax=60 sec','\Deltax=15 sec'};
+simcase_prefix = '60sec-15sec';
 
 list_gauge1 = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge1,1);
