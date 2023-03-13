@@ -21,8 +21,8 @@ close all
 % topofile = '../bathtopo/M7020.asc';
 % gauge_lonlat = [127.6560, 26.2229]; % Naha
 % -----
-topofile = '../bathtopo/M7021.asc';
-gauge_lonlat = [124.169, 24.3229]; % Ishigaki
+% topofile = '../bathtopo/M7021.asc';
+% gauge_lonlat = [124.169, 24.3229]; % Ishigaki
 % -----
 % topofile = '../bathtopo/M7023.asc';
 % gauge_lonlat = [142.1960, 27.0931]; % Chichijima
@@ -53,11 +53,11 @@ gauge_lonlat = [124.169, 24.3229]; % Ishigaki
 % gauge_lonlat = [135.8970, 33.5591]; % Uragami
 % -----
 % topofile = '../bathtopo/zone06_depth_0090-03_lonlat.asc';
-% gauge_lonlat = [135.3740, 33.6854]; % Shirahama
+% gauge_lonlat = [135.3720, 33.6882]; % Shirahama
 % -----
-% topofile = '../bathtopo/zone06_depth_0090-04_lonlat.asc';
-% gauge_lonlat = [136.1689, 33.9258; ... % Kumano
-%                 136.2072, 34.0764]; % Owase
+topofile = '../bathtopo/zone06_depth_0090-04_lonlat.asc';
+gauge_lonlat = [136.1689, 33.9258; ... % Kumano
+                136.2090, 34.0757]; % Owase
 % -----
 % topofile = '../bathtopo/depth_0090-02_zone04_lonlat.asc';
 % gauge_lonlat = [132.9580, 32.7745]; % Tosashimizu
