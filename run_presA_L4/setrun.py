@@ -45,7 +45,8 @@ topoflist = {
              "Muroto"         :"zone04_depth_0090-04_lonlat.asc",
              "KiiChannel"     :"zone04_depth_0090-05_lonlat.asc",
              "OsakaBay"       :"zone06_depth_0090-01_mask_lonlat.asc",
-             "Kushimoto"      :"zone06_depth_0090-03_lonlat.asc",
+             "KiiPeninsula"   :"zone06_depth_0090-03_lonlat.asc",
+             "KumanoOwase"    :"zone06_depth_0090-04_lonlat.asc",
              "IseBay"         :"zone06_depth_0090-06_mask_lonlat.asc",
              "MaisakaOmaezaki":"zone08_depth_0090-01_lonlat.asc",
              "ShimizuUchiura" :"zone08_depth_0090-02_lonlat.asc",
@@ -391,7 +392,9 @@ def setrun(claw_pkg='geoclaw'):
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['OsakaBay']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kushimoto']), topo_type=3)
+    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['KiiPeninsula']), topo_type=3)
+    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['KumanoOwase']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['IseBay']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
@@ -443,27 +446,30 @@ def setrun(claw_pkg='geoclaw'):
     gauges.append([15, 135.1781, 34.3389, 0., 1.e10]) # Tanwa
     gauges.append([16, 135.1420, 34.2188, 0., 1.e10]) # Wakayama
     gauges.append([17, 135.1630, 33.8493, 0., 1.e10]) # Gobo
-    gauges.append([18, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
-    gauges.append([19, 135.9060, 33.5618, 0., 1.e10]) # Nachikatsuurachouragami
-    gauges.append([20, 136.8230, 34.4896, 0., 1.e10]) # Toba
-    gauges.append([21, 136.8800, 35.0896, 0., 1.e10]) # Nagoya
-    gauges.append([22, 137.1900, 34.6035, 0., 1.e10]) # Akabane
-    gauges.append([23, 137.6060, 34.6826, 0., 1.e10]) # Maisaka
-    gauges.append([24, 138.2220, 34.6097, 0., 1.e10]) # Omaezaki
-    gauges.append([25, 138.5160, 35.0146, 0., 1.e10]) # Shimizu
-    gauges.append([26, 138.8903, 35.0201, 0., 1.e10]) # Uchiura
-    gauges.append([27, 142.1960, 27.0931, 0., 1.e10]) # Chichijima
-    gauges.append([28, 139.7700, 35.6486, 0., 1.e10]) # Harumi 
-    gauges.append([29, 139.8210, 34.9210, 0., 1.e10]) # Mera
-    gauges.append([30, 140.2500, 35.1310, 0., 1.e10]) # Katsuurashiokitsu
-    gauges.append([31, 140.5760, 36.3088, 0., 1.e10]) # Oarai
-    gauges.append([32, 140.8916, 36.9330, 0., 1.e10]) # Onahama
-    gauges.append([33, 141.5040, 38.2931, 0., 1.e10]) # Ayukawa
-    gauges.append([34, 141.7490, 39.0174, 0., 1.e10]) # Ofunato
-    gauges.append([35, 141.8060, 40.1879, 0., 1.e10]) # Kuji
-    gauges.append([36, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
-    gauges.append([37, 144.3580, 42.9854, 0., 1.e10]) # Kushiro
-    gauges.append([38, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
+    gauges.append([18, 135.3740, 33.6854, 0., 1.e10]) # Shirahama
+    gauges.append([19, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
+    gauges.append([20, 135.9060, 33.5618, 0., 1.e10]) # Nachikatsuurachouragami
+    gauges.append([21, 136.1689, 33.9258, 0., 1.e10]) # Kumano
+    gauges.append([22, 136.2072, 34.0764, 0., 1.e10]) # Owase
+    gauges.append([23, 136.8230, 34.4896, 0., 1.e10]) # Toba
+    gauges.append([24, 136.8800, 35.0896, 0., 1.e10]) # Nagoya
+    gauges.append([25, 137.1900, 34.6035, 0., 1.e10]) # Akabane
+    gauges.append([26, 137.6060, 34.6826, 0., 1.e10]) # Maisaka
+    gauges.append([27, 138.2220, 34.6097, 0., 1.e10]) # Omaezaki
+    gauges.append([28, 138.5160, 35.0146, 0., 1.e10]) # Shimizu
+    gauges.append([29, 138.8903, 35.0201, 0., 1.e10]) # Uchiura
+    gauges.append([30, 142.1960, 27.0931, 0., 1.e10]) # Chichijima
+    gauges.append([31, 139.7700, 35.6486, 0., 1.e10]) # Harumi 
+    gauges.append([32, 139.8210, 34.9210, 0., 1.e10]) # Mera
+    gauges.append([33, 140.2500, 35.1310, 0., 1.e10]) # Katsuurashiokitsu
+    gauges.append([34, 140.5760, 36.3088, 0., 1.e10]) # Oarai
+    gauges.append([35, 140.8916, 36.9330, 0., 1.e10]) # Onahama
+    gauges.append([36, 141.5040, 38.2931, 0., 1.e10]) # Ayukawa
+    gauges.append([37, 141.7490, 39.0174, 0., 1.e10]) # Ofunato
+    gauges.append([38, 141.8060, 40.1879, 0., 1.e10]) # Kuji
+    gauges.append([39, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
+    gauges.append([40, 144.3580, 42.9854, 0., 1.e10]) # Kushiro
+    gauges.append([41, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
 
     ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
     #for g in gauges:
@@ -567,7 +573,7 @@ def setgeo(rundata):
 
     # Refinement Criteria
     refine_data = rundata.refinement_data
-    refine_data.wave_tolerance = 0.01
+    refine_data.wave_tolerance = 0.02
     #refine_data.speed_tolerance = [0.25, 0.50, 0.75, 1.00]
     refine_data.variable_dt_refinement_ratios = True
     if int(clawpack.__version__.split('.')[1]) < 8: # up to v5.7.1
@@ -593,7 +599,8 @@ def setgeo(rundata):
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Muroto'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KiiChannel'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['OsakaBay'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kushimoto'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KiiPeninsula'])] )
+        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KumanoOwase'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['IseBay'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['MaisakaOmaezaki'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['ShimizuUchiura'])] )
@@ -619,7 +626,8 @@ def setgeo(rundata):
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Muroto'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KiiChannel'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['OsakaBay'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kushimoto'])] )
+        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KiiPeninsula'])] )
+        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KumanoOwase'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['IseBay'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['MaisakaOmaezaki'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['ShimizuUchiura'])] )
