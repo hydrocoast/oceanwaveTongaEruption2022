@@ -165,7 +165,7 @@ def setrun(claw_pkg='geoclaw'):
     # The solution at initial time t0 is always written in addition.
 
     clawdata.output_style = 2
-    clawdata.tfinal = 3600.0*15.0
+    clawdata.tfinal = 3600.0*16.0
 
     if clawdata.output_style == 1:
         # Output nout frames at equally spaced times up to tfinal:
@@ -177,7 +177,7 @@ def setrun(claw_pkg='geoclaw'):
         #clawdata.output_times = [i*600.0 for i in range(0,73)] # every 10 min, 12 h
         #clawdata.output_times = [i*900.0 for i in range(0,61)] # every 15 min, 15 h
         #clawdata.output_times = [i*1800.0 for i in range(6,31)] # every 30 min, 3 to 15 h
-        clawdata.output_times = [i*1800.0 for i in range(0,31)] # every 30 min, 0 to 15 h
+        clawdata.output_times = [i*1800.0 for i in range(0,33)] # every 30 min, 0 to 16 h
 
 
     elif clawdata.output_style == 3:
