@@ -56,7 +56,7 @@ close all
 % gauge_lonlat = [135.3720, 33.6882]; % Shirahama
 % -----
 topofile = '../bathtopo/zone06_depth_0090-04_lonlat.asc';
-gauge_lonlat = [136.1689, 33.9258; ... % Kumano
+gauge_lonlat = [136.1660, 33.9257; ... % Kumano
                 136.2090, 34.0757]; % Owase
 % -----
 % topofile = '../bathtopo/depth_0090-02_zone04_lonlat.asc';
