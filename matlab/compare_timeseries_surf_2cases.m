@@ -2,10 +2,17 @@ clear
 close all
 
 %% sim data
-simdir1 = '../run_presA_L3/_output';
-simdir2 = '../run_presA_L4/_output';
-simcase_label = {'\Deltax=60 sec','\Deltax=15 sec'};
-simcase_prefix = '60sec-15sec';
+% --------------------------------------
+% simdir1 = '../run_presA_L3/_output';
+% simdir2 = '../run_presA_L4/_output';
+% simcase_label = {'\Deltax=60 sec','\Deltax=15 sec'};
+% simcase_prefix = '60sec-15sec';
+% --------------------------------------
+simdir1 = '../run_lamb_L3/_output';
+simdir2 = '../run_presA_L3/_output';
+simcase_label = {'Lamb','Lamb & grav'};
+simcase_prefix = 'lamb_lambag';
+% --------------------------------------
 
 list_gauge1 = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge1,1);
@@ -26,6 +33,8 @@ if option_printfig == 1
 end
 
 %% read and compare
+fig = figure;
+print(fig,'-dpng','tmp.png'); delete('tmp.png');
 g = cell(ngauge,2);
 for i = 1:ngauge
 % for i = 1:1
@@ -81,12 +90,24 @@ for i = 1:ngauge
     %% 近い観測点がない場合はスキップ
     if isempty(ind_row); continue; end
 
+    if isdart
+        time_offset = 0.0;
+    else
+        if contains(char(table_JMA.Name(ind_row)),'Chichijima') || (131.0 < lon && lon < 140.8)
+            time_offset = 0.1;
+        elseif 140.8 < lon
+            time_offset = 0.2;
+        else
+            time_offset = 0.0;
+        end
+    end
+    
     %% plot
-    fig = figure;
+    fig.CurrentObject; clf(fig);
     ax = axes;
-    p1 = plot(g{i,1}(:,1)./3600, g{i,1}(:,2),'-','LineWidth',1.0);
     hold on
-    p2 = plot(g{i,2}(:,1)./3600, g{i,2}(:,2),'-','LineWidth',1.0);
+    p1 = plot(g{i,1}(:,1)./3600 + time_offset, g{i,1}(:,2),'-','LineWidth',1.0);
+    p2 = plot(g{i,2}(:,1)./3600 + time_offset, g{i,2}(:,2),'-','LineWidth',1.0);
     grid on
     xlabel("Time (min)",'FontName','Helvetica','FontSize',14);
     ylabel("Water surface height (m)",'FontName','Helvetica','FontSize',14);
@@ -95,16 +116,17 @@ for i = 1:ngauge
     if isdart
         p3 = plot(cell2mat(table_DART.Time(ind_row))./3600, 1e-2*cell2mat(table_DART.Eta_filtered(ind_row)),'k-','LineWidth',0.5);
         title(sprintf('DART %05d',table_DART.DART(ind_row)),'FontName','Helvetica','FontSize',14);
+        xlim([3,13.5])
     else
         p3 = plot(cell2mat(table_JMA.Time(ind_row))./3600, 1e-2*cell2mat(table_JMA.Eta_filtered(ind_row)),'k-','LineWidth',0.5);
         title(table_JMA.Name(ind_row),'FontName','Helvetica','FontSize',14);
+        xlim([6,16.5])
     end
-
-    xlim([-1,15])
-    xline(0.0,'k--');
+%     xlim([-1,15])
+%     xline(0.0,'k--');
     hold off
 
-    legend([p1,p2,p3],{simcase_label{1},simcase_label{2},'Obs.'},'FontName','Helvetica','FontSize',14,'Location','northwest');
+    legend([p1,p2,p3],{simcase_label{1},simcase_label{2},'Obs.'},'FontName','Helvetica','FontSize',14,'Location','southwest');
     set(ax,'FontName','Helvetica','FontSize',12)
     if (ax.YLim(2)-ax.YLim(1))>1.0
         ax.YAxis.TickLabelFormat = '%0.1f';
@@ -119,10 +141,10 @@ for i = 1:ngauge
         if isdart
             figfile = [simcase_prefix,sprintf('_DART%05d.png',table_DART.DART(ind_row))];
         else
-            figfile = [simcase_prefix,'_',char(table_JMA.Name(ind_row)),'.png'];
+            figfile = [simcase_prefix,sprintf('_%02d_',gid),char(table_JMA.Name(ind_row)),'.png'];
         end
         exportgraphics(gcf,fullfile(figdir,figfile),'Resolution',300,'ContentType','image');
-        exportgraphics(gcf,strrep(fullfile(figdir,figfile),'.png','.pdf'),'ContentType','vector');
+%         exportgraphics(gcf,strrep(fullfile(figdir,figfile),'.png','.pdf'),'ContentType','vector');
     end
 end
 
