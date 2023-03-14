@@ -2,7 +2,7 @@ clear
 close all
 
 %% sim data
-simdir1 = '../run_lamb_L3/_output';
+simdir1 = '../run_presA_L5_WJ/_output';
 list_gauge = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge,1);
 
@@ -80,7 +80,7 @@ for i = 1:ngauge
     fig.CurrentObject; clf(fig);
     ax = axes;
     p1 = plot(g{i}(:,1)./3600 + time_offset, g{i}(:,2),'-','LineWidth',1);
-    grid on
+    grid on; box on
     xlabel("Time (min)",'FontName','Helvetica','FontSize',14);
     ylabel("Water surface height (m)",'FontName','Helvetica','FontSize',14);
 

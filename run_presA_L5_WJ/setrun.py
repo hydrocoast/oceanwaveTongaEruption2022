@@ -372,6 +372,8 @@ def setrun(claw_pkg='geoclaw'):
     regions.append([1, 3, 4.0*3600.0, clawdata.tfinal, 120.0, 150.0, 15.0, 45.0])
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 120.0, 140.0, 15.0, 35.0]) # SW Japan
     regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 130.0, 145.0, 15.0, 35.1]) # W Japan
+    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 135.0, 150.0, 15.0, 36.0]) # E Japan
+    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 140.0, 150.0, 25.0, 45.0]) # NE Japan
 
     ## Level 5
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
