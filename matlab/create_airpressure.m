@@ -4,11 +4,11 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 0; % 1: on, otherwise: off
+active_g = 1; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
-    matname_pres = 'pres_lg_wp_cs365.mat';
+    matname_pres = 'pres_lg_B.mat';
 else
     matname_pres = 'pres_lamb.mat';
 end
@@ -115,7 +115,9 @@ end
 %% create pressure data
 pres = zeros(nlat, nlon, nt);
 for k = 1:nt
-    fprintf('%03d,',k);
+    if mod(k,10)==0
+        fprintf('%03d,',k);
+    end
 
     %% Lamb wave
     dist_peak = cs*t(k)*1e-3; % km
@@ -160,7 +162,9 @@ if active_g == 1
 
     %% Gravity wave(s)
     for k = 1:nt
-        fprintf('%03d,',k);
+        if mod(k,10)==0
+            fprintf('%03d,',k);
+        end
         dist_peak_lamb = cs*t(k)*1e-3; % km
         dist_peak = c_g.*t(k)*1e-3; % km
         for i = 1:nlat

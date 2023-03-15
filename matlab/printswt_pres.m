@@ -5,7 +5,8 @@ close all
 
 %% filename
 %matfile = 'pres_lamb.mat';
-matfile = 'pres_lg_A.mat';
+% matfile = 'pres_lg_A.mat';
+matfile = 'pres_lg_B.mat';
 load(matfile)
 
 fc = '1d.con';
