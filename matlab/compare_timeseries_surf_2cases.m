@@ -3,15 +3,20 @@ close all
 
 %% sim data
 % --------------------------------------
-simdir1 = '../run_presA_L3/_output';
-simdir2 = '../run_presA_L4/_output';
-simcase_label = {'\Deltax=60 sec','\Deltax=15 sec'};
-simcase_prefix = '60sec_to_15sec';
+% simdir1 = '../run_presA_L3/_output';
+% simdir2 = '../run_presA_L4/_output';
+% simcase_label = {'\Deltax=60 sec','\Deltax=15 sec'};
+% simcase_prefix = '60sec_to_15sec';
 % --------------------------------------
 % simdir1 = '../run_lamb_L3/_output';
 % simdir2 = '../run_presA_L3/_output';
 % simcase_label = {'Lamb','Lamb & grav'};
 % simcase_prefix = 'lamb_lambag';
+% --------------------------------------
+simdir1 = '../run_presA_L3/_output';
+simdir2 = '../run_presA_L3_tmp/_output';
+simcase_label = {'fine','coarse'};
+simcase_prefix = 'L3diff';
 % --------------------------------------
 
 list_gauge1 = dir(fullfile(simdir1,'gauge*.txt'));
@@ -110,7 +115,7 @@ for i = 1:ngauge
     p2 = plot(g{i,2}(:,1)./3600 + time_offset, g{i,2}(:,2),'-','LineWidth',1.0);
     grid on; box on
     xlabel("Time (min)",'FontName','Helvetica','FontSize',14);
-    ylabel("Water surface height (m)",'FontName','Helvetica','FontSize',14);
+    ylabel("Ampliude (m)",'FontName','Helvetica','FontSize',14);
 
     hold on
     if isdart
