@@ -318,7 +318,7 @@ def setrun(claw_pkg='geoclaw'):
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [3,4,4,3]
     amrdata.refinement_ratios_y = [3,4,4,3]
-    amrdata.refinement_ratios_t = [3,4,5,2]
+    amrdata.refinement_ratios_t = [3,4,4,3]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -473,9 +473,9 @@ def setrun(claw_pkg='geoclaw'):
 
     ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
     for g in gauges:
-         regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, g[1]-0.15, g[1]+0.15, g[2]-0.15, g[2]+0.15])
+         regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, g[1]-0.10, g[1]+0.10, g[2]-0.10, g[2]+0.10])
     for g in gauges:
-         regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, g[1]-0.10, g[1]+0.10, g[2]-0.10, g[2]+0.10])
+         regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, g[1]-0.025, g[1]+0.025, g[2]-0.025, g[2]+0.025])
 
     # DART buoy 地点を gauge に追加
     gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
