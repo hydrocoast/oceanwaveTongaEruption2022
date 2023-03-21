@@ -3,33 +3,29 @@ close all
 
 %% sim data
 % --------------------------------------
-% simdir1 = '../run_presA_L3/_output';
-% simdir2 = '../run_presA_L4/_output';
-% simcase_label = {'\Deltax=60 sec','\Deltax=15 sec'};
-% simcase_prefix = '60sec_to_15sec';
+simdir1 = '../result_gauge/presA_L5';
+simdir2 = '../result_gauge/presB_L5';
+simdir3 = '../result_gauge/presC_L5';
+simcase_label = {'A','B','C'};
+simcase_prefix = 'ABC_';
 % --------------------------------------
-% simdir1 = '../run_lamb_L3/_output';
-% simdir2 = '../run_presA_L3/_output';
-% simcase_label = {'Lamb','Lamb & grav'};
-% simcase_prefix = 'lamb_lambag';
-% --------------------------------------
-% simdir1 = '../run_presA_L3/_output';
-% simdir2 = '../run_presA_L3_tmp/_output';
-% simcase_label = {'fine','coarse'};
-% simcase_prefix = 'L3diff';
-% --------------------------------------
-simdir1 = '../result_gauge/presC_L3';
-simdir2 = '../result_gauge/presC_L5';
-simcase_label = {'Level 3','Level 5'};
-simcase_prefix = 'presC_L3L5';
+% simdir1 = '../result_gauge/presA_L3';
+% simdir2 = '../result_gauge/presA_L4';
+% simdir3 = '../result_gauge/presA_L5';
+% simcase_label = {'Level 3','Level 4','Level 5'};
+% simcase_prefix = 'predA_L3L4L5';
 % --------------------------------------
 
 list_gauge1 = dir(fullfile(simdir1,'gauge*.txt'));
 ngauge = size(list_gauge1,1);
 list_gauge2 = dir(fullfile(simdir2,'gauge*.txt'));
-if ngauge ~= size(list_gauge2,1)
-    error(['Number of gauges ',simdir1,' and ',simdir2,' is inconsistent.'])
+list_gauge3 = dir(fullfile(simdir3,'gauge*.txt'));
+if ngauge ~= size(list_gauge2,1) || ngauge ~= size(list_gauge3,1)
+    error(['Number of gauges ',simdir1,', ',simdir2,' and ',simdir3,' is inconsistent.'])
 end
+
+cmap = colormap(lines(5)); close;
+
 
 %% obs data
 load('JMA_records.mat');
@@ -55,6 +51,7 @@ for i = 1:ngauge
 
     file1 = fullfile(simdir1,list_gauge1(i).name);
     file2 = fullfile(simdir2,list_gauge1(i).name);
+    file3 = fullfile(simdir3,list_gauge1(i).name);
 
     %% read header
     fid = fopen(file1,'r');
@@ -84,18 +81,25 @@ for i = 1:ngauge
     %% read
 
     % --- simulation A
-    dat1 = readmatrix(file1,"FileType","text","NumHeaderLines",3);
+    datA = readmatrix(file1,"FileType","text","NumHeaderLines",3);
     if ~isdart
-        dat1(dat1(:,2)<5.5*3600, 6) = 0.0; % 解像度が低い時点の水位を0に
+        datA(datA(:,2)<5.5*3600, 6) = 0.0; % 解像度が低い時点の水位を0に
     end
-    g{i,1} = [dat1(:,2),dat1(:,6),dat1(:,1)]; % time, eta, AMRlevel
+    g{i,1} = [datA(:,2),datA(:,6),datA(:,1)]; % time, eta, AMRlevel
 
     % --- simulation B
-    dat2 = readmatrix(file2,"FileType","text","NumHeaderLines",3);
+    datB = readmatrix(file2,"FileType","text","NumHeaderLines",3);
     if ~isdart
-        dat2(dat2(:,2)<5.5*3600, 6) = 0.0; % 解像度が低い時点の水位を0に
+        datB(datB(:,2)<5.5*3600, 6) = 0.0; % 解像度が低い時点の水位を0に
     end
-    g{i,2} = [dat2(:,2),dat2(:,6),dat2(:,1)]; % time, eta, AMRlevel
+    g{i,2} = [datB(:,2),datB(:,6),datB(:,1)]; % time, eta, AMRlevel
+
+    % --- simulation C
+    datC = readmatrix(file3,"FileType","text","NumHeaderLines",3);
+    if ~isdart
+        datC(datC(:,2)<5.5*3600, 6) = 0.0; % 解像度が低い時点の水位を0に
+    end
+    g{i,3} = [datC(:,2),datC(:,6),datC(:,1)]; % time, eta, AMRlevel
 
     %% 近い観測点がない場合はスキップ
     if isempty(ind_row); continue; end
@@ -117,18 +121,19 @@ for i = 1:ngauge
     ax = axes;
     hold on
     p1 = plot(g{i,1}(:,1)./3600 + time_offset, g{i,1}(:,2),'-','LineWidth',1.0);
-    p2 = plot(g{i,2}(:,1)./3600 + time_offset, g{i,2}(:,2),'-','LineWidth',1.0);
+    p2 = plot(g{i,2}(:,1)./3600 + time_offset, g{i,2}(:,2),'-','LineWidth',1.0,'Color',cmap(5,:));
+    p3 = plot(g{i,3}(:,1)./3600 + time_offset, g{i,3}(:,2),'-','LineWidth',1.0,'Color',cmap(2,:));
     grid on; box on
     xlabel("Time (min)",'FontName','Helvetica','FontSize',14);
     ylabel("Amplitude (m)",'FontName','Helvetica','FontSize',14);
 
     hold on
     if isdart
-        p3 = plot(cell2mat(table_DART.Time(ind_row))./3600, 1e-2*cell2mat(table_DART.Eta_filtered(ind_row)),'k-','LineWidth',0.5);
+        p4 = plot(cell2mat(table_DART.Time(ind_row))./3600, 1e-2*cell2mat(table_DART.Eta_filtered(ind_row)),'k-','LineWidth',0.5);
         title(sprintf('DART %05d',table_DART.DART(ind_row)),'FontName','Helvetica','FontSize',14);
         xlim([3,13.5])
     else
-        p3 = plot(cell2mat(table_JMA.Time(ind_row))./3600, 1e-2*cell2mat(table_JMA.Eta_filtered(ind_row)),'k-','LineWidth',0.5);
+        p4 = plot(cell2mat(table_JMA.Time(ind_row))./3600, 1e-2*cell2mat(table_JMA.Eta_filtered(ind_row)),'k-','LineWidth',0.5);
         title(table_JMA.Name(ind_row),'FontName','Helvetica','FontSize',14);
         xlim([6,16.5])
     end
@@ -136,8 +141,9 @@ for i = 1:ngauge
 %     xline(0.0,'k--');
     hold off
 
-    legend([p1,p2,p3],{simcase_label{1},simcase_label{2},'Obs.'},'FontName','Helvetica','FontSize',14,'Location','southwest');
+    legend([p1,p2,p3,p4],{simcase_label{1},simcase_label{2},simcase_label{3},'Obs.'},'FontName','Helvetica','FontSize',14,'Location','southwest');
     set(ax,'FontName','Helvetica','FontSize',12)
+    ax.XAxis.TickValues = 0:16;
     if (ax.YLim(2)-ax.YLim(1))>1.0
         ax.YAxis.TickLabelFormat = '%0.1f';
     elseif (ax.YLim(2)-ax.YLim(1))>0.1

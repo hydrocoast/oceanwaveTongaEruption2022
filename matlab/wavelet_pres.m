@@ -70,7 +70,7 @@ for i = 1:1
 
     xline(t_pmax/3600,'w-','LineWidth',1);
 
-    caxis(axw,[-40,-10]);
+    clim(axw,[-40,-10]);
     set(axw,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',12);
 
     cb = colorbar(axw,'east','FontName','Helvetica','FontSize',12);

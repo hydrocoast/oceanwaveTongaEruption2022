@@ -42,6 +42,7 @@ gmt.*
 nohup.out
 _output/
 _plots/
+result_gauge/
 xgeoclaw
 .output
 .plots
