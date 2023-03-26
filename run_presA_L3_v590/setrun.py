@@ -175,12 +175,13 @@ def setrun(claw_pkg='geoclaw'):
     elif clawdata.output_style == 2:
         # Specify a list of output times.
         if int(clawpack.__version__.split('.')[1]) >= 9: # v5.9.0 or later
+            #clawdata.output_times = [i*7200.0 for i in range(0,9)] # every 2h, 0 to 16 h
+            clawdata.output_times = [clawdata.t0, clawdata.tfinal]
+        else:
             #clawdata.output_times = [i*600.0 for i in range(0,73)] # every 10 min, 12 h
             #clawdata.output_times = [i*900.0 for i in range(0,61)] # every 15 min, 15 h
             #clawdata.output_times = [i*1800.0 for i in range(6,31)] # every 30 min, 3 to 15 h
             clawdata.output_times = [i*1800.0 for i in range(0,33)] # every 30 min, 0 to 16 h
-        else:
-            clawdata.output_times = [i*7200.0 for i in range(0,9)] # every 2h, 0 to 16 h
 
     elif clawdata.output_style == 3:
         # Output every iout timesteps with a total of ntot time steps:
@@ -501,7 +502,7 @@ def setrun(claw_pkg='geoclaw'):
         fgout.y2 = clawdata.upper[1]
         fgout.tstart = clawdata.t0
         fgout.tend = clawdata.tfinal
-        fgout.nout = 48
+        fgout.nout = 9
         fgout_grids.append(fgout)
 
         ## fgout 2
@@ -514,9 +515,9 @@ def setrun(claw_pkg='geoclaw'):
         fgout.x2 = 150.0
         fgout.y1 = 20.0
         fgout.y2 = 45.0
-        fgout.tstart = 3600.0*6.0
+        fgout.tstart = 3600.0*5.0
         fgout.tend = 3600.0*16.0
-        fgout.nout = 30
+        fgout.nout = 133
         fgout_grids.append(fgout)
 
     # ============================
