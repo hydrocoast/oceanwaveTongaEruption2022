@@ -1,14 +1,18 @@
 clear
 close all
 
-fgridnumber = 1;
-simdir = '../run_presA_L3_v590/_output';
+fgridnumber = 2;
+% simdir = '/home/miyashita/h100_home/miyashita/Research/AMR/oceanwaveTongaEruption2022/run_presA_L3_v590/_output';
+simdir = '/home/miyashita/h100_home/miyashita/Research/AMR/oceanwaveTongaEruption2022/run_presC_L3_v590/_output';
 
 flist = dir(fullfile(simdir,[sprintf('fgout%04d.q',fgridnumber),'*']));
 nfile = size(flist,1);
 
 simname = fileparts(simdir);
-simname = simname(strfind(simname,'/')+1:end);
+simname = strrep(simname,'/_output','');
+lastind_slash = strfind(simname,'/');
+lastind_slash = lastind_slash(end);
+simname = simname(lastind_slash+1:end);
 fgmat = [simname,sprintf('_fg%d.mat',fgridnumber)];
 
 
@@ -20,49 +24,41 @@ fclose(fid);
 nx = header{1}(3);
 ny = header{1}(4);
 
-eta_fg = zeros(ny,nx,nfile);
+% full matrix
+% eta_fg = zeros(ny,nx,nfile);
+
+% sparse matrix
+eta_sp = cell(nfile,1);
 
 %% read all
 for k = 1:nfile
+% for k = 1:10
     fname = fullfile(simdir,flist(k).name);
     disp([fname,'  ...']);
 
     dat = readmatrix(fname,"FileType","text","NumHeaderLines",9);
 
-    v1 = reshape(dat(:,1),[nx,ny])';
-    % v2 = reshape(dat(:,2),[nx,ny])';
-    % v3 = reshape(dat(:,3),[nx,ny])';
-    v4 = reshape(dat(:,4),[nx,ny])';
+    % full matrix
+    % v1 = reshape(dat(:,1),[nx,ny])';
+    % v4 = reshape(dat(:,4),[nx,ny])';
+    % land = v1==0;
+    % eta = v4;
+    % eta(land) = NaN;
+    % eta_fg(:,:,k) = eta;
+
+    % sparse matrix
+    v1 = dat(:,1);
+    v4 = dat(:,4);
     land = v1==0;
     eta = v4;
-    eta(land) = NaN;
+    eta(land) = 0.0;
+    ind = find(abs(eta)>1e-2);
+    eta_sp{k} = sparse(ind,ones(length(ind),1),eta(ind),ny*nx,1);
 
-    eta_fg(:,:,k) = eta;
     clear eta v1 v4 dat
 end
 
-save(fgmat,'-v7.3','ny','ny','nfile','eta_fg','header');
+eta_sp = cat(2,eta_sp{:});
+etamax = reshape(max(eta_sp,[],2),[nx,ny])';
 
-
-% bwr = createcolormap([0,0,0.5;1,1,1;0.5,0,0]);
-% pcolor(eta); axis equal tight; shading flat
-% colormap(bwr)
-% clim([-0.1,0.1])
-
-% figure
-% tile = tiledlayout(2,2);
-% 
-% ax = nexttile;
-% pcolor(v1); axis equal tight; shading flat
-% axis off
-% ax = nexttile;
-% pcolor(v2); axis equal tight; shading flat
-% axis off
-% ax = nexttile;
-% pcolor(v3); axis equal tight; shading flat
-% axis off
-% ax = nexttile;
-% pcolor(v4); axis equal tight; shading flat
-% axis off
-% 
-% 
+save(fgmat,'-v7.3','nx','ny','nfile','eta_sp','etamax','header');
