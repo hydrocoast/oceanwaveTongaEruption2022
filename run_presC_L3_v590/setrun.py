@@ -502,45 +502,46 @@ def setrun(claw_pkg='geoclaw'):
         fgout.y2 = clawdata.upper[1]
         fgout.tstart = clawdata.t0
         fgout.tend = clawdata.tfinal
-        fgout.nout = int( ((clawdata.tfinal - clawdata.t0)/3600.0) * 6 ) + 1 
+        fgout.nout = int((fgout.tend - fgout.tstart)/3600.0) * 20 + 1 
         fgout_grids.append(fgout)
 
         ## fgout 2
         fgout = fgout_tools.FGoutGrid()
         fgout.fgno = 2
         fgout.output_format = 'ascii'
-        fgout.nx = 450
-        fgout.ny = 375
         fgout.x1 = 120.0
         fgout.x2 = 150.0
         fgout.y1 = 20.0
         fgout.y2 = 45.0
+        fgout.nx = int( (fgout.x2 - fgout.x1) * 30 )
+        fgout.ny = int( (fgout.y2 - fgout.y1) * 30 )
         fgout.tstart = 3600.0*5.0
         fgout.tend = 3600.0*16.0
-        fgout.nout = int( ((clawdata.tfinal - clawdata.t0)/3600.0) * 60 ) + 1
+        fgout.nout = int((fgout.tend - fgout.tstart)/3600.0) * 60 + 1 
         fgout_grids.append(fgout)
 
     # ============================
     # == fgmax.data values =======
     # ============================
     fgmax_files = rundata.fgmax_data.fgmax_files
-    # Points on a uniform 2d grid:
 
-    # Domain 1
-    fg = fgmax_tools.FGmaxGrid()
-    fg.point_style = 2  # uniform rectangular x-y grid
-    fg.dx = 1.0/15.0        # desired resolution of fgmax grid
-    fg.x1 = clawdata.lower[0]
-    fg.x2 = clawdata.upper[0]
-    fg.y1 = clawdata.lower[1]
-    fg.y2 = clawdata.upper[1]
-    fg.min_level_check = 1 # which levels to monitor max on
-    fg.arrival_tol = 1.0e-2
-    fg.tstart_max = clawdata.t0  # just before wave arrives
-    fg.tend_max = clawdata.tfinal    # when to stop monitoring max values
-    fg.dt_check = 10.0     # how often to update max values
-    fg.interp_method = 0   # 0 ==> pw const in cells, recommended
-    rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
+    if int(clawpack.__version__.split('.')[1]) < 9: # v5.8
+        # Points on a uniform 2d grid:
+        # Domain 1
+        fg = fgmax_tools.FGmaxGrid()
+        fg.point_style = 2  # uniform rectangular x-y grid
+        fg.dx = 1.0/15.0        # desired resolution of fgmax grid
+        fg.x1 = clawdata.lower[0]
+        fg.x2 = clawdata.upper[0]
+        fg.y1 = clawdata.lower[1]
+        fg.y2 = clawdata.upper[1]
+        fg.min_level_check = 1 # which levels to monitor max on
+        fg.arrival_tol = 1.0e-2
+        fg.tstart_max = clawdata.t0  # just before wave arrives
+        fg.tend_max = clawdata.tfinal    # when to stop monitoring max values
+        fg.dt_check = 10.0     # how often to update max values
+        fg.interp_method = 0   # 0 ==> pw const in cells, recommended
+        rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
     # num_fgmax_val
     rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
