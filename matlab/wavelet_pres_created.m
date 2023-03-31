@@ -7,7 +7,10 @@ mat_pres_1 = 'pres_lg_A.mat';
 mat_pres_2 = 'pres_lg_B.mat';
 mat_pres_3 = 'pres_lg_C.mat';
 
-load(mat_pres_obs);
+load(mat_pres_obs); 
+ifix = find(cellfun(@(x) strcmp(x,'Hachijyoujima'),table_obs_pres.Station));
+table_obs_pres{ifix,"Station"} = {'Hachijojima'};
+
 D1 = load(mat_pres_1);
 D2 = load(mat_pres_2,'pres','t','dt');
 D3 = load(mat_pres_3,'pres','t','dt');
@@ -15,8 +18,10 @@ D3 = load(mat_pres_3,'pres','t','dt');
 lon = D1.lon;
 lat = D1.lat;
 
+
+
 stationname = 'Naze';
-istation = find(cellfun(@(x) strcmp(x,'Naze'),table_obs_pres.Station));
+istation = find(cellfun(@(x) strcmp(x,stationname),table_obs_pres.Station));
 
 dt_obs = 1;
 label_station = table_obs_pres.Station{istation};
@@ -74,6 +79,8 @@ set(axt,'FontName','Helvetica','FontSize',12);
 ylabel(axt,'P_{a} (hPa)','FontName','Helvetica','FontSize',14);
 axt.XAxis.TickLabels = [];
 axt.XAxis.TickValues = tick_t;
+
+text(4.1, 1.5,stationname,'FontSize',14,'FontName','Helvatica','HorizontalAlignment','left','VerticalAlignment','middle');
 
 %% scalogram
 %% Obs
@@ -151,3 +158,5 @@ text(axw3,5,15,'C','FontName','Helvetica','FontSize',16,'HorizontalAlignment','l
 % filename_png = ['wavelet_pres_',label_station,'.png'];
 % filename_pdf = strrep(filename_png,'.png','.pdf');
 % exportgraphics(gcf,fullfile(figdir,filename_png),'ContentType','image','Resolution',300);
+
+
