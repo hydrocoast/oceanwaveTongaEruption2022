@@ -10,11 +10,15 @@ N = 1.16e-2; % /s
 mu = 0.5*(N^2/g + g/cs^2); % /m ?
 sigma0 = mu*cs;
 
+Hs = 8.4e3;% R*Tc/g;
+
 %% parameters
-n = [0,5e-5,10e-5];
+n = [0,0.4/Hs,0.8/Hs];
 num_n = length(n);
 
-L = [20e3:10e3:1000e3]';
+nHs = n*Hs;
+
+L = [20e3:10e3:5000e3]';
 k = 2*pi./L;
 num_k = length(L);
 
@@ -28,35 +32,62 @@ end
 end
 cg = sigma_g./k;
 
+line_c = colormap(lines(3)); close
 
 %% plot dispersion relation
 figure
 ax = axes;
-set(ax,'FontName','Helvetica','FontSize',12);
+set(ax,'FontName','Helvetica','FontSize',16);
+
 
 hold on
-yline(N,'k--');
-yline(sigma0,'k--');
-plot(k,sigma_g,'-');
-plot(k,sigma_a,'-');
-plot(k,k*cs,'k-');
+
+% ag = area(k*Hs, sigma_g(:,1)/N,'FaceColor',[0.9,0.9,0.9],'EdgeColor','none');
+% aa = area(k*Hs, sigma_a(:,1)/N,'FaceColor',[0.9,0.9,0.9],'EdgeColor','none','BaseValue',10);
+% ag = area(repmat(k*Hs,[2,1]), vertcat(sigma_a(:,1)/N,sigma_g(:,1)/N),'EdgeColor','none','BaseValue',10);
+
+ag = patch(vertcat(k*Hs,0,k(1)*Hs), vertcat(sigma_g(:,1)/N,0,0),[0.90,0.90,0.90],'EdgeColor','none');
+aa = patch(vertcat(k*Hs,0,k(1)*Hs), vertcat(sigma_a(:,1)/N,10,10),[0.90,0.90,0.90],'EdgeColor','none');
+text(1.75,0.25,'Gravity wave','FontSize',20,'FontName','Helvetica','HorizontalAlignment','right','VerticalAlignment','bottom');
+text(0.05,3.0,'Acoustic wave','FontSize',20,'FontName','Helvetica','HorizontalAlignment','left','VerticalAlignment','middle');
+
+yline(1,'k--','LineWidth',1);
+% yline(sigma0/N,'k--','LineWidth',1);
+for j = 1:num_n
+    lg(j) = plot(k*Hs, sigma_g(:,j)/N, '-','LineWidth',1,'Color',line_c(j,:));
+    la(j) = plot(k*Hs, sigma_a(:,j)/N, '-','LineWidth',1,'Color',line_c(j,:));
+end
+plot(k*Hs,k*cs/N,'k-','LineWidth',1);
 grid on
 axis tight
 box on
-xlabel('$$ k ~ (\mathrm{m^{-1}})$$','FontName','Helvatica','FontSize',14,'Interpreter','latex');
-ylabel('$$ \sigma ~ (\mathrm{s^{-1}}$$)','FontName','Helvatica','FontSize',14,'Interpreter','latex');
+xlabel('$$ k H_s$$','FontName','Helvatica','FontSize',20,'Interpreter','latex');
+ylabel('$$ \sigma/N $$','FontName','Helvatica','FontSize',20,'Interpreter','latex');
+xlim(ax,[0,2])
+ylim(ax,[0,3.5])
 
+le = legend(la,{sprintf('$$nH_s$$ = %0.1f',nHs(1)),...
+                sprintf('$$nH_s$$ = %0.1f',nHs(2)),...
+                sprintf('$$nH_s$$ = %0.1f',nHs(3))},...
+                'Location','northeast','FontSize',20,'Interpreter','latex');
 
-%% plot phase speed
-figure
-ax = axes;
-set(ax,'FontName','Helvetica','FontSize',12);
-plot(1e-3*L,cg);
-grid on
-box on
-xlabel('Wavelength (km)','FontName','Helvatica','FontSize',14);
-ylabel('wave speed (m/s)','FontName','Helvatica','FontSize',14);
+ax.XAxis.TickLabelFormat = '%0.1f';
+ax.YAxis.TickLabelFormat = '%0.1f';
 
+annotation('textarrow',[0.4,0.35],[0.50,0.55],'String','Lamb wave','FontName','Helvetica','FontSize',20)
+
+exportgraphics(ax,'dispersion_relation.pdf','ContentType','vector');
+
+% %% plot phase speed
+% figure
+% ax = axes;
+% set(ax,'FontName','Helvetica','FontSize',16);
+% plot(1e-3*L,cg);
+% grid on
+% box on
+% xlabel('Wavelength (km)','FontName','Helvatica','FontSize',20);
+% ylabel('wave speed (m/s)','FontName','Helvatica','FontSize',20);
+% xlim([0,700])
 
 %% formula
 function sigma_g = dispersion_relation_airgravitywave(k,mu,N,cs,n)
