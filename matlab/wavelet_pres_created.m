@@ -21,6 +21,7 @@ lat = D1.lat;
 
 
 stationname = 'Naze';
+% stationname = 'Hachijojima';
 istation = find(cellfun(@(x) strcmp(x,stationname),table_obs_pres.Station));
 
 dt_obs = 1;
@@ -73,30 +74,30 @@ p1 = plot(D1.t./3600, pres_point1, '-');
 p2 = plot(D2.t./3600, pres_point2, '-');
 p3 = plot(D3.t./3600, pres_point3, '-');
 ylim(axt,range_p);
-legend([p0,p1,p2,p3],{'Obs.','A','B','C'},'FontName','Helvetica','FontSize',14,'NumColumns',2,'Location','northeast');
+legend([p0,p1,p2,p3],{'Obs.','A','B','C'},'FontName','Helvetica','FontSize',16,'NumColumns',2,'Location','northeast');
 grid on; box on
-set(axt,'FontName','Helvetica','FontSize',12);
+set(axt,'FontName','Helvetica','FontSize',14);
 ylabel(axt,'P_{a} (hPa)','FontName','Helvetica','FontSize',14);
 axt.XAxis.TickLabels = [];
 axt.XAxis.TickValues = tick_t;
 
-text(4.1, 1.5,stationname,'FontSize',14,'FontName','Helvatica','HorizontalAlignment','left','VerticalAlignment','middle');
+text(4.25, 1.5, stationname,'FontSize',16,'FontName','Helvetica','HorizontalAlignment','left','VerticalAlignment','middle');
 
 %% scalogram
 %% Obs
 axw0 = nexttile;
 pcolor(t_uniform./3600, perT0/60, 20*log10(abs(wt0))); shading flat
 ylim(gca,range_perT);
-ylabel(gca,'Period (min)','FontName','Helvetica','FontSize',14);
+ylabel(gca,'Period (min)','FontName','Helvetica','FontSize',16);
 yline([1,10,100],'-','Color',[.8,.8,.8]);
 yline([2:1:9,20:10:90,200],'--','Color',[.8,.8,.8],'Alpha',0.5,'LineWidth',0.5);
 clim(gca,range_c);
-set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',12);
+set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',14);
 axw0.YAxis.TickValues = tick_perT;
 axw0.XAxis.TickValues = tick_t;
 axw0.XAxis.TickLabels = [];
 
-cb = colorbar(axw0,'east','FontName','Helvetica','FontSize',12);
+cb = colorbar(axw0,'east','FontName','Helvetica','FontSize',14);
 cb.Label.String = 'Power (dB)';
 cb.Label.Color = 'w';
 cb.Color = 'w';
@@ -109,7 +110,7 @@ ylim(gca,range_perT);
 yline(gca,[1,10,100],'-','Color',[.8,.8,.8]);
 yline(gca,[2:1:9,20:10:90,200],'--','Color',[.8,.8,.8],'Alpha',0.5,'LineWidth',0.5);
 clim(gca,range_c);
-set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',12);
+set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',14);
 axw1.YAxis.TickValues = tick_perT;
 axw1.XAxis.TickValues = tick_t;
 axw1.XAxis.TickLabels = [];
@@ -122,7 +123,7 @@ ylim(gca,range_perT);
 yline(gca,[1,10,100],'-','Color',[.8,.8,.8]);
 yline(gca,[2:1:9,20:10:90,200],'--','Color',[.8,.8,.8],'Alpha',0.5,'LineWidth',0.5);
 clim(gca,range_c);
-set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',12);
+set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',14);
 axw2.YAxis.TickValues = tick_perT;
 axw2.XAxis.TickValues = tick_t;
 axw2.XAxis.TickLabels = [];
@@ -135,11 +136,11 @@ ylim(gca,range_perT);
 yline(gca,[1,10,100],'-','Color',[.8,.8,.8]);
 yline(gca,[2:1:9,20:10:90,200],'--','Color',[.8,.8,.8],'Alpha',0.5,'LineWidth',0.5);
 clim(gca,range_c);
-set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',12);
+set(gca,'YScale','log','YDir','reverse','FontName','Helvetica','FontSize',14);
 axw3.YAxis.TickValues = tick_perT;
 axw3.XAxis.TickValues = tick_t;
 % axw3.XAxis.TickLabels = [];
-xlabel(axw3,'Elapsed time (h)','FontName','Helvetica','FontSize',14);
+xlabel(axw3,'Elapsed time (hour)','FontName','Helvetica','FontSize',16);
 linkaxes([axw0,axw1,axw2,axw3],'xy');
 linkaxes([axt,axw0,axw1,axw2,axw3],'x');
 xlim(axt,range_t);
@@ -149,14 +150,15 @@ tile.Padding = 'compact';
 
 
 %% text
-text(axw0,5,15,'Obs.','FontName','Helvetica','FontSize',16,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
-text(axw1,5,15,'A','FontName','Helvetica','FontSize',16,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
-text(axw2,5,15,'B','FontName','Helvetica','FontSize',16,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
-text(axw3,5,15,'C','FontName','Helvetica','FontSize',16,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
+text(axw0,5,15,'Obs.','FontName','Helvetica','FontSize',18,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
+text(axw1,5,15,'A','FontName','Helvetica','FontSize',18,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
+text(axw2,5,15,'B','FontName','Helvetica','FontSize',18,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
+text(axw3,5,15,'C','FontName','Helvetica','FontSize',18,'HorizontalAlignment','left','VerticalAlignment','middle','Color','w');
 
-% %% print
-% filename_png = ['wavelet_pres_',label_station,'.png'];
-% filename_pdf = strrep(filename_png,'.png','.pdf');
-% exportgraphics(gcf,fullfile(figdir,filename_png),'ContentType','image','Resolution',300);
+%% print
+filename_png = ['wavelet_pres_',label_station,'.png'];
+filename_pdf = strrep(filename_png,'.png','.pdf');
+exportgraphics(gcf,filename_png,'ContentType','image','Resolution',300);
+exportgraphics(gcf,filename_pdf,'ContentType','vector');
 
 
