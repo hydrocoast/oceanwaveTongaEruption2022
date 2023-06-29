@@ -71,15 +71,15 @@ print("saving gauge ...     ")
 print("end\n")
 
 
-## fgmax
-print("loading fgmax ...     ")
-fg = fgmaxdata(outdir)
-fgmax = loadfgmax.(outdir, fg)
-print("end\n")
+### fgmax
+#print("loading fgmax ...     ")
+#fg = fgmaxdata(outdir)
+#fgmax = loadfgmax.(outdir, fg)
+#print("end\n")
 
-print("saving fgmax ...     ")
-@save joinpath(jld2dir, "fgmax.jld2") fg fgmax
-print("end\n")
+#print("saving fgmax ...     ")
+#@save joinpath(jld2dir, "fgmax.jld2") fg fgmax
+#print("end\n")
 
 
 ## CPU time

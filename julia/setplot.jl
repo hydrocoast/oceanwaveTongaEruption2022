@@ -99,43 +99,43 @@ if !isempty(gauges)
 end
 
 
-## load fgmax
-print("loading fgmax ...     ")
-if isfile(joinpath(jld2dir, "fgmax.jld2"))
-    @load joinpath(jld2dir, "fgmax.jld2") fg fgmax
-else
-    fg = fgmaxdata(outdir)
-    if !isempty(fg)
-        fgmax = loadfgmax.(outdir, fg)
-    end
-end
-print("end\n")
+### load fgmax
+#print("loading fgmax ...     ")
+#if isfile(joinpath(jld2dir, "fgmax.jld2"))
+#    @load joinpath(jld2dir, "fgmax.jld2") fg fgmax
+#else
+#    fg = fgmaxdata(outdir)
+#    if !isempty(fg)
+#        fgmax = loadfgmax.(outdir, fg)
+#    end
+#end
+#print("end\n")
 
 
-## plot fgmax
-if !isempty(fg)
-    print("plotting fgmax ...     ")
-    #converttodatetime!.(fgmax, t0_datetime)
-    replaceunit!.(fgmax, :hour)
-    nfg = length(fg)
-    for k = 1:nfg
-        ## dep
-        local plt = plotsfgmax(fg[k], fgmax[k], :D; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
-        savefig(plt, joinpath(plotdir, @sprintf("fgmax_%03d.svg",k)))
-        local plt = plotsfgmax(fg[k], fgmax[k], :tD; c=cgrad(:phase, 12, categorical = true))
-        savefig(plt, joinpath(plotdir, @sprintf("fgmax_maxtime_%03d.svg",k)))
-        ## arrival
-        local plt = plotsfgmax(fg[k], fgmax[k], :tarrival; c=cgrad(:phase, 12, categorical = true))
-        savefig(plt, joinpath(plotdir, @sprintf("fgmax_arrivaltime_%03d.svg",k)))
-        ## maxvel
-        if fg[k].nval > 1
-            local plt = plotsfgmax(fg[k], fgmax[k], :v; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
-            savefig(plt, joinpath(plotdir, @sprintf("fgmax_vel_%03d.svg",k)))
-            local plt = plotsfgmax(fg[k], fgmax[k], :tv; c=cgrad(:phase, 12, categorical = true))
-            savefig(plt, joinpath(plotdir, @sprintf("fgmax_velmaxtime_%03d.svg",k)))
-        end
-    end
-    print("end\n")
-end
+### plot fgmax
+#if !isempty(fg)
+#    print("plotting fgmax ...     ")
+#    #converttodatetime!.(fgmax, t0_datetime)
+#    replaceunit!.(fgmax, :hour)
+#    nfg = length(fg)
+#    for k = 1:nfg
+#        ## dep
+#        local plt = plotsfgmax(fg[k], fgmax[k], :D; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
+#        savefig(plt, joinpath(plotdir, @sprintf("fgmax_%03d.svg",k)))
+#        local plt = plotsfgmax(fg[k], fgmax[k], :tD; c=cgrad(:phase, 12, categorical = true))
+#        savefig(plt, joinpath(plotdir, @sprintf("fgmax_maxtime_%03d.svg",k)))
+#        ## arrival
+#        local plt = plotsfgmax(fg[k], fgmax[k], :tarrival; c=cgrad(:phase, 12, categorical = true))
+#        savefig(plt, joinpath(plotdir, @sprintf("fgmax_arrivaltime_%03d.svg",k)))
+#        ## maxvel
+#        if fg[k].nval > 1
+#            local plt = plotsfgmax(fg[k], fgmax[k], :v; clims=(-1e-5,0.5), c=cgrad(:jet, 10, categorical = true))
+#            savefig(plt, joinpath(plotdir, @sprintf("fgmax_vel_%03d.svg",k)))
+#            local plt = plotsfgmax(fg[k], fgmax[k], :tv; c=cgrad(:phase, 12, categorical = true))
+#            savefig(plt, joinpath(plotdir, @sprintf("fgmax_velmaxtime_%03d.svg",k)))
+#        end
+#    end
+#    print("end\n")
+#end
 
 

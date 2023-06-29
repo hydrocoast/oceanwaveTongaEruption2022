@@ -14,7 +14,8 @@ if ~isfolder('_plots'); mkdir('_plots'); end
 
 % for fgridnumber = 1:nfgout
 % fg = 1;
-for fg = 1:nfgout
+%for fg = 1:nfgout
+for fg = 2:2
 
     flist = dir(fullfile(outputdir,[sprintf('fgout%04d.q',fg),'*']));
     nfile = size(flist,1);
