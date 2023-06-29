@@ -67,7 +67,7 @@ for fg = 1:nfgout
     clf;
     pcolor(x,y,etamax); shading flat;
     axis equal tight;
-    clim([0.0,0.2])
+    caxis([0.0,0.2])
     colorbar;
     exportgraphics(gcf,sprintf('./_plots/fgout%02d_max.png',fg),"ContentType","image","Resolution",300);
 

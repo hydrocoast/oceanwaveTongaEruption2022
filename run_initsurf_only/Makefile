@@ -115,7 +115,7 @@ juliaall:
 	#julia -e 'include("./setsave.jl"); include("./setplot.jl"); include("./setconvert.jl"); include("./setplot_surf_regions.jl")'
 
 matlabplots:
-	matlab -nodesktop -r 'run setplot_fgmax.m; exit'
+	matlab -nodesktop -r 'run save_fgout.m; exit'
 
 
 ### DO NOT remove this line - make depends on it ###
