@@ -43,7 +43,6 @@ topoflist = {
              "BungoChannel"   :"zone02_depth_0090-10_lonlat.asc",
              "Tosashimizu"    :"zone04_depth_0090-02_lonlat.asc",
              "Muroto"         :"zone04_depth_0090-04_lonlat.asc",
-             "Muroto30"       :"zone04_depth_0030-11_lonlat.asc",
              "KiiChannel"     :"zone04_depth_0090-05_lonlat.asc",
              "OsakaBay"       :"zone06_depth_0090-01_mask_lonlat.asc",
              "KiiPeninsula"   :"zone06_depth_0090-03_lonlat.asc",
@@ -319,7 +318,7 @@ def setrun(claw_pkg='geoclaw'):
     # List of refinement ratios at each level (length at least mxnest-1)
     amrdata.refinement_ratios_x = [3,4,4,3]
     amrdata.refinement_ratios_y = [3,4,4,3]
-    amrdata.refinement_ratios_t = [3,4,4,1]
+    amrdata.refinement_ratios_t = [3,4,4,3]
 
 
     # Specify type of each aux variable in amrdata.auxtype.
@@ -375,7 +374,8 @@ def setrun(claw_pkg='geoclaw'):
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 130.0, 145.0, 15.0, 35.1]) # W Japan
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 135.0, 150.0, 15.0, 36.0]) # E Japan
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 140.0, 150.0, 25.0, 45.0]) # NE Japan
-    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 133.5, 134.5, 32.5, 33.5]) # Muroto
+    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 140.0, 150.0, 36.0, 45.0]) # E and NE Japan
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 141.0, 142.5, 39.5, 40.5]) # Kuji
 
     ## Level 5
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
@@ -392,8 +392,8 @@ def setrun(claw_pkg='geoclaw'):
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Tosashimizu']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto']), topo_type=3)
-    regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto']), topo_type=3)
+    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['KiiChannel']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['OsakaBay']), topo_type=3)
@@ -420,17 +420,14 @@ def setrun(claw_pkg='geoclaw'):
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ofunato']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
+    regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Hakodate']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kushiro']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Nemuro']), topo_type=3)
     #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto30']), topo_type=3)
-    #regions.append([1, 6, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
 
     # gauges 
     gauges = rundata.gaugedata.gauges
@@ -446,7 +443,7 @@ def setrun(claw_pkg='geoclaw'):
     #gauges.append([6, 131.9600, 32.9507, 0., 1.e10]) # Matsuura
     #gauges.append([7, 132.5490, 33.2271, 0., 1.e10]) # Uwajima
     #gauges.append([8, 132.9580, 32.7745, 0., 1.e10]) # Tosashimizu
-    gauges.append([9, 134.1640, 33.2634, 0., 1.e10]) # Muroto
+    #gauges.append([9, 134.1640, 33.2634, 0., 1.e10]) # Muroto
     #gauges.append([10, 134.5922, 33.7687, 0., 1.e10]) # Yuki
     #gauges.append([11, 134.5940, 34.0118, 0., 1.e10]) # Komatsushima
     #gauges.append([12, 134.9011, 34.3467, 0., 1.e10]) # Sumoto
@@ -475,7 +472,7 @@ def setrun(claw_pkg='geoclaw'):
     #gauges.append([35, 140.8916, 36.9330, 0., 1.e10]) # Onahama
     #gauges.append([36, 141.5040, 38.2931, 0., 1.e10]) # Ayukawa
     #gauges.append([37, 141.7490, 39.0174, 0., 1.e10]) # Ofunato
-    #gauges.append([38, 141.8060, 40.1879, 0., 1.e10]) # Kuji
+    gauges.append([38, 141.8060, 40.1879, 0., 1.e10]) # Kuji
     #gauges.append([39, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
     #gauges.append([40, 144.3580, 42.9854, 0., 1.e10]) # Kushiro
     #gauges.append([41, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
@@ -497,22 +494,22 @@ def setrun(claw_pkg='geoclaw'):
     if int(clawpack.__version__.split('.')[1]) >= 9: # v5.9.0 or later
         fgout_grids = rundata.fgout_data.fgout_grids  # empty list initially
         ## fgout 1
-        #fgout = fgout_tools.FGoutGrid()
-        #fgout.fgno = 1
-        #fgout.output_format = 'ascii'
-        #fgout.nx = clawdata.num_cells[0]
-        #fgout.ny = clawdata.num_cells[1]
-        #fgout.x1 = clawdata.lower[0]
-        #fgout.x2 = clawdata.upper[0]
-        #fgout.y1 = clawdata.lower[1]
-        #fgout.y2 = clawdata.upper[1]
-        #fgout.tstart = clawdata.t0
-        #fgout.tend = clawdata.tfinal
-        #fgout.nout = 73
-        #fgout_grids.append(fgout)
+        fgout = fgout_tools.FGoutGrid()
+        fgout.fgno = 1
+        fgout.output_format = 'ascii'
+        fgout.nx = clawdata.num_cells[0]
+        fgout.ny = clawdata.num_cells[1]
+        fgout.x1 = clawdata.lower[0]
+        fgout.x2 = clawdata.upper[0]
+        fgout.y1 = clawdata.lower[1]
+        fgout.y2 = clawdata.upper[1]
+        fgout.tstart = clawdata.t0
+        fgout.tend = clawdata.tfinal
+        fgout.nout = 73
+        fgout_grids.append(fgout)
 
         ## fgout 2
-        topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto']), topo_type=3)
+        topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
         fgout = fgout_tools.FGoutGrid()
         fgout.fgno = 2
         fgout.output_format = 'ascii'
@@ -523,8 +520,8 @@ def setrun(claw_pkg='geoclaw'):
         fgout.y1 = topo_file.y[0]
         fgout.y2 = topo_file.y[-1]
         fgout.tstart = 3600.0*7.0
-        fgout.tend = 3600.0*13.0
-        fgout.nout = int((fgout.tend - fgout.tstart)/60.0) + 1
+        fgout.tend = 3600.0*16.0
+        fgout.nout = int((fgout.tend - fgout.tstart)/60.0/2.0) + 1
         fgout_grids.append(fgout)
 
     # ============================
@@ -549,14 +546,14 @@ def setrun(claw_pkg='geoclaw'):
     fg.interp_method = 0   # 0 ==> pw const in cells, recommended
     rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
-    # Domain 2 -- Muroto
+    # Domain 2 -- Kuji
     fg = fgmax_tools.FGmaxGrid()
     fg.point_style = 2  # uniform rectangular x-y grid
     fg.dx = 1.0/60.0/4.0        # desired resolution of fgmax grid
-    fg.x1 = 133.5
-    fg.x2 = 134.5
-    fg.y1 = 32.5
-    fg.y2 = 33.5
+    fg.x1 = 141.0
+    fg.x2 = 142.5
+    fg.y1 = 39.5
+    fg.y2 = 40.5
     fg.min_level_check = 3 # which levels to monitor max on
     fg.arrival_tol = 1.0e-2
     fg.tstart_max = clawdata.t0  # just before wave arrives
@@ -655,7 +652,6 @@ def setgeo(rundata):
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Hakodate'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kushiro'])] )
         topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Nemuro'])] )
-        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Muroto30'])] )
     else: # v5.7.1
         topo_data.topofiles.append( [4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['GEBCO2022'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ishigaki'])] )
@@ -683,7 +679,6 @@ def setgeo(rundata):
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Hakodate'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kushiro'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Nemuro'])] )
-        #topo_data.topofiles.append( [3, 1, 6, 0.0, 1.0e10, os.path.join(topodir, topoflist['Muroto30'])] )
 
     # == setdtopo.data values ==
     dtopo_data = rundata.dtopo_data
@@ -733,7 +728,7 @@ def setgeo(rundata):
     data.display_landfall_time = False
 
     # Storm type 2 - Idealized storm track
-    data.storm_file = os.path.join(os.getcwd(),'../forcing/pres_A/')
+    data.storm_file = os.path.join(os.getcwd(),'../forcing/pres_B/')
 
     # =======================
     #  Set Variable Friction
