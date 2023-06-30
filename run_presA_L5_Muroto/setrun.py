@@ -375,7 +375,8 @@ def setrun(claw_pkg='geoclaw'):
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 130.0, 145.0, 15.0, 35.1]) # W Japan
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 135.0, 150.0, 15.0, 36.0]) # E Japan
     #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 140.0, 150.0, 25.0, 45.0]) # NE Japan
-    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 133.5, 134.5, 32.5, 33.5]) # Muroto
+    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 133.5, 134.5, 32.5, 33.5]) # Muroto1
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 132.0, 140.0, 26.0, 34.0]) # Muroto
 
     ## Level 5
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
@@ -512,7 +513,7 @@ def setrun(claw_pkg='geoclaw'):
         #fgout_grids.append(fgout)
 
         ## fgout 2
-        topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto']), topo_type=3)
+        topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto30']), topo_type=3)
         fgout = fgout_tools.FGoutGrid()
         fgout.fgno = 2
         fgout.output_format = 'ascii'
