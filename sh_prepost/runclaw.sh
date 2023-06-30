@@ -5,4 +5,4 @@ fi
 
 make && make data && (make output | tee calc.log 2>&1 ) && \
 (make juliaall | tee -a calc.log 2>&1 ) && ./creategif.sh
-##make matlabplots
+make matlabplots
