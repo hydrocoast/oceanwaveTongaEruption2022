@@ -29,7 +29,7 @@ yh = header{1}(7);
 x = linspace(xl,xh,nx);
 y = linspace(yl,yh,ny);
 
-%% read all
+%% read
 for k = nfile:nfile
     fname = fullfile(simdir,flist(k).name);
     disp([fname,'  ...']);

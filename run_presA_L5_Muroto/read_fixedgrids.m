@@ -29,42 +29,15 @@ yh = header{1}(7);
 x = linspace(xl,xh,nx);
 y = linspace(yl,yh,ny);
 
-% full matrix
-% eta_fg = zeros(ny,nx,nfile);
-
-% sparse matrix
-eta_sp = cell(nfile,1);
-
-%% read all
-for k = 1:nfile
-% for k = 1:10
+%% read
+for k = nfile:nfile
     fname = fullfile(simdir,flist(k).name);
     disp([fname,'  ...']);
 
     dat = readmatrix(fname,"FileType","text","NumHeaderLines",9);
-
-%     % full matrix
-%     v1 = reshape(dat(:,1),[nx,ny])';
-%     v4 = reshape(dat(:,4),[nx,ny])';
-%     land = v1==0;
-%     eta = v4;
-%     eta(land) = NaN;
-%     eta_fg(:,:,k) = eta;
-
-    % sparse matrix
-    v1 = dat(:,1);
-    v4 = dat(:,4);
-    land = v1==0;
-    eta = v4;
-    eta(land) = 0.0;
-    ind = find(abs(eta)>1e-2);
-    eta_sp{k} = sparse(ind,ones(length(ind),1),eta(ind),ny*nx,1);
-
-    clear eta v1 v4 dat
+    v8 = reshape(dat(:,8),[nx,ny])';
 end
-
-eta_sp = cat(2,eta_sp{:});
-etamax = reshape(max(eta_sp,[],2),[nx,ny])';
+etamax = v8;
 
 pcolor(x,y,etamax); shading flat; axis equal tight
 caxis([0,0.4]);
@@ -76,7 +49,10 @@ if isfolder("_plots")
     movefile(figfile,"_plots/");
 end
 
-save(fgmat,'-v7.3','nx','ny','nfile','eta_sp','etamax','header','x','y');
+save(fgmat,'-v7.3','nx','ny','nfile','etamax','header','x','y');
+grdwrite2(x,y,etamax,strrep(fgmat,'.mat','.grd'))
 if isfolder("_mat")
     movefile(fgmat,"_mat/");
+    movefile(strrep(fgmat,'.mat','.grd'),"_mat/");
 end
+
