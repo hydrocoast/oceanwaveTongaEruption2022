@@ -707,11 +707,13 @@ def setgeo(rundata):
     #rundata.qinit_data.force_dry_list.append(force_dry)
 
     # == setfixedgrids.data values ==
-    #rundata.fixed_grid_data.fixedgrids = []
+    rundata.fixed_grid_data.fixedgrids = []
     # for fixed grids append lines of the form
     # [t1,t2,noutput,x1,x2,y1,y2,xpoints,ypoints,\
     #  ioutarrivaltimes,ioutsurfacemax]
-
+    fixedgrids = rundata.fixed_grid_data.fixedgrids
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto30']), topo_type=3)
+    fixedgrids.append([3600.0*7.0, 3600.0*13, 721, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1], topo_file.Z.shape[1], topo_file.Z.shape[0], 0, 1])
 
     # ================
     #  Set Surge Data

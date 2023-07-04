@@ -7,8 +7,8 @@ simdir = './_output';
 flist = dir(fullfile(simdir,[sprintf('fort.fg%02d_',fg_number),'*']));
 nfile = size(flist,1);
 
-simname = fileparts(simdir);
-simname = strrep(simname,'/_output','');
+%simname = fileparts(simdir);
+simname = pwd;
 lastind_slash = strfind(simname,'/');
 lastind_slash = lastind_slash(end);
 simname = simname(lastind_slash+1:end);
@@ -76,7 +76,7 @@ if isfolder("_plots")
     movefile(figfile,"_plots/");
 end
 
-save(fgmat,'-v7.3','nx','ny','nfile','eta_sp','etamax','header');
+save(fgmat,'-v7.3','nx','ny','nfile','eta_sp','etamax','header','x','y');
 if isfolder("_mat")
     movefile(fgmat,"_mat/");
 end
