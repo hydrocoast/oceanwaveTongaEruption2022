@@ -508,21 +508,21 @@ def setrun(claw_pkg='geoclaw'):
         fgout.nout = 73
         fgout_grids.append(fgout)
 
-        ## fgout 2
-        topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
-        fgout = fgout_tools.FGoutGrid()
-        fgout.fgno = 2
-        fgout.output_format = 'ascii'
-        fgout.nx = topo_file.read_header()[0]
-        fgout.ny = topo_file.read_header()[1]
-        fgout.x1 = topo_file.x[0]
-        fgout.x2 = topo_file.x[-1]
-        fgout.y1 = topo_file.y[0]
-        fgout.y2 = topo_file.y[-1]
-        fgout.tstart = 3600.0*7.0
-        fgout.tend = 3600.0*16.0
-        fgout.nout = int((fgout.tend - fgout.tstart)/60.0/2.0) + 1
-        fgout_grids.append(fgout)
+        ### fgout 2
+        #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
+        #fgout = fgout_tools.FGoutGrid()
+        #fgout.fgno = 2
+        #fgout.output_format = 'ascii'
+        #fgout.nx = topo_file.read_header()[0]
+        #fgout.ny = topo_file.read_header()[1]
+        #fgout.x1 = topo_file.x[0]
+        #fgout.x2 = topo_file.x[-1]
+        #fgout.y1 = topo_file.y[0]
+        #fgout.y2 = topo_file.y[-1]
+        #fgout.tstart = 3600.0*7.0
+        #fgout.tend = 3600.0*16.0
+        #fgout.nout = int((fgout.tend - fgout.tstart)/60.0/2.0) + 1
+        #fgout_grids.append(fgout)
 
     # ============================
     # == fgmax.data values =======
@@ -546,21 +546,21 @@ def setrun(claw_pkg='geoclaw'):
     fg.interp_method = 0   # 0 ==> pw const in cells, recommended
     rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
-    # Domain 2 -- Kuji
-    fg = fgmax_tools.FGmaxGrid()
-    fg.point_style = 2  # uniform rectangular x-y grid
-    fg.dx = 1.0/60.0/4.0        # desired resolution of fgmax grid
-    fg.x1 = 141.0
-    fg.x2 = 142.5
-    fg.y1 = 39.5
-    fg.y2 = 40.5
-    fg.min_level_check = 1 # which levels to monitor max on
-    fg.arrival_tol = 1.0e-2
-    fg.tstart_max = clawdata.t0  # just before wave arrives
-    fg.tend_max = clawdata.tfinal    # when to stop monitoring max values
-    fg.dt_check = 10.0     # how often to update max values
-    fg.interp_method = 0   # 0 ==> pw const in cells, recommended
-    rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
+    ## Domain 2 -- Kuji
+    #fg = fgmax_tools.FGmaxGrid()
+    #fg.point_style = 2  # uniform rectangular x-y grid
+    #fg.dx = 1.0/60.0/4.0        # desired resolution of fgmax grid
+    #fg.x1 = 141.0
+    #fg.x2 = 142.5
+    #fg.y1 = 39.5
+    #fg.y2 = 40.5
+    #fg.min_level_check = 1 # which levels to monitor max on
+    #fg.arrival_tol = 1.0e-2
+    #fg.tstart_max = clawdata.t0  # just before wave arrives
+    #fg.tend_max = clawdata.tfinal    # when to stop monitoring max values
+    #fg.dt_check = 10.0     # how often to update max values
+    #fg.interp_method = 0   # 0 ==> pw const in cells, recommended
+    #rundata.fgmax_data.fgmax_grids.append(fg)  # written to fgmax_grids.data
 
     # num_fgmax_val
     rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
@@ -703,7 +703,9 @@ def setgeo(rundata):
     # for fixed grids append lines of the form
     # [t1,t2,noutput,x1,x2,y1,y2,xpoints,ypoints,\
     #  ioutarrivaltimes,ioutsurfacemax]
-
+    fixedgrids = rundata.fixed_grid_data.fixedgrids
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
+    fixedgrids.append([3600.0*7.0, 3600.0*16, 10, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1], topo_file.Z.shape[1], topo_file.Z.shape[0], 0, 1])
 
     # ================
     #  Set Surge Data
