@@ -514,21 +514,21 @@ def setrun(claw_pkg='geoclaw'):
         #fgout.nout = 73
         #fgout_grids.append(fgout)
 
-        ## fgout 2
-        topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto30']), topo_type=3)
-        fgout = fgout_tools.FGoutGrid()
-        fgout.fgno = 2
-        fgout.output_format = 'ascii'
-        fgout.nx = topo_file.read_header()[0]
-        fgout.ny = topo_file.read_header()[1]
-        fgout.x1 = topo_file.x[0]
-        fgout.x2 = topo_file.x[-1]
-        fgout.y1 = topo_file.y[0]
-        fgout.y2 = topo_file.y[-1]
-        fgout.tstart = 3600.0*7.0
-        fgout.tend = 3600.0*13.0
-        fgout.nout = int((fgout.tend - fgout.tstart)/60.0) + 1
-        fgout_grids.append(fgout)
+        ### fgout 2
+        #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto30']), topo_type=3)
+        #fgout = fgout_tools.FGoutGrid()
+        #fgout.fgno = 2
+        #fgout.output_format = 'ascii'
+        #fgout.nx = topo_file.read_header()[0]
+        #fgout.ny = topo_file.read_header()[1]
+        #fgout.x1 = topo_file.x[0]
+        #fgout.x2 = topo_file.x[-1]
+        #fgout.y1 = topo_file.y[0]
+        #fgout.y2 = topo_file.y[-1]
+        #fgout.tstart = 3600.0*7.0
+        #fgout.tend = 3600.0*13.0
+        #fgout.nout = int((fgout.tend - fgout.tstart)/60.0) + 1
+        #fgout_grids.append(fgout)
 
     # ============================
     # == fgmax.data values =======

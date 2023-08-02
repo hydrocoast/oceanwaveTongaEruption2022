@@ -178,7 +178,8 @@ def setrun(claw_pkg='geoclaw'):
         #clawdata.output_times = [i*600.0 for i in range(0,73)] # every 10 min, 12 h
         #clawdata.output_times = [i*900.0 for i in range(0,61)] # every 15 min, 15 h
         #clawdata.output_times = [i*1800.0 for i in range(6,31)] # every 30 min, 3 to 15 h
-        clawdata.output_times = [i*1800.0 for i in range(0,33)] # every 30 min, 0 to 16 h
+        #clawdata.output_times = [i*1800.0 for i in range(0,33)] # every 30 min, 0 to 16 h
+        clawdata.output_times = [i*3600.0*4 for i in range(0,5)] # every 4 h, 0 to 16 h
 
 
     elif clawdata.output_style == 3:
@@ -514,20 +515,20 @@ def setrun(claw_pkg='geoclaw'):
         #fgout_grids.append(fgout)
 
         ## fgout 2
-        topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami30']), topo_type=3)
-        fgout = fgout_tools.FGoutGrid()
-        fgout.fgno = 2
-        fgout.output_format = 'ascii'
-        fgout.nx = topo_file.read_header()[0]
-        fgout.ny = topo_file.read_header()[1]
-        fgout.x1 = topo_file.x[0]
-        fgout.x2 = topo_file.x[-1]
-        fgout.y1 = topo_file.y[0]
-        fgout.y2 = topo_file.y[-1]
-        fgout.tstart = 3600.0*9.0
-        fgout.tend = 3600.0*13.0
-        fgout.nout = int((fgout.tend - fgout.tstart)/60.0) + 1
-        fgout_grids.append(fgout)
+        #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami30']), topo_type=3)
+        #fgout = fgout_tools.FGoutGrid()
+        #fgout.fgno = 2
+        #fgout.output_format = 'ascii'
+        #fgout.nx = topo_file.read_header()[0]
+        #fgout.ny = topo_file.read_header()[1]
+        #fgout.x1 = topo_file.x[0]
+        #fgout.x2 = topo_file.x[-1]
+        #fgout.y1 = topo_file.y[0]
+        #fgout.y2 = topo_file.y[-1]
+        #fgout.tstart = 3600.0*9.0
+        #fgout.tend = 3600.0*13.0
+        #fgout.nout = int((fgout.tend - fgout.tstart)/60.0) + 1
+        #fgout_grids.append(fgout)
 
     # ============================
     # == fgmax.data values =======
@@ -553,6 +554,26 @@ def setrun(claw_pkg='geoclaw'):
 
     # num_fgmax_val
     rundata.fgmax_data.num_fgmax_val = 2  # 1 to save depth, 2 to save depth and speed, and 5 to Save depth, speed, momentum, momentum flux and hmin
+
+    # == setfixedgrids.data values ==
+    rundata.fixed_grid_data.fixedgrids = []
+    # for fixed grids append lines of the form
+    # [t1,t2,noutput,x1,x2,y1,y2,xpoints,ypoints,\
+    #  ioutarrivaltimes,ioutsurfacemax]
+    fixedgrids = rundata.fixed_grid_data.fixedgrids
+    ## entire grid
+    fixedgrids.append([clawdata.t0, clawdata.tfinal, int((clawdata.tfinal-clawdata.t0)/3600.0) + 1, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1], clawdata.num_cells[0] ,clawdata.num_cells[1], 1, 1])
+    ## Around Japan
+    fixedgrids.append([6*3600.0, 16*3600.0, 6, 120.0, 150.0, 20.0, 45.0, 900, 750, 1, 1])
+    ## Around Ryukyu
+    fixedgrids.append([6*3600.0, 16*3600.0, 11, 126.0, 135.0, 22.0, 30.0, 540, 480, 0, 1])
+    ## Amami 5 arcsec, 1 arcsec
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami']))
+    fixedgrids.append([7*3600.0, 13*3600.0, 13, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1], topo_file.Z.shape[1], topo_file.Z.shape[0], 0, 1])
+    topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami30']))
+    fixedgrids.append([7*3600.0, 13*3600.0, 13, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1], topo_file.Z.shape[1], topo_file.Z.shape[0], 0, 1])
+
+
 
     #------------------------------------------------------------------
     # GeoClaw specific parameters:
@@ -688,12 +709,6 @@ def setgeo(rundata):
     #force_dry.tend = 1e10
     #force_dry.fname = os.path.join(topodir, topoflist[''])
     #rundata.qinit_data.force_dry_list.append(force_dry)
-
-    # == setfixedgrids.data values ==
-    #rundata.fixed_grid_data.fixedgrids = []
-    # for fixed grids append lines of the form
-    # [t1,t2,noutput,x1,x2,y1,y2,xpoints,ypoints,\
-    #  ioutarrivaltimes,ioutsurfacemax]
 
 
     # ================
