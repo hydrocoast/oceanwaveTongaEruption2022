@@ -4,7 +4,7 @@ close all
 %% 気圧データの作成
 % --- Lamb波＋大気重力波
 %% gravity wave switch
-active_g = 1; % 1: on, otherwise: off
+active_g = 0; % 1: on, otherwise: off
 
 %% filenames
 if active_g==1
@@ -86,7 +86,9 @@ if active_g == 1
     coef_g_p = [-10; -25; -30; 10; 25; 20; 20; 20; -25;      -25; -20; -30; 20; 10; 10; -10; -10; 20; 10; 20; 20; 20; 20; -10; -10; -10;-10;-10;-10; -10];
     coef_g_t = [ -5; -10;  20;-40; 25; 20; 10; 10; -20;      -20; -25; -20; 8;  10; 10; -10; -20;-20; 20; 20; 20; 20; 20; -10; -10; -10;-10;-10;-10;-10];
     nwave_g = length(wavelength_g);
-    k_g = 2*pi./(wavelength_g.*1e3);
+
+    % k_g = 2*pi./(wavelength_g.*1e3);
+    k_g = 2*pi./(2*wavelength_g.*1e3); % wavelength_g represents a half wavelength!!!
 
 
     sigma_g = zeros(nwave_g,1);
@@ -181,18 +183,26 @@ if active_g == 1
 
 end
 
-%% check time-series of the air pressure
-figure
-plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
-xlim([6.0,12.0]);
-grid on
+% %% check time-series of the air pressure
+% figure
+% plot(t/3600,squeeze(pres(indchk_lat,indchk_lon,:)));
+% xlim([6.0,12.0]);
+% grid on
+% 
+% print('気圧波形_l','-djpeg')
+% %% save
+% save(matname_pres,'-v7.3',...
+%      'lon0','lat0','lonrange','latrange','lon','lat',...
+%      'nlon','nlat','dl','pres',...
+%      'cs','wavelength','dt','t','nt','active_g')
 
-print('気圧波形_l','-djpeg')
-%% save
-save(matname_pres,'-v7.3',...
-     'lon0','lat0','lonrange','latrange','lon','lat',...
-     'nlon','nlat','dl','pres',...
-     'cs','wavelength','dt','t','nt','active_g')
+
+% %% output
+% ncdir = './pres_nc';
+% if exist(ncdir,'dir'); system(['rm -rf  ', ncdir]); end
+% mkdir(ncdir);
+
+
 
 
 %% formula - Lamb wave
