@@ -23,15 +23,20 @@ for k = 1:nt
     ncfile = fullfile(ncdir,strrep(ncfile_base,'XXX',sprintf('%04d',k)));
     disp([ncfile, '   ...']);
 
-    % % pressure
-    nccreate(ncfile,'slp',"Dimensions",{"x",nlon,"y",nlat},"FillValue","disable","Format","netcdf4");
-    ncwrite(ncfile,'slp',squeeze(pres(:,:,k))');
     % % lonlat
-    nccreate(ncfile,'lon',"Dimensions",{"x",nlon},"FillValue","disable");
-    nccreate(ncfile,'lat',"Dimensions",{"y",nlat},"FillValue","disable");
+    nccreate(ncfile,'lon',"Dimensions",{"lon",nlon},"FillValue","disable","Datatype", "single");
+    nccreate(ncfile,'lat',"Dimensions",{"lat",nlat},"FillValue","disable","Datatype", "single");
+    %nccreate(ncfile,'lon',"Dimensions",{"lon",nlon},"FillValue","disable","Datatype", "double","Format","netcdf4");
+    %nccreate(ncfile,'lat',"Dimensions",{"lat",nlat},"FillValue","disable","Datatype", "double","Format","netcdf4");
     ncwrite(ncfile,'lon',lon);
     ncwrite(ncfile,'lat',lat);
+    % % pressure
+    nccreate(ncfile,'slp',"Dimensions",{"lon",nlon,"lat",nlat},"FillValue","disable","Datatype", "single");
+    %nccreate(ncfile,'slp',"Dimensions",{"lon",nlon,"lat",nlat},"FillValue","disable","Format","netcdf4", "Datatype", "double");
+    ncwrite(ncfile,'slp',flipud(permute(pres(:,:,k),[2,1])));
+    %ncwrite(ncfile,'slp',permute(pres(:,:,k),[2,1]));
     % % time
-    nccreate(ncfile,'time');
+    nccreate(ncfile,'time',"Datatype", "single");
+    %nccreate(ncfile,'time',"Datatype", "double");
     ncwrite(ncfile,'time',t(k));
 end
