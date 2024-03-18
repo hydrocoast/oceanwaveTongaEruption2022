@@ -36,6 +36,7 @@
 fort.*
 tmp*
 gmt.*
+._*
 *.sh.o*
 *.sh.p*
 *.sh.e*
