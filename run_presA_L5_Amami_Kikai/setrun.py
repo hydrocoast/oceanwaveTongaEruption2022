@@ -118,10 +118,10 @@ def setrun(claw_pkg='geoclaw'):
     clawdata.num_dim = num_dim
 
     # Lower and upper edge of computational domain:
-    clawdata.lower[0] = 115.0    # west longitude
+    clawdata.lower[0] = 125.0    # west longitude
     clawdata.upper[0] = 200.0   # east longitude
     clawdata.lower[1] = -55.0    # south latitude
-    clawdata.upper[1] = 55.0   # north latitude
+    clawdata.upper[1] = 30.0   # north latitude
 
     # Number of grid cells
     degree_factor = 5
@@ -370,68 +370,12 @@ def setrun(claw_pkg='geoclaw'):
     # to specify regions of refinement append lines of the form
     #  [minlevel,maxlevel,t1,t2,x1,x2,y1,y2]
     regions.append([1, 1, clawdata.t0, clawdata.tfinal, clawdata.lower[0], clawdata.upper[0], clawdata.lower[1], clawdata.upper[1]])
-    #regions.append([1, 2, clawdata.t0, 2.0*3600.0, 175.0, 195.0, -30.0, -10.0]) 
-    regions.append([1, 3, 4.0*3600.0, clawdata.tfinal, 120.0, 150.0, 15.0, 45.0])
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 120.0, 140.0, 15.0, 35.0]) # SW Japan
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 130.0, 145.0, 15.0, 35.1]) # W Japan
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 135.0, 150.0, 15.0, 36.0]) # E Japan
-    #regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 140.0, 150.0, 25.0, 45.0]) # NE Japan
-    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 129.5, 135.0, 25.0, 29.0]) # Amami
+    regions.append([1, 3, 4.0*3600.0, clawdata.tfinal, 125.0, 150.0, 15.0, 30.0])
+    regions.append([1, 4, 4.0*3600.0, clawdata.tfinal, 127.5, 135.0, 25.0, 29.0]) # Amami
 
     ## Level 5
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ishigaki']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Naha']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
     topo_file = topotools.Topography(os.path.join(topodir, topoflist['AmamiKikai']), topo_type=4)
-    regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Tanegashima']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Aburatsu']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['BungoChannel']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Tosashimizu']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Muroto']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['KiiChannel']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['OsakaBay']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['KiiPeninsula']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['KumanoOwase']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['IseBay']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['MaisakaOmaezaki']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['ShimizuUchiura']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['TokyoBay']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Chichijima']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Mera']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Oarai']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Onahama']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Ofunato']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kuji']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Hakodate']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Kushiro']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-    #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Nemuro']), topo_type=3)
-    #regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
-
+    regions.append([1, 5, 4.0*3600.0, clawdata.tfinal, 129.0+1.0/30.0, topo_file.x[-1], 28.0-1.0/30.0, topo_file.y[-1]])
     #topo_file = topotools.Topography(os.path.join(topodir, topoflist['Amami30']), topo_type=3)
     #regions.append([1, 6, 4.0*3600.0, clawdata.tfinal, topo_file.x[0], topo_file.x[-1], topo_file.y[0], topo_file.y[-1]])
 
@@ -441,53 +385,14 @@ def setrun(claw_pkg='geoclaw'):
     #dat = np.genfromtxt(os.path.join(gaugedir,'gauge_list_japan.csv'), delimiter=',',  skip_header=0, dtype='float')
     #[gauges.append(dat[i]) for i in range(0,dat.shape[0])]
     
-    #gauges.append([1, 124.1390, 24.3229, 0., 1.e10]) # Ishigaki
-    #gauges.append([2, 127.6560, 26.2229, 0., 1.e10]) # Naha
-    gauges.append([3, 129.5370, 28.3229, 0., 1.e10]) # Amami
-    #gauges.append([4, 130.9644, 30.4636, 0., 1.e10]) # Tanegashima
-    #gauges.append([5, 131.4060, 31.5757, 0., 1.e10]) # Aburatsu
-    #gauges.append([6, 131.9600, 32.9507, 0., 1.e10]) # Matsuura
-    #gauges.append([7, 132.5490, 33.2271, 0., 1.e10]) # Uwajima
-    #gauges.append([8, 132.9580, 32.7745, 0., 1.e10]) # Tosashimizu
-    #gauges.append([9, 134.1640, 33.2634, 0., 1.e10]) # Muroto
-    #gauges.append([10, 134.5922, 33.7687, 0., 1.e10]) # Yuki
-    #gauges.append([11, 134.5940, 34.0118, 0., 1.e10]) # Komatsushima
-    #gauges.append([12, 134.9011, 34.3467, 0., 1.e10]) # Sumoto
-    #gauges.append([13, 135.1910, 34.6812, 0., 1.e10]) # Kobe
-    #gauges.append([14, 135.4270, 34.6549, 0., 1.e10]) # Osaka
-    #gauges.append([15, 135.1781, 34.3389, 0., 1.e10]) # Tanwa
-    #gauges.append([16, 135.1420, 34.2188, 0., 1.e10]) # Wakayama
-    #gauges.append([17, 135.1630, 33.8493, 0., 1.e10]) # Gobo
-    #gauges.append([18, 135.3720, 33.6882, 0., 1.e10]) # Shirahama
-    #gauges.append([19, 135.7720, 33.4757, 0., 1.e10]) # Kushimoto
-    #gauges.append([20, 135.9060, 33.5618, 0., 1.e10]) # Nachikatsuurachouragami
-    #gauges.append([21, 136.1660, 33.9257, 0., 1.e10]) # Kumano
-    #gauges.append([22, 136.2090, 34.0757, 0., 1.e10]) # Owase
-    #gauges.append([23, 136.8230, 34.4896, 0., 1.e10]) # Toba
-    #gauges.append([24, 136.8800, 35.0896, 0., 1.e10]) # Nagoya
-    #gauges.append([25, 137.1900, 34.6035, 0., 1.e10]) # Akabane
-    #gauges.append([26, 137.6060, 34.6826, 0., 1.e10]) # Maisaka
-    #gauges.append([27, 138.2220, 34.6097, 0., 1.e10]) # Omaezaki
-    #gauges.append([28, 138.5160, 35.0146, 0., 1.e10]) # Shimizu
-    #gauges.append([29, 138.8903, 35.0201, 0., 1.e10]) # Uchiura
-    #gauges.append([30, 142.1960, 27.0931, 0., 1.e10]) # Chichijima
-    #gauges.append([31, 139.7700, 35.6486, 0., 1.e10]) # Harumi 
-    #gauges.append([32, 139.8210, 34.9210, 0., 1.e10]) # Mera
-    #gauges.append([33, 140.2500, 35.1310, 0., 1.e10]) # Katsuurashiokitsu
-    #gauges.append([34, 140.5760, 36.3088, 0., 1.e10]) # Oarai
-    #gauges.append([35, 140.8916, 36.9330, 0., 1.e10]) # Onahama
-    #gauges.append([36, 141.5040, 38.2931, 0., 1.e10]) # Ayukawa
-    #gauges.append([37, 141.7490, 39.0174, 0., 1.e10]) # Ofunato
-    #gauges.append([38, 141.8060, 40.1879, 0., 1.e10]) # Kuji
-    #gauges.append([39, 140.7230, 41.7854, 0., 1.e10]) # Hakodate
-    #gauges.append([40, 144.3580, 42.9854, 0., 1.e10]) # Kushiro
-    #gauges.append([41, 145.5700, 43.2771, 0., 1.e10]) # Hanasaki
+    #gauges.append([3, 129.5370, 28.3229, 0., 1.e10]) # Amami
+    gauges.append([3, 129.5370, 28.3229, 4.5*3600.0, 1.e10]) # Amami
 
     ## regions -- gauge の周辺だけ解像度レベルを高い状態に保つ
     #for g in gauges:
     #     regions.append([4, 4, 5.0*3600.0, clawdata.tfinal, g[1]-0.15, g[1]+0.15, g[2]-0.15, g[2]+0.15])
-    for g in gauges:
-         regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, g[1]-0.10, g[1]+0.10, g[2]-0.10, g[2]+0.10])
+    #for g in gauges:
+    #     regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, g[1]-0.10, g[1]+0.10, g[2]-0.10, g[2]+0.10])
 
     # DART buoy 地点を gauge に追加
     #gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
@@ -522,9 +427,11 @@ def setrun(claw_pkg='geoclaw'):
         fgout.output_format = 'ascii'
         fgout.nx = topo_file.read_header()[0]
         fgout.ny = topo_file.read_header()[1]
-        fgout.x1 = topo_file.x[0]
+        #fgout.x1 = topo_file.x[0]
+        fgout.x1 = 129.0+1.0/30.0
         fgout.x2 = topo_file.x[-1]
-        fgout.y1 = topo_file.y[0]
+        #fgout.y1 = topo_file.y[0]
+        fgout.y1 = 28.0-1.0/30.0
         fgout.y2 = topo_file.y[-1]
         fgout.tstart = 3600.0*9.0
         fgout.tend = 3600.0*13.0
@@ -618,60 +525,60 @@ def setgeo(rundata):
     # smaller domains
     if int(clawpack.__version__.split('.')[1]) > 7: # v5.8.0 or later
         topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['GEBCO2022'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Ishigaki'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Naha'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Amami'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Tanegashima'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Aburatsu'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['BungoChannel'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Tosashimizu'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Muroto'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KiiChannel'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['OsakaBay'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KiiPeninsula'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KumanoOwase'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['IseBay'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['MaisakaOmaezaki'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['ShimizuUchiura'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['TokyoBay'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Chichijima'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Mera'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Oarai'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Onahama'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Ofunato'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kuji'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Hakodate'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kushiro'])] )
-        topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Nemuro'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Ishigaki'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Naha'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Amami'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Tanegashima'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Aburatsu'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['BungoChannel'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Tosashimizu'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Muroto'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KiiChannel'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['OsakaBay'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KiiPeninsula'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['KumanoOwase'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['IseBay'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['MaisakaOmaezaki'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['ShimizuUchiura'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['TokyoBay'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Chichijima'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Mera'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Oarai'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Onahama'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Ofunato'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kuji'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Hakodate'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Kushiro'])] )
+        #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Nemuro'])] )
         #topo_data.topofiles.append( [3, os.path.join(topodir, topoflist['Amami30'])] )
         topo_data.topofiles.append( [4, os.path.join(topodir, topoflist['AmamiKikai'])] )
     else: # v5.7.1
         topo_data.topofiles.append( [4, 1, 4, 0.0, 1.0e10, os.path.join(topodir, topoflist['GEBCO2022'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ishigaki'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Naha'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Amami'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Tanegashima'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Aburatsu'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['BungoChannel'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Tosashimizu'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Muroto'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KiiChannel'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['OsakaBay'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KiiPeninsula'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KumanoOwase'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['IseBay'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['MaisakaOmaezaki'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['ShimizuUchiura'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['TokyoBay'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Chichijima'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Mera'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Oarai'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Onahama'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ofunato'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kuji'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Hakodate'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kushiro'])] )
-        topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Nemuro'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ishigaki'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Naha'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Amami'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Tanegashima'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Aburatsu'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['BungoChannel'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Tosashimizu'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Muroto'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KiiChannel'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['OsakaBay'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KiiPeninsula'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['KumanoOwase'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['IseBay'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['MaisakaOmaezaki'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['ShimizuUchiura'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['TokyoBay'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Chichijima'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Mera'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Oarai'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Onahama'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Ofunato'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kuji'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Hakodate'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Kushiro'])] )
+        #topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['Nemuro'])] )
         #topo_data.topofiles.append( [3, 1, 6, 0.0, 1.0e10, os.path.join(topodir, topoflist['Amami30'])] )
         topo_data.topofiles.append( [3, 1, 5, 0.0, 1.0e10, os.path.join(topodir, topoflist['AmamiKikai'])] )
 
