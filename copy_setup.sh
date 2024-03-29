@@ -4,7 +4,7 @@ if [ -z "$2" ]; then
     exit 0
 fi
 
-rsync -av "$1/" "$2/" --exclude="_output*/" --exclude="_plots/" --exclude="_jld2/" --exclude="_mat/" --exclude="*.data" \
+rsync -av "$1/" "$2/" --exclude="_output*/" --exclude="_plots/" --exclude="_jld2/" --exclude="_mat/" --exclude="_grd/" --exclude="*.data" \
 	              --exclude=".*" --exclude="*.swp" \
 		      --exclude="*.kml" --exclude="*.log" \
 		      --exclude="xgeoclaw" --exclude="*.out" \
