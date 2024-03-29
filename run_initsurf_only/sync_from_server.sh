@@ -1,1 +1,0 @@
-../sh_prepost/sync_from_server.sh

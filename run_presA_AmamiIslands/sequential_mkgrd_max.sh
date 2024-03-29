@@ -1,1 +1,0 @@
-../sh_prepost/sequential_mkgrd_max.sh
