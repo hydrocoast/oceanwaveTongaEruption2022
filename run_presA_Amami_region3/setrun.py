@@ -400,11 +400,14 @@ def setrun(claw_pkg='geoclaw'):
          regions.append([5, 5, 5.0*3600.0, clawdata.tfinal, g[1]-0.10, g[1]+0.10, g[2]-0.10, g[2]+0.10])
 
     # DART buoy 地点を gauge に追加
-    gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
+    #gauges.append([21418, 148.836, 38.723, 0., 1.e10]) #
     gauges.append([21420, 134.968, 28.912, 0., 1.e10]) #
-    gauges.append([52401, 155.739, 19.285, 0., 1.e10]) #
-    gauges.append([52402, 153.895, 11.930, 0., 1.e10]) #
-    gauges.append([52404, 132.139, 20.629, 0., 1.e10]) #
+    gauges.append([52401, 155.7293, 19.2395, 0., 1.e10]) #
+    gauges.append([52402, 153.9228, 11.9303, 0., 1.e10]) #
+    gauges.append([52403, 145.6083,  4.0358, 0., 1.e10]) #
+    gauges.append([52404, 132.1447, 20.6267, 0., 1.e10]) #
+    gauges.append([52405, 132.2395, 12.9890, 0., 1.e10]) #
+    gauges.append([52406, 164.9910, -5.3737, 0., 1.e10]) #
 
     # Fixed grid output
     if int(clawpack.__version__.split('.')[1]) >= 9: # v5.9.0 or later
@@ -421,7 +424,7 @@ def setrun(claw_pkg='geoclaw'):
         fgout.y2 = clawdata.upper[1]
         fgout.tstart = clawdata.t0
         fgout.tend = clawdata.tfinal
-        fgout.nout = 73
+        fgout.nout = int((fgout.tend - fgout.tstart)/3600.0) * 30 + 1
         fgout_grids.append(fgout)
 
         ## Ryukyu islands
