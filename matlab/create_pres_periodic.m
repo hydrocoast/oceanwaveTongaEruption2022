@@ -5,7 +5,7 @@ close all
 % --- 様々な周期を持つ正弦波 --- %
 
 %% filenames
-matname_pres_base = 'pres_TXXXmin.mat';
+matname_pres_base = 'pres_TXXXmin_NNwaves.mat';
   
 %% origin 原点
 lat0 =  -20.544686;
@@ -123,6 +123,7 @@ grid on
 
 %% save
 matname_pres = strrep(matname_pres_base,'XXX',sprintf('%03d',round(T_g(1))));
+matname_pres = strrep(matname_pres,'NN',sprintf('%02d',round(nrepeat)));
 save(matname_pres,'-v7.3',...
      'lon0','lat0','lonrange','latrange','lon','lat',...
      'nlon','nlat','dl','pres',...
