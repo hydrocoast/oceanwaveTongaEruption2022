@@ -91,7 +91,7 @@ if !isempty(gauges)
     for g in gauges
         if g.id > 10000
 	    # DART
-            local plt = plotsgaugewaveform(g; title=g.label, label=false, ylims=(-0.1,0.1), xlims=(3.0,13.0))
+            local plt = plotsgaugewaveform(g; title=g.label, label=false, ylims=(-0.1,0.1), xlims=(2.0,13.0))
         else
             local plt = plotsgaugewaveform(g; title=g.label, label=false, ylims=(-1.0,1.0), xlims=(6.0,16.0))
         end
