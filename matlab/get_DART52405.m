@@ -28,6 +28,9 @@ plot(time_org,z_org); hold on
 plot(time,z_interp); hold on
 plot(time,z_filtered); hold on
 
+time_relative = seconds(time - datetime(2022,01,15,4,14,45));
+
+
 load DART_records.mat
 
 

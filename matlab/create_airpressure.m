@@ -31,7 +31,7 @@ lat = linspace(latrange(1),latrange(2),nlat);
 degmesh = sqrt((LON-lon0).^2 + (LAT-lat0).^2);
 kmmesh = deg2km(degmesh);
 
-checkpoint = [135.0,32.5];
+checkpoint = [129.5,28.3];
 [~,indchk_lon] = min(abs(checkpoint(1)-lon));
 [~,indchk_lat] = min(abs(checkpoint(2)-lat));
 

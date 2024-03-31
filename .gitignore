@@ -36,6 +36,7 @@
 fort.*
 tmp*
 gmt.*
+dart*.txt
 ._*
 *.sh.o*
 *.sh.p*

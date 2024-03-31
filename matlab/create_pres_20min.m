@@ -36,7 +36,6 @@ t = dt:dt:3600*15;
 nt = length(t);
 
 %% parameters below are based on Gusman et al.(2022), PAGEOPH
-% https://link.springer.com/article/10.1007/s00024-022-03154-1
 cs = 310.0; % m/s
 amp = @(r,a) sign(a)*min(abs(a),abs(a*r^(-0.5))); % km
 
