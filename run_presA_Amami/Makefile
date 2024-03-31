@@ -112,9 +112,7 @@ converttomat:
 	julia setconvert.jl
 juliaall:
 	julia -e 'include("./setsave.jl"); include("./setplot.jl"); include("./setconvert.jl");'
-matlabplots:
-	matlab -nodesktop -r 'run save_fgout.m; exit'
-	#matlab -nodesktop -r 'run setplot_fgmax.m; run save_fgout.m; exit'
-
+gmtplot:
+	./sequential_mkgrd_fgout.sh; ./sequential_mkgrd_max.sh; ./sequential_plot_fgmax.sh
 
 ### DO NOT remove this line - make depends on it ###
