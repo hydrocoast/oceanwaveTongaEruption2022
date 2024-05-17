@@ -32,8 +32,12 @@ close all
 % topofile = '../bathtopo/gebco_2022_n36.0_s34.0_w137.0_e139.0.nc';
 % gauge_lonlat = [138.2270, 34.6146]; % Omaezaki
 % -----
-topofile = '../bathtopo/gebco_2022_n37.0_s25.0_w127.0_e129.0.nc';
-gauge_lonlat = [127.6520, 26.2271]; % Naha
+% topofile = '../bathtopo/gebco_2022_n37.0_s25.0_w127.0_e129.0.nc';
+% gauge_lonlat = [127.6520, 26.2271]; % Naha
+% -----
+topofile = '../bathtopo/gebco_2022_n32.0_s29.0_w130.0_e133.0.nc';
+% gauge_lonlat = [130.9644, 30.4636]; % Tanegashima
+gauge_lonlat = [131.4060, 31.5757]; % Tanegashima
 % -----
 
 
